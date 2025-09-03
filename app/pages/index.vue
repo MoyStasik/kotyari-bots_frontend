@@ -6,8 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import Avatar from '~/components/Avatar';
-
+import Avatar from '~/components/Avatar/Avatar.vue';
 </script>
 
 <style module lang="scss">
