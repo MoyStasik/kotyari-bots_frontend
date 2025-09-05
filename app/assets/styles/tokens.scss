@@ -1,0 +1,10 @@
+:root {
+  --black_text-color: #333333;
+  --subtitile_text-color: #717182;
+  --base_ui-sans-typography: 'ui-sans-serif';
+}
+
+@font-face {
+  font-family: 'ui-sans-serif';
+  src: url('../fonts/sf-ui-display-medium-58646be638f96.otf');
+}

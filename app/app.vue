@@ -1,6 +1,8 @@
 <template>
-  <div>
-    <NuxtPage />
+  <div id="root">
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
   </div>
 </template>
 
@@ -8,4 +10,8 @@
 </script>
 
 <style style lang="scss">
+#root {
+  display: flex;
+  width: 100%;
+}
 </style>

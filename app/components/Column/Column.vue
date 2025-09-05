@@ -16,6 +16,8 @@ const columnGap = computed(() => props.gap ? withPX(props.gap) : undefined);
 
 <style module lang="scss">
 .Column.Column {
+  display: flex;
+  flex-direction: column;
   gap: v-bind(columnGap);
 }
 </style>

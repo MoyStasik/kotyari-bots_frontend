@@ -39,6 +39,14 @@ export default defineNuxtConfig({
     fallbackBreakpoint: 'desktop',
   },
 
+  css: [
+    '~/assets/styles/tokens.scss',
+    '~/assets/styles/styles.scss',
+  ],
+
+  vite: {
+  },
+
   alias: {
   },
 
