@@ -15,6 +15,7 @@ import Header from '~/modules/Header/Header.vue';
 <style  module lang="scss">
 .layout.layout {
   display: flex;
+  flex-direction: column;
   width: 100%;
 }
 </style>

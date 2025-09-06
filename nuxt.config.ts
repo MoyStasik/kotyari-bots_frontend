@@ -9,6 +9,7 @@ export default defineNuxtConfig({
 
   modules: [
     'nuxt-viewport',
+    'nuxt-lucide-icons'
   ],
 
   viewport: {

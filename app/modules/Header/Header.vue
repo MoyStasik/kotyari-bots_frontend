@@ -22,14 +22,31 @@
         :class="$style.Row"
         :gap="4"
       >
-        <button>
+        <Button
+          size="small"
+          mode="transparent"
+        >
+          <template #before>
+            <LucideBot
+              :size="14"
+              :class="$style.BotIcon"
+            />
+          </template>
           Боты
-        </button>
-        <button>
+        </Button>
+        <Button
+          size="small"
+          mode="transparent"
+        >
+          <template #before>
+            <LucideUser
+              :size="14"
+            />
+          </template>
           Профиль
-        </button>
+        </Button>
         <Avatar
-          :size="24"
+          :size="28"
           :src="'/pictures/favicon.ico'"
         />
       </Row>
@@ -38,9 +55,12 @@
 </template>
 
 <script setup lang="ts">
+import { LucideBot, LucideUser } from 'lucide-vue-next';
+
 import Column from '~/components/Column/Column.vue';
 import Title from '~/components/Title/Title.vue';
 import Row from '~/components/Row/Row.vue';
+import Button from '~/components/Button/Button.vue';
 
 </script>
 
