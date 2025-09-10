@@ -5,7 +5,7 @@
     <Header
       :header-wrapper-styles="{ ...contentWidth }"
     />
-    <slot></slot>
+    <slot/>
   </div>
 </template>
 
@@ -32,6 +32,10 @@ const contentWidth = computed(() => {
       minWidth: 'calc(100vw - 40px)',
     }
   }
+
+  return {
+    minWidth: '',
+  };
 })
 </script>
 

@@ -10,13 +10,13 @@
     }"
     :style="{ height: withPX(buttonSizes[size])}"
   >
-    <slot name="before"></slot>
+    <slot name="before"/>
     <Paragraph
       :class="{
         [$style.Colored]: mode === 'danger' || mode === 'active'
       }"
     >
-      <slot></slot>
+      <slot/>
     </Paragraph>
   </button>
 </template>

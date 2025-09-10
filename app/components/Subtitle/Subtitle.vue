@@ -2,16 +2,12 @@
   <BaseTypography
     :class="$style.Subtitle"
   >
-    <slot></slot>
+    <slot/>
   </BaseTypography>
 </template>
 
 <script setup lang="ts">
-import type { Props } from './Subtitle.types';
-
 import BaseTypography from '../BaseTypography/BaseTypography.vue';
-
-defineProps<Props>();
 </script>
 
 <style module lang="scss">

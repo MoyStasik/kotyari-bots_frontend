@@ -6,5 +6,5 @@ export interface TabHeader {
 }
 
 export interface Props {
-  headerWrapperStyles: Object,
+  headerWrapperStyles: object,
 }

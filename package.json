@@ -5,18 +5,28 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "format": "prettier --write \"app/**/*.{js,jsx,ts,tsx,json,css,md}\""
   },
   "dependencies": {
+    "eslint": "^9.35.0",
     "nuxt": "^4.0.3",
     "nuxt-lucide-icons": "^1.0.5",
     "nuxt-viewport": "^2.3.1",
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.43.0",
     "vue": "^3.5.20",
     "vue-router": "^4.5.1"
   },
   "devDependencies": {
+    "@nuxt/eslint": "^1.9.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "prettier": "^3.6.2",
     "sass-embedded": "^1.91.0"
   }
 }

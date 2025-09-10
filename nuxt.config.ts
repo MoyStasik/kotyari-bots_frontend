@@ -7,10 +7,7 @@ export default defineNuxtConfig({
     }
   },
 
-  modules: [
-    'nuxt-viewport',
-    'nuxt-lucide-icons'
-  ],
+  modules: ['nuxt-viewport', 'nuxt-lucide-icons', '@nuxt/eslint'],
 
   viewport: {
     breakpoints: {

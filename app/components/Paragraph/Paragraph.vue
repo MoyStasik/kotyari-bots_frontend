@@ -2,14 +2,11 @@
   <BaseTypography
     :class="$style.Paragraph"
   >
-    <slot></slot>
+    <slot/>
   </BaseTypography>
 </template>
 
 <script setup lang="ts">
-import type { Props } from './Paragraph.types';
-
-defineProps<Props>();
 </script>
 
 <style module lang="scss">

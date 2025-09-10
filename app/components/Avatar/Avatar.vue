@@ -12,7 +12,7 @@
       :width="withPX(size)"
       :height="withPX(size)"
       :class="$style.Avatar"
-    />
+    >
   </div>
 </template>
 
