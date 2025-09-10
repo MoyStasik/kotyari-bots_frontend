@@ -4,6 +4,7 @@
   >
     <div
       :class="$style.Wrapper"
+      :style="{...headerWrapperStyles}"
     >
       <Column
         :gap="4"
@@ -14,7 +15,9 @@
         >
           Бот-Ферма
         </Title>
-        <Subtitle>
+        <Subtitle
+          v-if="!isMobile"
+        >
           Управление аккаунтами боттов
         </Subtitle>
       </Column>
@@ -23,27 +26,25 @@
         :gap="4"
       >
         <Button
+          v-for="item in headerTabs"
+          :key="item.tabName"
           size="small"
-          mode="transparent"
+          :mode="checkIsTabActive(item.route) ? 'active' : 'transparent'"
+          @click="() => onButtonClick(item.route)"
         >
           <template #before>
-            <LucideBot
+            <component
+              :is="icons[item.tabName]"
               :size="14"
-              :class="$style.BotIcon"
-            />
+              :color="checkIsTabActive(item.route) ? '#fff' : '#000'"
+            >
+            </component>
           </template>
-          Боты
-        </Button>
-        <Button
-          size="small"
-          mode="transparent"
-        >
-          <template #before>
-            <LucideUser
-              :size="14"
-            />
+          <template
+            v-if="!isMobile"
+          >
+            {{ item.tabName }}
           </template>
-          Профиль
         </Button>
         <Avatar
           :size="28"
@@ -55,13 +56,43 @@
 </template>
 
 <script setup lang="ts">
-import { LucideBot, LucideUser } from 'lucide-vue-next';
+import type { FunctionalComponent } from 'vue';
+
+import type { Props, tabs } from './Header.types';
+
+import { headerTabs } from './Header.conts';
 
 import Column from '~/components/Column/Column.vue';
 import Title from '~/components/Title/Title.vue';
 import Row from '~/components/Row/Row.vue';
 import Button from '~/components/Button/Button.vue';
 
+defineProps<Props>();
+
+const { isSmallTablet, isMobile } = useAdaptivity();
+
+const LucideBot = defineAsyncComponent(() =>
+  import('lucide-vue-next').then(module => module.BotIcon)
+);
+
+const LucideUser = defineAsyncComponent(() =>
+  import('lucide-vue-next').then(module => module.UserIcon)
+);
+
+const router = useRouter();
+
+const icons: Record<tabs, FunctionalComponent> = {
+  'Боты': LucideBot,
+  'Профиль': LucideUser,
+};
+
+const checkIsTabActive = (tabRoute: string) => {
+  return tabRoute === router.currentRoute.value.path;
+}
+
+const onButtonClick = (route: string) => {
+  router.push(route);
+};
 </script>
 
 <style module lang="scss">
@@ -77,10 +108,9 @@ import Button from '~/components/Button/Button.vue';
 .Wrapper.Wrapper {
   display: flex;
   flex-direction: row;
-  width: 100%;
   height: 100%;
   align-items: center;
-  margin-inline: 58px;
+  margin: auto;
   overflow: hidden;
 }
 

@@ -2,6 +2,7 @@
   <button
     :class="{
       [$style.Button]: true,
+      [$style.Button_gaped]: $slots.before,
       [$style.ActiveMode]: mode === 'active',
       [$style.TransparentMode]: mode === 'transparent',
       [$style.LightMode]: mode === 'light',
@@ -45,6 +46,9 @@ const buttonSizes: Record<size, number> = {
   cursor: pointer;
   display: flex;
   align-items: center;
+}
+
+.Button_gaped.Button_gaped {
   gap: 4px;
 }
 
