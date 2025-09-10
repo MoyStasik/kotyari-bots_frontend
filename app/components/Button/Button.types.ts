@@ -1,8 +1,13 @@
-export type size = 'small' | 'medium';
+export type size = "small" | "medium";
 
-export type buttonModes = 'custom' | 'transparent' | 'active' | 'light' | 'danger';
+export type buttonModes =
+  | "custom"
+  | "transparent"
+  | "active"
+  | "light"
+  | "danger";
 
 export interface Props {
-  size: size,
-  mode: buttonModes,
+  size: size;
+  mode: buttonModes;
 }
