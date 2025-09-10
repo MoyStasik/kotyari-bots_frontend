@@ -87,7 +87,7 @@ const icons: Record<tabs, FunctionalComponent> = {
 
 const checkIsTabActive = (tabRoute: string) => {
   return tabRoute === router.currentRoute.value.path;
-}
+};
 
 const onButtonClick = (route: string) => {
   router.push(route);

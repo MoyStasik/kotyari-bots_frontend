@@ -18,7 +18,7 @@ const contentWidth = computed(() => {
   if (isDesktop.value) {
     return {
       minWidth: '1160px',
-    }
+    };
   }
 
   if (isTablet.value) {
@@ -30,13 +30,13 @@ const contentWidth = computed(() => {
   if (!isTablet.value) {
     return {
       minWidth: 'calc(100vw - 40px)',
-    }
+    };
   }
 
   return {
     minWidth: '',
   };
-})
+});
 </script>
 
 <style  module lang="scss">

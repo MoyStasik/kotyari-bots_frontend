@@ -36,7 +36,7 @@ withDefaults(defineProps<Props>(), {
 const buttonSizes: Record<size, number> = {
   'small': 28,
   'medium': 32,
-}
+};
 </script>
 
 <style module lang="scss">

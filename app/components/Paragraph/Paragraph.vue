@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-console.log('ad')
+
 </script>
 
 <style module lang="scss">
