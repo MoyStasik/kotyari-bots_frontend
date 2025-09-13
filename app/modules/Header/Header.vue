@@ -41,6 +41,7 @@
           </template>
           <template
             v-if="!isMobile"
+            #default
           >
             {{ item.tabName }}
           </template>
@@ -48,6 +49,7 @@
         <Avatar
           :size="28"
           :src="'/pictures/favicon.ico'"
+          :class="$style.Avatar"
         />
       </Row>
     </div>
@@ -121,5 +123,9 @@ const onButtonClick = (route: string) => {
 
 .TitleWrapper.TitleWrapper {
   width: 100%;
+}
+
+.Avatar.Avatar {
+  margin-left: 2px;
 }
 </style>

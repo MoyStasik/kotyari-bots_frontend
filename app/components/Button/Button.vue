@@ -12,6 +12,7 @@
   >
     <slot name="before"/>
     <Paragraph
+      v-if="slots.default"
       :class="{
         [$style.Colored]: mode === 'danger' || mode === 'active'
       }"
@@ -33,6 +34,8 @@ withDefaults(defineProps<Props>(), {
   mode: 'light',
 });
 
+const slots = useSlots();
+
 const buttonSizes: Record<size, number> = {
   'small': 28,
   'medium': 32,
@@ -46,6 +49,8 @@ const buttonSizes: Record<size, number> = {
   cursor: pointer;
   display: flex;
   align-items: center;
+  justify-content: center;
+  min-width: 32px;
 }
 
 .Button_gaped.Button_gaped {
