@@ -6,15 +6,7 @@ export default withNuxt(
   {
     rules: {
       'vue/multi-word-component-names': 0, // Disables the rule
-      "vue/html-self-closing": ["error", {
-      "html": {
-        "void": "never",
-        "normal": "always",
-        "component": "always"
-        },
-        "svg": "always",
-        "math": "always"
-      }],
+      'vue/html-self-closing': 'off',
       "@typescript-eslint/no-explicit-any": "off",
       "semi": ["error", "always"],
     },

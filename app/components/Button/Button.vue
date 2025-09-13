@@ -51,6 +51,7 @@ const buttonSizes: Record<size, number> = {
   align-items: center;
   justify-content: center;
   min-width: 32px;
+  padding: 0;
 }
 
 .Button_gaped.Button_gaped {

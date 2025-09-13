@@ -2,11 +2,12 @@
   <div
     :class="$style.PageWrapper"
   >
-  asdasd
+    <Bots />
   </div>
 </template>
 
 <script setup lang="ts">
+import Bots from '~/modules/Bots/Bots.vue';
 
 </script>
 
@@ -16,5 +17,4 @@
   width: 100%;
   height: 100%;
 }
-
 </style>
