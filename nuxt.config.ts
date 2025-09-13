@@ -7,10 +7,7 @@ export default defineNuxtConfig({
     }
   },
 
-  modules: [
-    'nuxt-viewport',
-    'nuxt-lucide-icons'
-  ],
+  modules: ['nuxt-viewport', 'nuxt-lucide-icons', '@nuxt/eslint'],
 
   viewport: {
     breakpoints: {
@@ -53,4 +50,4 @@ export default defineNuxtConfig({
 
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-})
+});

@@ -2,7 +2,7 @@
   <div
     :class="$style.Column"
   >
-    <slot></slot>
+    <slot/>
   </div>
 </template>
 

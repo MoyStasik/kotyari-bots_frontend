@@ -3,7 +3,7 @@
     :is="tag"
     :class="$style.BaseTypography"
   >
-    <slot></slot>
+    <slot/>
   </component>
 </template>
 

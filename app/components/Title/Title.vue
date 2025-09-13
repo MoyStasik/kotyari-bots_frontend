@@ -4,7 +4,7 @@
     :class="[$style.Title, {
       [$style.Title_Level1]: true},
     ]">
-    <slot></slot>
+    <slot/>
   </BaseTypography>
 </template>
 
@@ -13,7 +13,7 @@ import type { Props, titleLevels } from './Title.types';
 
 import BaseTypography from '../BaseTypography/BaseTypography.vue';
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   level: 1,
 });
 

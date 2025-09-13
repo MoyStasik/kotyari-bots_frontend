@@ -1,3 +1,3 @@
 export interface Props {
-  gap?: number,
+  gap?: number;
 }

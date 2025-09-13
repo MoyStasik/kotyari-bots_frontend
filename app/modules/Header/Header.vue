@@ -37,8 +37,7 @@
               :is="icons[item.tabName]"
               :size="14"
               :color="checkIsTabActive(item.route) ? '#fff' : '#000'"
-            >
-            </component>
+            />
           </template>
           <template
             v-if="!isMobile"
@@ -69,7 +68,7 @@ import Button from '~/components/Button/Button.vue';
 
 defineProps<Props>();
 
-const { isSmallTablet, isMobile } = useAdaptivity();
+const { isMobile } = useAdaptivity();
 
 const LucideBot = defineAsyncComponent(() =>
   import('lucide-vue-next').then(module => module.BotIcon)
@@ -88,7 +87,7 @@ const icons: Record<tabs, FunctionalComponent> = {
 
 const checkIsTabActive = (tabRoute: string) => {
   return tabRoute === router.currentRoute.value.path;
-}
+};
 
 const onButtonClick = (route: string) => {
   router.push(route);

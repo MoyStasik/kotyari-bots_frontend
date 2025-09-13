@@ -10,13 +10,13 @@
     }"
     :style="{ height: withPX(buttonSizes[size])}"
   >
-    <slot name="before"></slot>
+    <slot name="before"/>
     <Paragraph
       :class="{
         [$style.Colored]: mode === 'danger' || mode === 'active'
       }"
     >
-      <slot></slot>
+      <slot/>
     </Paragraph>
   </button>
 </template>
@@ -36,7 +36,7 @@ withDefaults(defineProps<Props>(), {
 const buttonSizes: Record<size, number> = {
   'small': 28,
   'medium': 32,
-}
+};
 </script>
 
 <style module lang="scss">
