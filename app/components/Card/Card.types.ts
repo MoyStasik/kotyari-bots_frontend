@@ -1,5 +1,4 @@
 export interface Props {
   size?: number;
-  minWidth?: number;
-  maxWidth?: number,
+  minWidth?: number | string;
 }

@@ -7,7 +7,6 @@
     :style="{
       height: withPX(size),
       minWidth: withPX(minWidth),
-      maxWidth: withPX(maxWidth),
     }"
   >
     <Column

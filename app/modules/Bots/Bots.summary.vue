@@ -1,11 +1,12 @@
 <template>
+  {{ cardWidth }}
   <div
     :class="$style.BotsSummary"
   >
     <Card
       v-for="item in count"
       :key="item"
-      :max-width="maxCardWidth"
+      :min-width="cardWidth"
     />
   </div>
 </template>
@@ -19,16 +20,16 @@ withDefaults(defineProps<{ count?: number }>(), {
 
 const { isDesktop, isTablet } = useAdaptivity();
 
-const maxCardWidth = computed(() => {
+const cardWidth = computed(() => {
   if (isDesktop.value) {
-    return 1160;
+    return (1130 - 4 * 15) / 5;
   }
 
   if (isTablet.value) {
-    return 728;
+    return (698 - 2 * 15) / 3;
   }
 
-  return undefined;
+  return '100%';
 });
 
 // '1160px', '728px',
