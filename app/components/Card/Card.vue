@@ -1,9 +1,13 @@
 <template>
   <div
-    :class="$style.Card"
+    :class="[
+      $style.Card,
+      {[$style.Card_Mobile]: isMobile}
+    ]"
     :style="{
       height: withPX(size),
       minWidth: withPX(minWidth),
+      maxWidth: withPX(maxWidth),
     }"
   >
     <Column
@@ -50,15 +54,21 @@ withDefaults(defineProps<Props>(), {
   minWidth: 165,
 });
 
+const { isMobile } = useAdaptivity();
+
 </script>
 
 <style module lang="scss">
 .Card.Card {
+  box-sizing: border-box;
   display: flex;
-  width: 100%;
   padding: 20px;
   border: 1px solid var(--regular_border-background);
   border-radius: var(--regular_border-radius);
+}
+
+.Card_Mobile.Card_Mobile {
+  width: 100%;
 }
 
 .CardContent.CardContent {

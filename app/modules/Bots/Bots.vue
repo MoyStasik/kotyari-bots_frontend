@@ -2,10 +2,7 @@
   <div
     :class="$style.BotsWrapper"
   >
-    <Card
-      v-for="item in 5"
-      :key="item"
-    />
+    <BotsSummary />
     <BotsList
       :class="$style.BotsList"
     />
@@ -13,17 +10,16 @@
 </template>
 
 <script setup lang="ts">
-import Card from '~/components/Card/Card.vue';
-import BotsList from './Bots.list.vue';
+import BotsList from './BotsList/Bots.list.vue';
+import BotsSummary from './Bots.summary.vue';
 
 </script>
 
 <style module lang="scss">
 .BotsWrapper.BotsWrapper {
   display: flex;
-  flex-wrap: wrap;
   width: 100%;
-  gap: 15px
+  flex-direction: column;
 }
 
 .BotsList.BotsList {
