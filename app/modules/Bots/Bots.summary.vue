@@ -1,5 +1,4 @@
 <template>
-  {{ cardWidth }}
   <div
     :class="$style.BotsSummary"
   >
