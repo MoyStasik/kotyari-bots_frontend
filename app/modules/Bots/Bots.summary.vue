@@ -20,19 +20,18 @@ withDefaults(defineProps<{ count?: number }>(), {
 
 const { isDesktop, isTablet } = useAdaptivity();
 
+// TODO подумать над resize observer
 const cardWidth = computed(() => {
   if (isDesktop.value) {
-    return (1130 - 4 * 15) / 5;
+    return (1130 - 4 * 15) / 5; // 5 карточек в строке если Desktop
   }
 
   if (isTablet.value) {
-    return (698 - 2 * 15) / 3;
+    return (698 - 2 * 15) / 3; // 3 карточки в строке если Tablet
   }
 
-  return '100%';
+  return '100%'; //
 });
-
-// '1160px', '728px',
 </script>
 
 <style module lang="scss">
