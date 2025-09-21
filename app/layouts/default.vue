@@ -5,7 +5,19 @@
     <Header
       :header-wrapper-styles="{ ...contentWidth }"
     />
-    <slot/>
+    <main
+      :class="$style.Main"
+    >
+      <div
+        :class="$style.PageWrapper"
+        :style="{
+          ...contentWidth,
+          maxWidth: isDesktop ? '1160px' : (isTablet ? '728px' : 'calc(100vw - 40px)'),
+        }"
+      >
+        <slot />
+      </div>
+    </main>
   </div>
 </template>
 
@@ -44,5 +56,14 @@ const contentWidth = computed(() => {
   display: flex;
   flex-direction: column;
   width: 100%;
+}
+
+.Main.Main {
+  display: flex;
+  justify-content: center;
+}
+
+.PageWrapper.PageWrapper {
+  padding: 20px 15px;
 }
 </style>

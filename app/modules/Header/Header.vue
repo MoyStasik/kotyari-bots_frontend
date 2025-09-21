@@ -30,6 +30,7 @@
           :key="item.tabName"
           size="small"
           :mode="checkIsTabActive(item.route) ? 'active' : 'transparent'"
+          :class="$style.Button"
           @click="() => onButtonClick(item.route)"
         >
           <template #before>
@@ -41,6 +42,7 @@
           </template>
           <template
             v-if="!isMobile"
+            #default
           >
             {{ item.tabName }}
           </template>
@@ -48,6 +50,7 @@
         <Avatar
           :size="28"
           :src="'/pictures/favicon.ico'"
+          :class="$style.Avatar"
         />
       </Row>
     </div>
@@ -97,11 +100,16 @@ const onButtonClick = (route: string) => {
 <style module lang="scss">
 .Header.Header {
   display: flex;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  background-color: #fff;
   width: 100%;
   height: 64px;
   justify-content: center;
   align-items: center;
-  border-bottom: 1px solid #0000001a;
+  border-bottom: 1px solid var(--regular_border-background);
 }
 
 .Wrapper.Wrapper {
@@ -121,5 +129,13 @@ const onButtonClick = (route: string) => {
 
 .TitleWrapper.TitleWrapper {
   width: 100%;
+}
+
+.Avatar.Avatar {
+  margin-left: 2px;
+}
+
+.Button.Button {
+  padding-inline: 8px;
 }
 </style>
