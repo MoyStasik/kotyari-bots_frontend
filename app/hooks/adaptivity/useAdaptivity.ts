@@ -7,12 +7,12 @@ export default () => {
     isTablet: computed(() => viewport.match('tablet')),
     isSmallTablet: computed(
       () =>
-        viewport.isLessThan('tablet') && viewport.isGreaterThan('mobileMedium'),
+        viewport.isLessThan('tablet') && viewport.isGreaterThan('mobileMedium')
     ),
     isMobile: computed(
       () =>
         viewport.isGreaterOrEquals('mobile') &&
-        viewport.isLessOrEquals('mobileMedium'),
+        viewport.isLessOrEquals('mobileMedium')
     ),
     isSmallMobile: computed(() => viewport.isLessOrEquals('mobile')),
   };

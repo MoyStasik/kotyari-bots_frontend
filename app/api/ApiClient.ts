@@ -39,7 +39,7 @@ export class ApiClient {
   }
 
   protected async get<ResponseType, RequestType extends BodyParams>(
-    params: RequestParams<RequestType>,
+    params: RequestParams<RequestType>
   ): Promise<ResponseType> {
     return await this.callAPI<ResponseType>({
       ...params,
@@ -48,7 +48,7 @@ export class ApiClient {
   }
 
   protected async post<ResponseType, RequestType extends BodyParams>(
-    params: RequestParams<RequestType>,
+    params: RequestParams<RequestType>
   ): Promise<ResponseType> {
     return await this.callAPI<ResponseType>({
       ...params,
@@ -57,7 +57,7 @@ export class ApiClient {
   }
 
   protected async put<ResponseType, RequestType extends BodyParams>(
-    params: RequestParams<RequestType>,
+    params: RequestParams<RequestType>
   ): Promise<ResponseType> {
     return await this.callAPI<ResponseType>({
       ...params,
@@ -66,7 +66,7 @@ export class ApiClient {
   }
 
   protected async delete<ResponseType, RequestType extends BodyParams>(
-    params: RequestParams<RequestType>,
+    params: RequestParams<RequestType>
   ): Promise<ResponseType> {
     return await this.callAPI<ResponseType>({
       ...params,
