@@ -1,9 +1,9 @@
-import { ApiClient } from "../ApiClient";
-import type { GetBotsRequestData, GetBotsResponse } from "./bots.types";
+import { ApiClient } from '../ApiClient';
+import type { GetBotsRequestData, GetBotsResponse } from './bots.types';
 
 class BotsApiClient extends ApiClient {
-  public botsUrl = "bots";
-  public createBotsUrl = "bots";
+  public botsUrl = 'bots';
+  public createBotsUrl = 'bots';
 
   public async getBots(data: GetBotsRequestData) {
     const response = await this.get<GetBotsResponse, GetBotsRequestData>({

@@ -1,12 +1,12 @@
-import type { TabHeader } from "./Header.types";
+import type { TabHeader } from './Header.types';
 
 export const headerTabs: TabHeader[] = [
   {
-    tabName: "Боты",
-    route: "/",
+    tabName: 'Боты',
+    route: '/',
   },
   {
-    tabName: "Профиль",
-    route: "/profile/1",
+    tabName: 'Профиль',
+    route: '/profile/1',
   },
 ];

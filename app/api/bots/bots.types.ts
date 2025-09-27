@@ -1,4 +1,4 @@
-import type { BodyParams } from "../api.types";
+import type { BodyParams } from '../api.types';
 
 export interface BotResponse {
   id: string;

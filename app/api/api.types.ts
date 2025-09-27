@@ -1,4 +1,4 @@
-type FetchMethods = "GET" | "POST" | "PUT" | "DELETE";
+type FetchMethods = 'GET' | 'POST' | 'PUT' | 'DELETE';
 
 export type BodyParams = Record<string, unknown>;
 

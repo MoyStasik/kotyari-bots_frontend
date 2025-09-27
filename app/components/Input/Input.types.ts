@@ -1,4 +1,4 @@
-import type { InputTypeHTMLAttribute } from "vue";
+import type { InputTypeHTMLAttribute } from 'vue';
 
 export interface Props {
   type: InputTypeHTMLAttribute;

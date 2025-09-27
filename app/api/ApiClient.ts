@@ -1,9 +1,9 @@
-import type { BodyParams, FetchParams, RequestParams } from "./api.types";
+import type { BodyParams, FetchParams, RequestParams } from './api.types';
 
 export class ApiClient {
   private baseUrl: string;
 
-  constructor(baseUrl: string = "/api/v1/") {
+  constructor(baseUrl: string = '/api/v1/') {
     this.baseUrl = baseUrl;
   }
 
@@ -43,7 +43,7 @@ export class ApiClient {
   ): Promise<ResponseType> {
     return await this.callAPI<ResponseType>({
       ...params,
-      method: "GET",
+      method: 'GET',
     });
   }
 
@@ -52,7 +52,7 @@ export class ApiClient {
   ): Promise<ResponseType> {
     return await this.callAPI<ResponseType>({
       ...params,
-      method: "POST",
+      method: 'POST',
     });
   }
 
@@ -61,7 +61,7 @@ export class ApiClient {
   ): Promise<ResponseType> {
     return await this.callAPI<ResponseType>({
       ...params,
-      method: "PUT",
+      method: 'PUT',
     });
   }
 
@@ -70,7 +70,7 @@ export class ApiClient {
   ): Promise<ResponseType> {
     return await this.callAPI<ResponseType>({
       ...params,
-      method: "DELETE",
+      method: 'DELETE',
     });
   }
 }
