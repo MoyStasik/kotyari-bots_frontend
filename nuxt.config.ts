@@ -7,7 +7,12 @@ export default defineNuxtConfig({
     }
   },
 
-  modules: ['nuxt-viewport', 'nuxt-lucide-icons', '@nuxt/eslint'],
+  modules: [
+    'nuxt-viewport',
+    'nuxt-lucide-icons',
+    '@nuxt/eslint',
+    '@pinia/nuxt'
+  ],
 
   viewport: {
     breakpoints: {

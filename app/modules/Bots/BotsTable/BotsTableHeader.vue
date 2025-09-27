@@ -5,33 +5,24 @@
     items-center
   >
     <Paragraph>
-      {{ bot?.name }}
+      {{ 'Имя' }}
     </Paragraph>
     <Paragraph>
-      {{ bot?.profiles.length }}
+      {{ 'Профилей' }}
     </Paragraph>
     <Paragraph>
-      {{ bot?.moderationRequired ? 'Да': 'Нет' }}
+      {{ 'Статус' }}
     </Paragraph>
     <Paragraph>
-      {{ bot?.createdAt }}
+      {{ 'Создан' }}
     </Paragraph>
   </Row>
 </template>
 
 <script setup lang="ts">
-import type { BotsTableItemProps as Props } from './BotsTable.types';
-
-import { useBotsStore } from '~/store/bots/bots';
-
 import Row from '~/components/Row/Row.vue';
 import Paragraph from '~/components/Paragraph/Paragraph.vue';
 
-const props = defineProps<Props>();
-
-const useBots = useBotsStore();
-
-const bot = computed(() => useBots.get(props.botId));
 </script>
 
 <style module lang="scss">
