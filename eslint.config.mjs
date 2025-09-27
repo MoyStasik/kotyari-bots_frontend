@@ -9,6 +9,7 @@ export default withNuxt(
       'vue/html-self-closing': 'off',
       "@typescript-eslint/no-explicit-any": "off",
       "semi": ["error", "always"],
+      '@typescript-eslint/no-empty-object-type': "off",
     },
   }
 );

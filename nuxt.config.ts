@@ -48,6 +48,10 @@ export default defineNuxtConfig({
   alias: {
   },
 
+  routeRules: {
+    '/api/v1/**': { proxy: 'localhost:8001/api/v1/**' },
+  },
+
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
 });
