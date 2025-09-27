@@ -1,9 +1,9 @@
-import type { BodyParams, FetchParams, RequestParams } from './api.types';
+import type { BodyParams, FetchParams, RequestParams } from "./api.types";
 
 export class ApiClient {
   private baseUrl: string;
 
-  constructor(baseUrl: string = '/api/v1/') {
+  constructor(baseUrl: string = "/api/v1/") {
     this.baseUrl = baseUrl;
   }
 
@@ -38,31 +38,39 @@ export class ApiClient {
     return `http://localhost:8001${this.baseUrl}${url}`;
   }
 
-  protected async get<ResponseType, RequestType extends BodyParams>(params: RequestParams<RequestType>): Promise<ResponseType> {
+  protected async get<ResponseType, RequestType extends BodyParams>(
+    params: RequestParams<RequestType>,
+  ): Promise<ResponseType> {
     return await this.callAPI<ResponseType>({
       ...params,
-      method: 'GET',
+      method: "GET",
     });
   }
 
-  protected async post<ResponseType, RequestType extends BodyParams>(params: RequestParams<RequestType>): Promise<ResponseType> {
+  protected async post<ResponseType, RequestType extends BodyParams>(
+    params: RequestParams<RequestType>,
+  ): Promise<ResponseType> {
     return await this.callAPI<ResponseType>({
       ...params,
-      method: 'POST',
+      method: "POST",
     });
   }
 
-  protected async put<ResponseType, RequestType extends BodyParams>(params: RequestParams<RequestType>): Promise<ResponseType> {
+  protected async put<ResponseType, RequestType extends BodyParams>(
+    params: RequestParams<RequestType>,
+  ): Promise<ResponseType> {
     return await this.callAPI<ResponseType>({
       ...params,
-      method: 'PUT',
+      method: "PUT",
     });
   }
 
-  protected async delete<ResponseType, RequestType extends BodyParams>(params: RequestParams<RequestType>): Promise<ResponseType> {
+  protected async delete<ResponseType, RequestType extends BodyParams>(
+    params: RequestParams<RequestType>,
+  ): Promise<ResponseType> {
     return await this.callAPI<ResponseType>({
       ...params,
-      method: 'DELETE',
+      method: "DELETE",
     });
   }
 }
