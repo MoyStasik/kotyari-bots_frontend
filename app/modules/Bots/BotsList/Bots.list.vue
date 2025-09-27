@@ -3,14 +3,27 @@
     :class="$style.BotsListWrapper"
   >
     <BotsListHeader />
-    <BotsTable />
+    <BotsTable
+      :list="useBots.list"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
+import { useBotsStore } from '~/store/bots/bots';
+
 import BotsListHeader from './Bots.list.header.vue';
 import BotsTable from '../BotsTable/Bots.table.vue';
 
+const useBots = useBotsStore();
+
+onServerPrefetch(async () => {
+  try {
+    await useBots.getBots();
+  } catch (err) {
+    console.error(err);
+  }
+});
 </script>
 
 <style module lang="scss">

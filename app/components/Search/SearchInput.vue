@@ -23,5 +23,7 @@ import { LucideSearch } from 'lucide-vue-next';
 <style module lang="scss">
 .SearchIconWrapper.SearchIconWrapper {
   padding: 10px;
+  display: flex;
+  align-items: center;
 }
 </style>

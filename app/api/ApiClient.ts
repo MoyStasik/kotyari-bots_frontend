@@ -7,18 +7,10 @@ export class ApiClient {
     this.baseUrl = baseUrl;
   }
 
-  private async fetch(params: FetchParams) {
-    if (import.meta.server) {
-      return useFetch(params.url, {
-        ...params,
-        retry: 2,
-        retryStatusCodes: [500, 501, 502, 503],
-      });
-    }
-
-    return await $fetch(params.url, {
+  private fetch(params: FetchParams) {
+    return $fetch(params.url, {
       ...params,
-      retry: 3,
+      retry: 2,
       retryStatusCodes: [500, 501, 502, 503],
     });
   }
