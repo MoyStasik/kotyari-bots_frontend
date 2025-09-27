@@ -38,28 +38,36 @@ export class ApiClient {
     return `http://localhost:8001${this.baseUrl}${url}`;
   }
 
-  protected async get<ResponseType, RequestType extends BodyParams>(params: RequestParams<RequestType>): Promise<ResponseType> {
+  protected async get<ResponseType, RequestType extends BodyParams>(
+    params: RequestParams<RequestType>,
+  ): Promise<ResponseType> {
     return await this.callAPI<ResponseType>({
       ...params,
       method: 'GET',
     });
   }
 
-  protected async post<ResponseType, RequestType extends BodyParams>(params: RequestParams<RequestType>): Promise<ResponseType> {
+  protected async post<ResponseType, RequestType extends BodyParams>(
+    params: RequestParams<RequestType>,
+  ): Promise<ResponseType> {
     return await this.callAPI<ResponseType>({
       ...params,
       method: 'POST',
     });
   }
 
-  protected async put<ResponseType, RequestType extends BodyParams>(params: RequestParams<RequestType>): Promise<ResponseType> {
+  protected async put<ResponseType, RequestType extends BodyParams>(
+    params: RequestParams<RequestType>,
+  ): Promise<ResponseType> {
     return await this.callAPI<ResponseType>({
       ...params,
       method: 'PUT',
     });
   }
 
-  protected async delete<ResponseType, RequestType extends BodyParams>(params: RequestParams<RequestType>): Promise<ResponseType> {
+  protected async delete<ResponseType, RequestType extends BodyParams>(
+    params: RequestParams<RequestType>,
+  ): Promise<ResponseType> {
     return await this.callAPI<ResponseType>({
       ...params,
       method: 'DELETE',

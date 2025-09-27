@@ -1,5 +1,5 @@
 export function withPX(num: number | string) {
-  if (typeof num !== "number") {
+  if (typeof num !== 'number') {
     return num;
   }
 

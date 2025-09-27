@@ -1,3 +1,3 @@
-import useAdaptivity from "./useAdaptivity";
+import useAdaptivity from './useAdaptivity';
 
 export { useAdaptivity };
