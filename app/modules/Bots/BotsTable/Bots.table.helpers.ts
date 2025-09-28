@@ -8,8 +8,10 @@ export const getFormattedBotInfo = (bot: BotsState | undefined) => {
 
   return entries.map((element) => {
     return {
-        name: getBotParam(<ColumnNames>element[0], bot),
-        minWidth: isDesktop.value ? element[1].minWidth + 70 : element[1].minWidth,
+      name: getBotParam(<ColumnNames>element[0], bot),
+      minWidth: isDesktop.value
+        ? element[1].minWidth + 70
+        : element[1].minWidth,
     };
   });
 };

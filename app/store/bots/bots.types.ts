@@ -9,7 +9,7 @@ export interface BotsState {
   id: string;
   name: string;
   profiles: Profiles[];
-  profilesCount: number,
+  profilesCount: number;
   systemPrompt: string;
   moderationRequired: boolean;
   createdAt: string;

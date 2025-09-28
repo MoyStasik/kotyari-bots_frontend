@@ -10,5 +10,5 @@ export type buttonModes =
 export interface Props {
   size: size;
   mode: buttonModes;
-  bordered?: boolean,
+  bordered?: boolean;
 }
