@@ -29,5 +29,6 @@ defineProps<Props>();
   border: 1px solid var(--regular_border-background);
   border-radius: 8px;
   height: 200px;
+  overflow: scroll;
 }
 </style>

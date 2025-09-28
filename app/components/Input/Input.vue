@@ -2,13 +2,12 @@
   <Row
     :class="$style.InputWrapper"
   >
-    <slot name="before">
-    </slot>
+    <slot name="before"/>
     <input
       :type="type"
       :placeholder="placeholder"
       :class="$style.Input"
-    />
+    >
   </Row>
 </template>
 

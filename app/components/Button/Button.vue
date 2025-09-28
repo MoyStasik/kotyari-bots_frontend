@@ -7,6 +7,7 @@
       [$style.TransparentMode]: mode === 'transparent',
       [$style.LightMode]: mode === 'light',
       [$style.DangerMode]: mode === 'danger',
+      [$style.Bordered]: bordered,
     }"
     :style="{ height: withPX(buttonSizes[size])}"
   >
@@ -92,5 +93,9 @@ const buttonSizes: Record<size, number> = {
 
 .Colored.Colored {
   color: #fff;
+}
+
+.Bordered.Bordered {
+  border: 1px solid var(--regular_border-background);
 }
 </style>

@@ -1,21 +1,20 @@
 <template>
+  <!-- TODO: продумать размеры под другие устройства, мб скрыть некоторые поля -->
   <Row
-    :class="$style.BotsItemWrapper"
-    :gap="50"
     items-center
+    :class="[
+      $style.BotsItemWrapper,
+      {[$style.BotsItemWrapper_Mobile]: isMobile}
+    ]"
   >
-    <Paragraph>
-      {{ bot?.name }}
+    <Paragraph
+      v-for="item in getFormattedBotInfo(bot)"
+      :key="`column_${item.name}`"
+      :style="{ minWidth: withPX(item.minWidth), maxWidth: withPX(item.minWidth)}"
+    >
+      {{ item.name }}
     </Paragraph>
-    <Paragraph>
-      {{ bot?.profiles.length }}
-    </Paragraph>
-    <Paragraph>
-      {{ bot?.moderationRequired ? 'Да': 'Нет' }}
-    </Paragraph>
-    <Paragraph>
-      {{ bot?.createdAt }}
-    </Paragraph>
+    <BotsTableActions />
   </Row>
 </template>
 
@@ -23,11 +22,16 @@
 import type { BotsTableItemProps as Props } from './BotsTable.types';
 
 import { useBotsStore } from '~/store/bots/bots';
+import { withPX } from '@/utils/utils';
+import { getFormattedBotInfo } from './Bots.table.helpers';
 
 import Row from '~/components/Row/Row.vue';
 import Paragraph from '~/components/Paragraph/Paragraph.vue';
+import BotsTableActions from './Bots.table.actions.vue';
 
 const props = defineProps<Props>();
+
+const { isMobile } = useAdaptivity();
 
 const useBots = useBotsStore();
 
@@ -37,8 +41,12 @@ const bot = computed(() => useBots.get(props.botId));
 <style module lang="scss">
 .BotsItemWrapper.BotsItemWrapper {
   width: 100%;
-  height: 35px;
+  height: 45px;
   padding-inline-start: 7px;
   border-bottom: 1px solid var(--regular_border-background);
+}
+
+.BotsItemWrapper_Mobile.BotsItemWrapper_Mobile {
+  height: 50px;
 }
 </style>
