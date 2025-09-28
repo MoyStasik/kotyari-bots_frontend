@@ -1,7 +1,7 @@
 export interface Props {
-  list: string[],
+  list: string[];
 }
 
 export interface BotsTableItemProps {
-  botId: string,
+  botId: string;
 }
