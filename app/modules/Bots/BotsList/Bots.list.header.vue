@@ -14,13 +14,16 @@
       <div
         :class="$style.InputWrapper"
       >
-        <SearchInput />
+        <SearchInput
+          :class="$style.SearchInput"
+        />
       </div>
       <div>
         <Button
           :size="'medium'"
           :mode="'active'"
           :class="$style.AddBotButton"
+          @click="emit('click:add')"
         >
           <template #before>
             <LucidePlus
@@ -38,12 +41,17 @@
 </template>
 
 <script setup lang="ts">
+import { LucidePlus } from 'lucide-vue-next';
+
 import Button from '~/components/Button/Button.vue';
 import Paragraph from '~/components/Paragraph/Paragraph.vue';
 import Column from '~/components/Column/Column.vue';
 import SearchInput from '~/components/Search/SearchInput.vue';
-import { LucidePlus } from 'lucide-vue-next';
 
+
+const emit = defineEmits<{
+  (event: 'click:add'): void,
+}>();
 </script>
 
 <style module lang="scss">
@@ -69,5 +77,9 @@ import { LucidePlus } from 'lucide-vue-next';
   display: flex;
   width: 100%;
   height: 32px;
+}
+
+.SearchInput.SearchInput {
+  max-width: 330px;
 }
 </style>

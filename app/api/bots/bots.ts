@@ -1,5 +1,5 @@
 import { ApiClient } from '../ApiClient';
-import type { GetBotsRequestData, GetBotsResponse } from './bots.types';
+import type { CreateBotRequestData, CreateBotResponseData, GetBotsRequestData, GetBotsResponse } from './bots.types';
 
 class BotsApiClient extends ApiClient {
   public botsUrl = 'bots';
@@ -14,9 +14,10 @@ class BotsApiClient extends ApiClient {
     return response;
   }
 
-  public async createBots() {
-    const response = await this.post({
+  public async createBot(data: CreateBotRequestData) {
+    const response = await this.post<CreateBotResponseData, CreateBotRequestData>({
       url: this.createBotsUrl,
+      ...data,
     });
 
     return response;

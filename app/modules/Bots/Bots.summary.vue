@@ -6,11 +6,32 @@
       v-for="item in count"
       :key="item"
       :min-width="cardWidth"
-    />
+      :size="120"
+    >
+      <template #header>
+        <Paragraph
+          :class="$style.CardHeaderText"
+        >
+          Всего ботов
+        </Paragraph>
+      </template>
+      <template #header_icon>
+        <LucideBot />
+      </template>
+      <Title
+        :level="1"
+        :class="$style.Amount"
+      >
+        1
+      </Title>
+    </Card>
   </div>
 </template>
 
 <script setup lang="ts">
+import { LucideBot } from 'lucide-vue-next';
+
+import Title from '~/components/Title/Title.vue';
 import Card from '~/components/Card/Card.vue';
 
 withDefaults(defineProps<{ count?: number }>(), {
@@ -41,5 +62,16 @@ const cardWidth = computed(() => {
   gap: 15px;
   flex-direction: row;
   margin-bottom: 15px;
+}
+
+.CardHeaderText.CardHeaderText {
+  display: flex;
+  width: 100%;
+}
+
+.Amount.Amount {
+  display: flex;
+  height: 100%;
+  align-items: end;
 }
 </style>

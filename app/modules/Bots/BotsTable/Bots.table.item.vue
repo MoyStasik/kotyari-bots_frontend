@@ -14,7 +14,10 @@
     >
       {{ item.name }}
     </Paragraph>
-    <BotsTableActions />
+    <BotsTableActions
+      @bot-edit="emit('bot-edit')"
+      @bot-delete="emit('bot-delete')"
+    />
   </Row>
 </template>
 
@@ -36,6 +39,10 @@ const { isMobile } = useAdaptivity();
 const useBots = useBotsStore();
 
 const bot = computed(() => useBots.get(props.botId));
+
+const emit = defineEmits<{
+  (event: 'bot-edit' | 'bot-delete'): void,
+}>();
 </script>
 
 <style module lang="scss">

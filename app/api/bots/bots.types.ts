@@ -17,3 +17,13 @@ export interface GetBotsResponse {
 }
 
 export interface GetBotsRequestData extends BodyParams {}
+
+export interface CreateBotRequestData extends BodyParams {
+  name: string,
+  email: string,
+  systemPrompt: string,
+  moderationRequired: boolean,
+  autoPublish: boolean,
+}
+
+export interface CreateBotResponseData extends BotResponse {}

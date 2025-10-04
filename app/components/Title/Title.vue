@@ -2,8 +2,9 @@
   <BaseTypography
     :tag="getTitleTag(level)"
     :class="[$style.Title, {
-      [$style.Title_Level1]: true},
-    ]">
+      [$style.Title_Level1]: level === 1,
+      [$style.Title_Level2]: level === 2,
+    }]">
     <slot/>
   </BaseTypography>
 </template>
@@ -30,5 +31,10 @@ const getTitleTag = (level: titleLevels) => {
 .Title_Level1.Title_Level1 {
   font-size: 21px;
   line-height: 24px;
+}
+
+.Title_Level2.Title_Level2 {
+  font-size: 16px;
+  line-height: 18px;
 }
 </style>
