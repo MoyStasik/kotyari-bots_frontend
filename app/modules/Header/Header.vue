@@ -30,7 +30,6 @@
           :key="item.tabName"
           size="small"
           :mode="checkIsTabActive(item.route) ? 'active' : 'transparent'"
-          :class="$style.Button"
           @click="() => onButtonClick(item.route)"
         >
           <template #before>
@@ -133,9 +132,5 @@ const onButtonClick = (route: string) => {
 
 .Avatar.Avatar {
   margin-left: 2px;
-}
-
-.Button.Button {
-  padding-inline: 8px;
 }
 </style>

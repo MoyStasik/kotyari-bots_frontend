@@ -1,4 +1,4 @@
-export function withPX(num: number | string) {
+export function withPX(num: number | string | undefined) {
   if (typeof num !== 'number') {
     return num;
   }

@@ -5,11 +5,11 @@
       [$style.Button_gaped]: $slots.before,
       [$style.ActiveMode]: mode === 'active',
       [$style.TransparentMode]: mode === 'transparent',
-      [$style.LightMode]: mode === 'light',
       [$style.DangerMode]: mode === 'danger',
       [$style.Bordered]: bordered,
     }"
     :style="{ height: withPX(buttonSizes[size])}"
+    @click.prevent
   >
     <slot name="before"/>
     <Paragraph
@@ -32,7 +32,7 @@ import Paragraph from '../Paragraph/Paragraph.vue';
 
 withDefaults(defineProps<Props>(), {
   size: 'medium',
-  mode: 'light',
+  mode: 'transparent',
 });
 
 const slots = useSlots();
@@ -53,6 +53,7 @@ const buttonSizes: Record<size, number> = {
   justify-content: center;
   min-width: 32px;
   padding: 0;
+  padding-inline: 8px;
 }
 
 .Button_gaped.Button_gaped {
@@ -64,18 +65,6 @@ const buttonSizes: Record<size, number> = {
 }
 
 .TransparentMode.TransparentMode {
-  background-color: #fff;
-
-  &:hover {
-    background-color: rgba(233, 235, 239, 0.92);
-  }
-
-  &:active {
-    background-color: var(--active_button-background);
-  }
-}
-
-.LightMode.LightMode {
   background-color: #fff;
 
   &:hover {

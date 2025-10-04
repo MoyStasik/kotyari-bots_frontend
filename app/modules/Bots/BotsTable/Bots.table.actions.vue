@@ -18,7 +18,6 @@
       :mode="'transparent'"
       :size="'small'"
       bordered
-      :class="$style.Button"
     >
       Изменить
     </Button>
@@ -26,7 +25,6 @@
       :mode="'danger'"
       :size="'small'"
       bordered
-      :class="$style.Button"
     >
       Удалить
     </Button>
@@ -42,9 +40,5 @@ import Button from '~/components/Button/Button.vue';
 <style module lang="scss">
 .Row.Row {
   padding-inline-end: 7px;
-}
-
-.Button.Button {
-  padding-inline: 8px;
 }
 </style>

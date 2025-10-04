@@ -4,7 +4,6 @@ export type buttonModes =
   | 'custom'
   | 'transparent'
   | 'active'
-  | 'light'
   | 'danger';
 
 export interface Props {

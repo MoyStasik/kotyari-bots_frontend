@@ -11,31 +11,14 @@
   >
     <Column
       :class="$style.CardContent"
-      :gap="25"
     >
       <div
         :class="$style.CardHeader"
       >
-        <slot name="header">
-          <Paragraph
-            :class="$style.CardHeaderText"
-          >
-            Всего ботов
-          </Paragraph>
-        </slot>
-        <slot name="header_icon">
-          <LucideBot />
-        </slot>
+        <slot name="header" />
+        <slot name="header_icon" />
       </div>
-      <div
-        :class="$style.MainContent"
-      >
-        <Title
-          :level="1"
-        >
-          1
-        </Title>
-      </div>
+      <slot />
     </Column>
   </div>
 </template>
@@ -46,10 +29,8 @@ import type { Props } from './Card.types';
 import { withPX } from '~/utils/utils';
 
 import Column from '../Column/Column.vue';
-import Title from '../Title/Title.vue';
 
 withDefaults(defineProps<Props>(), {
-  size: 120,
   minWidth: 165,
 });
 
@@ -78,16 +59,5 @@ const { isMobile } = useAdaptivity();
   display: flex;
   align-items: center;
   gap: 4px;
-}
-
-.CardHeaderText.CardHeaderText {
-  display: flex;
-  width: 100%;
-}
-
-.MainContent.MainContent {
-  display: flex;
-  height: 100%;
-  align-items: end;
 }
 </style>

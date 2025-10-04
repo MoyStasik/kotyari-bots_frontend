@@ -1,5 +1,6 @@
 <template>
   <Input
+    name="search"
     type="text"
     placeholder="Поиск ботов..."
   >
@@ -22,8 +23,8 @@ import { LucideSearch } from 'lucide-vue-next';
 
 <style module lang="scss">
 .SearchIconWrapper.SearchIconWrapper {
-  padding: 10px;
   display: flex;
   align-items: center;
+  padding-left: 10px;
 }
 </style>
