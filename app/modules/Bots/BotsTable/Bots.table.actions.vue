@@ -18,6 +18,7 @@
       :mode="'transparent'"
       :size="'small'"
       bordered
+      @click="onBotEdit"
     >
       Изменить
     </Button>
@@ -25,6 +26,7 @@
       :mode="'danger'"
       :size="'small'"
       bordered
+      @click="onBotDelete"
     >
       Удалить
     </Button>
@@ -35,6 +37,17 @@
 import Row from '~/components/Row/Row.vue';
 import Button from '~/components/Button/Button.vue';
 
+const emit = defineEmits<{
+  (event: 'bot-edit' | 'bot-delete'): void,
+}>();
+
+const onBotEdit = () => {
+  emit('bot-edit');
+};
+
+const onBotDelete = () => {
+  emit('bot-delete');
+};
 </script>
 
 <style module lang="scss">

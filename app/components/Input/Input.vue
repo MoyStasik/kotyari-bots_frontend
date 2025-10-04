@@ -28,7 +28,6 @@ import Row from '../Row/Row.vue';
 withDefaults(defineProps<Props>(), {
   size: 32,
 });
-
 </script>
 
 <style module lang="scss">
@@ -44,6 +43,15 @@ withDefaults(defineProps<Props>(), {
   border-radius: 0px 8px 8px 0px;
   width: 100%;
   padding-left: 10px;
+  outline: none;
+  transition: color 0.2s, box-shadow 0.2s;
+  font-family: var(--base_ui-sans-typography);
+  font-size: var(--regular_font-size);
+
+  &:focus-visible {
+    border-color: #a1a1a1;
+    box-shadow: 0 0 0 3px #a1a1a1;
+  }
 }
 
 .WithoutIcon.WithoutIcon {

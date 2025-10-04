@@ -11,7 +11,7 @@
         <Title
           :level="2"
         >
-          Создать нового бота
+          {{ bot ? 'Редактировать бота' : 'Создать нового бота' }}
         </Title>
       </ModalHeader>
       <BotsCreateForm
@@ -26,7 +26,9 @@ import Title from '~/components/Title/Title.vue';
 import ModalHeader from '../ModalHeader/ModalHeader.vue';
 import Column from '~/components/Column/Column.vue';
 import BotsCreateForm from '~/modules/Bots/BotsCreateForm/BotsCreateForm.vue';
+import type { Props } from './ModalCreateBot.types';
 
+defineProps<Props>();
 
 const emit = defineEmits<{
   (event: 'close'): void,

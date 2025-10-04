@@ -1,8 +1,11 @@
 <template>
+  <!-- TODO: доделать -->
   <input
+    v-model="checked"
     :name="name"
     :type="'checkbox'"
     :class="$style.Checkbox"
+    @change="emit('checked:change', checked)"
   />
 </template>
 
@@ -10,6 +13,12 @@
 import type { Props } from './Checkbox.types';
 
 defineProps<Props>();
+
+const checked = ref(false);
+
+const emit = defineEmits<{
+  (event: 'checked:change', payload: boolean): void,
+}>();
 </script>
 
 <style module lang="scss">

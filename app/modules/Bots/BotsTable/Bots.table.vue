@@ -7,6 +7,8 @@
       v-for="item in list"
       :key="`bot_${item}`"
       :bot-id="item"
+      @bot-edit="emit('bot-edit', item)"
+      @bot-delete="emit('bot-delete', item)"
     />
   </div>
 </template>
@@ -19,6 +21,9 @@ import BotsTableHeader from './BotsTableHeader.vue';
 
 defineProps<Props>();
 
+const emit = defineEmits<{
+  (event: 'bot-edit' | 'bot-delete', payload: string): void,
+}>();
 </script>
 
 <style module lang="scss">

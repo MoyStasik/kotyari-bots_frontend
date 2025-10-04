@@ -7,6 +7,8 @@
     />
     <BotsTable
       :list="useBots.list"
+      @bot-edit="modalManager?.onOpen()"
+      @bot-delete="onBotDelete"
     />
     <ModalManager
       ref="modalManager"
@@ -23,10 +25,16 @@ import ModalManager from '~/modules/Modals/ModalManager/ModalManager.vue';
 
 const useBots = useBotsStore();
 
+const editBot = ref(false);
 const modalManager = ref<InstanceType<typeof ModalManager> | null>(null);
 
-const onAdd = () => {
+const onAdd = (edit?: boolean) => {
   modalManager.value?.onOpen();
+  editBot.value = !!edit;
+};
+
+const onBotDelete = (botId: string) => {
+  useBots.deleteBot(botId);
 };
 
 onServerPrefetch(async () => {

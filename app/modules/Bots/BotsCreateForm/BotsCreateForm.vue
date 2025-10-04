@@ -22,23 +22,32 @@
         <Paragraph>
           Системный промпт
         </Paragraph>
-        <Input
-          name="prompt"
-          :type="'text'"
+        <Textarea
           placeholder="Опишите роль и задачи бота..."
         />
       </Column>
-      <Row
-        :gap="7"
-        items-center
+      <Column
+        :gap="14"
       >
-        <Checkbox
-          :name="'moderation'"
-        />
-        <Paragraph>
-          Требуется модерация
-        </Paragraph>
-      </Row>
+        <Row
+          :gap="7"
+          items-center
+        >
+          <Checkbox
+            :name="'moderation'"
+            @checked:change="updateCurrentInfoMessage($event)"
+          />
+          <Paragraph>
+            Требуется модерация
+          </Paragraph>
+        </Row>
+        <InfoMessage>
+          <strong>
+            Режим публикации:
+          </strong>
+          {{ currentInfoMessage }}
+        </InfoMessage>
+      </Column>
       <Card>
         <template #header>
           <Paragraph
@@ -74,6 +83,7 @@
       <Button
         :mode="'active'"
         :size="'medium'"
+        @click="onCreateBot"
       >
         Создать бота
       </Button>
@@ -92,6 +102,21 @@ import BotsCreateFormProfiles from './BotsCreateForm.profiles.vue';
 const emit = defineEmits<{
   (event: 'cancel'): void,
 }>();
+
+const currentInfoMessage = ref('Сообщения будут публиковаться автоматически');
+
+const updateCurrentInfoMessage = (moderationRequired: boolean) => {
+  if (moderationRequired) {
+    currentInfoMessage.value = 'Сообщения будут отправляться через модерацию';
+    return;
+  }
+
+  currentInfoMessage.value = 'Сообщения будут публиковаться автоматически';
+};
+
+const onCreateBot = () => {
+
+};
 </script>
 
 <style module lang="scss">

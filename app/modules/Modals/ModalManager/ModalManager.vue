@@ -6,6 +6,7 @@
         :class="$style.ModalWrapper"
       >
         <ModalCreateBot
+          v-bind="$props"
           :class="$style.Modal"
           @close="onClose"
         />
@@ -15,7 +16,11 @@
 </template>
 
 <script setup lang="ts">
+import type { Props } from './ModalManager.types';
+
 import ModalCreateBot from '../Modals/ModalCreateBot/ModalCreateBot.vue';
+
+defineProps<Props>();
 
 const open = ref(false);
 

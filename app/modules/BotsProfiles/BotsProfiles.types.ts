@@ -1,4 +1,4 @@
 export interface BotsProfilesAddItemProps {
-  name: string,
-  email: string,
+  name: string;
+  email: string;
 }
