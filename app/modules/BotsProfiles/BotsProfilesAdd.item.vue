@@ -11,17 +11,13 @@
       >
         {{ name }}
       </Paragraph>
-      <Paragraph
-        :class="$style.ProfileEmail"
-      >
-        {{ email }}
-      </Paragraph>
     </Column>
     <Button
       mode="transparent"
       :size="'small'"
       bordered
       :class="$style.Button"
+      @click="emit('update:profiles', { name })"
     >
       Добавить
     </Button>
@@ -29,13 +25,17 @@
 </template>
 
 <script setup lang="ts">
-import type { BotsProfilesAddItemProps } from './BotsProfiles.types';
+import type { BotsProfilesAddItemProps as Props } from './BotsProfiles.types';
 
 import Column from '~/components/Column/Column.vue';
 import Row from '~/components/Row/Row.vue';
+import type { Profile } from '~/store/bots/bots.types';
 
-defineProps<BotsProfilesAddItemProps>();
+defineProps<Props>();
 
+const emit = defineEmits<{
+  (event: 'update:profiles', payload: Partial<Profile>): void,
+}>();
 </script>
 
 <style module lang="scss">
@@ -52,10 +52,6 @@ defineProps<BotsProfilesAddItemProps>();
 .ProfileName.ProfileName {
   font-size: 14px;
   line-height: 21px;
-}
-
-.ProfileEmail.ProfileEmail {
-  color: var(--subtitile_text-color);
 }
 
 .Button.Button {

@@ -1,14 +1,13 @@
-export interface Profiles {
+export interface Profile {
   id: string;
   name: string;
-  email: string;
   systemPrompt: string;
 }
 
 export interface BotsState {
   id: string;
   name: string;
-  profiles: Profiles[];
+  profiles: Profile[];
   profilesCount: number;
   systemPrompt: string;
   moderationRequired: boolean;

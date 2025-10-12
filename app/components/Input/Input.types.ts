@@ -5,5 +5,5 @@ export interface Props {
   type: InputTypeHTMLAttribute;
   placeholder?: string;
   size?: number;
-  value?: string,
+  value: string,
 }

@@ -75,7 +75,7 @@ defineExpose({
 .Modal.Modal {
   background-color: #fff;
   padding: 20px;
-  border-radius: 8px;
+  border-radius: var(--smal_border-radius);
   position: absolute;
 }
 </style>

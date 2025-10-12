@@ -15,6 +15,7 @@
         :class="$style.InputWrapper"
       >
         <SearchInput
+          :value="searchValue"
           :class="$style.SearchInput"
         />
       </div>
@@ -52,6 +53,8 @@ import SearchInput from '~/components/Search/SearchInput.vue';
 const emit = defineEmits<{
   (event: 'click:add'): void,
 }>();
+
+const searchValue = ref<string>('');
 </script>
 
 <style module lang="scss">

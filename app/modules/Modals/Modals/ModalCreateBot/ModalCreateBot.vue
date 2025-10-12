@@ -22,11 +22,12 @@
 </template>
 
 <script setup lang="ts">
+import type { Props } from './ModalCreateBot.types';
+
 import Title from '~/components/Title/Title.vue';
 import ModalHeader from '../ModalHeader/ModalHeader.vue';
 import Column from '~/components/Column/Column.vue';
-import BotsCreateForm from '~/modules/Bots/BotsCreateForm/BotsCreateForm.vue';
-import type { Props } from './ModalCreateBot.types';
+import BotsCreateForm from '~/modules/Bots/BotsCreateForm/BotsCreate.form.vue';
 
 defineProps<Props>();
 

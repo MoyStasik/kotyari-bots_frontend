@@ -12,9 +12,9 @@
 <script setup lang="ts">
 import type { Props } from './Checkbox.types';
 
-defineProps<Props>();
+const props = defineProps<Props>();
 
-const checked = ref(false);
+const checked = ref(props.value);
 
 const emit = defineEmits<{
   (event: 'checked:change', payload: boolean): void,
@@ -25,7 +25,7 @@ const emit = defineEmits<{
 .Checkbox.Checkbox {
   width: 14px;
   height: 14px;
-  border-radius: 8px;
+  border-radius: var(--smal_border-radius);
   background-color: var(--input_background);
 }
 </style>

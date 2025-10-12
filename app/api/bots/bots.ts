@@ -17,7 +17,9 @@ class BotsApiClient extends ApiClient {
   public async createBot(data: CreateBotRequestData) {
     const response = await this.post<CreateBotResponseData, CreateBotRequestData>({
       url: this.createBotsUrl,
-      ...data,
+      body: {
+        ...data,
+      },
     });
 
     return response;

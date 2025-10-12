@@ -1,5 +1,5 @@
 <template>
-  <!-- вынести в Paragraph + Input в form field -->
+  <!-- вынести Paragraph + Input в form field -->
   <form>
     <Column
     :gap="20"
@@ -11,9 +11,11 @@
           Название бота
         </Paragraph>
         <Input
+          :value="botName"
           name="name"
           :type="'text'"
           placeholder="Торговый бот #1"
+          @update:model-value="botName = $event"
         />
       </Column>
       <Column
@@ -23,7 +25,9 @@
           Системный промпт
         </Paragraph>
         <Textarea
+          :value="prompt"
           placeholder="Опишите роль и задачи бота..."
+          @update:model-value="prompt = $event as string"
         />
       </Column>
       <Column
@@ -35,6 +39,7 @@
         >
           <Checkbox
             :name="'moderation'"
+            :value="moderationRequired"
             @checked:change="updateCurrentInfoMessage($event)"
           />
           <Paragraph>
@@ -48,25 +53,9 @@
           {{ currentInfoMessage }}
         </InfoMessage>
       </Column>
-      <Card>
-        <template #header>
-          <Paragraph
-            :class="$style.ProfilesTitle"
-          >
-            Профили бота
-          </Paragraph>
-        </template>
-        <Paragraph
-          :class="$style.AvailableProfiles"
-        >
-          Доступные профили:
-        </Paragraph>
-        <Column
-          :gap="7"
-        >
-          <BotsCreateFormProfiles />
-        </Column>
-      </Card>
+      <BotsCreateFormProfiles
+        :profiles="botProfiles"
+      />
     </Column>
     <Row
       :gap="7"
@@ -92,21 +81,27 @@
 </template>
 
 <script setup lang="ts">
+import { useBotsCreateForm } from './BotsCreate.form';
+import { useBotsStore } from '~/store/bots/bots';
+
 import Column from '~/components/Column/Column.vue';
 import Input from '~/components/Input/Input.vue';
 import Row from '~/components/Row/Row.vue';
 import Paragraph from '~/components/Paragraph/Paragraph.vue';
-import Card from '~/components/Card/Card.vue';
 import BotsCreateFormProfiles from './BotsCreateForm.profiles.vue';
 
 const emit = defineEmits<{
   (event: 'cancel'): void,
 }>();
 
+const useBots = useBotsStore();
+
+const { botName, prompt, moderationRequired, botProfiles } = useBotsCreateForm();
 const currentInfoMessage = ref('Сообщения будут публиковаться автоматически');
 
-const updateCurrentInfoMessage = (moderationRequired: boolean) => {
-  if (moderationRequired) {
+const updateCurrentInfoMessage = (moderation: boolean) => {
+  moderationRequired.value = moderation;
+  if (moderation) {
     currentInfoMessage.value = 'Сообщения будут отправляться через модерацию';
     return;
   }
@@ -115,20 +110,16 @@ const updateCurrentInfoMessage = (moderationRequired: boolean) => {
 };
 
 const onCreateBot = () => {
-
+  useBots.createBot({
+    name: botName.value,
+    systemPrompt: prompt.value,
+    moderationRequired: moderationRequired.value,
+    autoPublish: !moderationRequired.value,
+  });
 };
 </script>
 
 <style module lang="scss">
-.ProfilesTitle.ProfilesTitle {
-  font-size: 14px;
-}
-
-.AvailableProfiles.AvailableProfiles {
-  margin-top: 20px;
-  margin-bottom: 7px;
-}
-
 .ButtonsRow.ButtonsRow {
   margin-top: 20px;
   justify-content: end;

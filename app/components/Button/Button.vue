@@ -45,7 +45,7 @@ const buttonSizes: Record<size, number> = {
 
 <style module lang="scss">
 .Button.Button {
-  border-radius: 8px;
+  border-radius: var(--smal_border-radius);
   border: none;
   cursor: pointer;
   display: flex;
