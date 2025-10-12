@@ -9,7 +9,7 @@
       <Paragraph
         :class="$style.ProfileName"
       >
-        {{ name }}
+        {{ profile.name }}
       </Paragraph>
     </Column>
     <Button
@@ -17,7 +17,7 @@
       :size="'small'"
       bordered
       :class="$style.Button"
-      @click="emit('update:profiles', { name })"
+      @click="emit('update:profiles', profile)"
     >
       Добавить
     </Button>
@@ -34,7 +34,7 @@ import type { Profile } from '~/store/bots/bots.types';
 defineProps<Props>();
 
 const emit = defineEmits<{
-  (event: 'update:profiles', payload: Partial<Profile>): void,
+  (event: 'update:profiles', payload: Profile): void,
 }>();
 </script>
 

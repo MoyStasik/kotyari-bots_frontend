@@ -3,22 +3,31 @@
   <Row
     items-center
     :class="[
-      $style.BotsItemWrapper,
-      {[$style.BotsItemWrapper_Mobile]: isMobile}
+      $style.BotsItemWrapper, {
+        [$style.BotsItemWrapper_Mobile]: isMobile,
+      }
     ]"
   >
-    <Paragraph
+    <template
       v-for="item in getFormattedBotInfo(bot)"
       :key="`column_${item.name}`"
-      :style="{ minWidth: withPX(item.minWidth), maxWidth: withPX(item.minWidth)}"
     >
-      {{ item.name }}
-    </Paragraph>
+      <Paragraph
+        v-if="!isMobile || isMobile && item.columnName !== 'Создан'"
+        :style="{ minWidth: withPX(item.minWidth), maxWidth: withPX(item.minWidth)}"
+      >
+        {{ item.name }}
+      </Paragraph>
+    </template>
     <BotsTableActions
       @bot-edit="emit('bot-edit')"
       @bot-delete="emit('bot-delete')"
     />
   </Row>
+  <Separator
+    v-if="!last"
+    :size="1"
+  />
 </template>
 
 <script setup lang="ts">
@@ -50,7 +59,6 @@ const emit = defineEmits<{
   width: 100%;
   height: 45px;
   padding-inline-start: 7px;
-  border-bottom: 1px solid var(--regular_border-background);
 }
 
 .BotsItemWrapper_Mobile.BotsItemWrapper_Mobile {

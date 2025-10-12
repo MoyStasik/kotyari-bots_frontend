@@ -4,7 +4,7 @@ export const useBotsCreateForm = () => {
   const botName = ref<string>('');
   const prompt = ref<string>('');
   const moderationRequired = ref(false);
-  const botProfiles = ref<Partial<Profile>[]>([]);
+  const botProfiles = ref<Profile[]>([]);
 
   return {
     botName,

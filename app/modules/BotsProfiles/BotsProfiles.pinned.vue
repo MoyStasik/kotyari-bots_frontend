@@ -31,7 +31,7 @@ import Row from '~/components/Row/Row.vue';
 defineProps<Props>();
 
 const emit = defineEmits<{
-  (event: 'removeProfile', payload: Partial<Profile>): void
+  (event: 'removeProfile', payload: Profile): void
 }>();
 </script>
 

@@ -3,13 +3,17 @@
     :class="$style.BotsItemWrapper"
     items-center
   >
-    <Paragraph
+    <template
       v-for="(item, idx) in Object.entries(TableHeader)"
       :key="`table_${idx}`"
-      :style="{ minWidth: withPX(isDesktop ? item[1].minWidth + 70 : item[1].minWidth) }"
     >
-      {{ item[0] }}
-    </Paragraph>
+      <Paragraph
+        v-if="item[0] !== 'Создан'"
+        :style="{ minWidth: withPX(isDesktop ? item[1].minWidth + 70 : item[1].minWidth) }"
+      >
+        {{ item[0] }}
+      </Paragraph>
+    </template>
     <Paragraph>
       Действия
     </Paragraph>

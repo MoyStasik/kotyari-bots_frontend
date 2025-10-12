@@ -36,11 +36,12 @@
       </Paragraph>
       <Column
         :gap="7"
+        :class="$style.ProfilesList"
       >
         <BotsProfilesAddItem
           v-for="item in availableProfiles"
           :key="`profile_${item.name}`"
-          v-bind="item"
+          :profile="item"
           @update:profiles="onAddProfile"
         />
       </Column>
@@ -62,15 +63,15 @@ import BotsProfilesPinned from '~/modules/BotsProfiles/BotsProfiles.pinned.vue';
 
 const props = defineProps<Props>();
 
-const profiles = ref<Partial<Profile>[]>(props.profiles);
-  const availableProfiles = ref<Partial<Profile>[]>(BotsProfiles);
+const profiles = ref<Profile[]>(props.profiles);
+  const availableProfiles = ref<Profile[]>(BotsProfiles);
 
-const onAddProfile = (profile: Partial<Profile>) => {
+const onAddProfile = (profile: Profile) => {
   profiles.value.push(profile);
   availableProfiles.value = availableProfiles.value.filter((item) => item.name !== profile.name);
 };
 
-const onRemoveProfile = (profile: Partial<Profile>) => {
+const onRemoveProfile = (profile: Profile) => {
   profiles.value = profiles.value.filter((item) =>  {
     if (item.name !== profile.name) {
       return true;
@@ -101,5 +102,10 @@ const onRemoveProfile = (profile: Partial<Profile>) => {
 
 .PinnedProfiles.PinnedProfiles {
   margin-bottom: 14px;
+}
+
+.ProfilesList.ProfilesList {
+  max-height: 175px;
+  overflow: scroll;
 }
 </style>

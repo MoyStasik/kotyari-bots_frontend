@@ -1,3 +1,3 @@
 export interface SearchInputProps {
-  value: HTMLInputElement['value'],
+  value: HTMLInputElement['value'];
 }

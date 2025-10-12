@@ -1,6 +1,9 @@
 import { useBotsApiClient } from '~/api/bots/bots';
 import type { BotsState } from './bots.types';
-import type { CreateBotRequestData, GetBotsRequestData } from '~/api/bots/bots.types';
+import type {
+  CreateBotRequestData,
+  GetBotsRequestData,
+} from '~/api/bots/bots.types';
 
 export const useBotsStore = defineStore('bots', () => {
   const bots = ref<BotsState[]>([]);
@@ -17,12 +20,12 @@ export const useBotsStore = defineStore('bots', () => {
   }
 
   function deleteBot(botId: string) {
-    const botIndex = bots.value.findIndex(bot => bot.id === botId);
+    const botIndex = bots.value.findIndex((bot) => bot.id === botId);
     if (botIndex !== -1) {
       bots.value.splice(botIndex, 1);
     }
 
-    const listIndex = list.value.findIndex(id => id === botId);
+    const listIndex = list.value.findIndex((id) => id === botId);
     if (listIndex !== -1) {
       list.value.splice(listIndex, 1);
     }
