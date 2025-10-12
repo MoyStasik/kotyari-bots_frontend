@@ -1,16 +1,19 @@
-import type { BotsProfilesAddItemProps } from '~/modules/BotsProfiles/BotsProfiles.types';
+import type { Profile } from '~/store/bots/bots.types';
 
-export const BotsProfiles: BotsProfilesAddItemProps[] = [
+export const BotsProfiles: Profile[] = [
   {
+    id: '1',
     name: 'Продавец-консультант',
-    email: 'sales@example.com',
+    systemPrompt: 'Консультант',
   },
   {
+    id: '2',
     name: 'Служба поддержки',
-    email: 'support@example.com',
+    systemPrompt: 'Поддержка',
   },
   {
+    id: '3',
     name: 'Маркетолог',
-    email: 'marketing@example.com',
+    systemPrompt: 'Маркетолог',
   },
 ];

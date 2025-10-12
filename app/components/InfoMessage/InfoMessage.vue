@@ -17,7 +17,7 @@ import Paragraph from '../Paragraph/Paragraph.vue';
 
 <style module lang="scss">
 .InfoMessage.InfoMessage {
-  border-radius: 8px;
+  border-radius: var(--smal_border-radius);
   padding: 10px;
   background-color: var(--info-message_background-color);
 }

@@ -1,15 +1,20 @@
 <template>
   <textarea
     v-bind="$props"
+    :value="value"
     :class="$style.Textarea"
+    @input="(event: Event) => emit('update:modelValue', (event.target as HTMLInputElement).value)"
   />
 </template>
 
 <script setup lang="ts">
 import type { Props } from './Textarea.types';
 
-defineProps<Props>();
+const props = defineProps<Props>();
 
+const emit = defineEmits<{
+  (event: 'update:modelValue', payload: typeof props.value): void,
+}>();
 </script>
 
 <style module lang="scss">
@@ -22,7 +27,7 @@ defineProps<Props>();
   display: flex;
   field-sizing: content;
   padding: 10px;
-  border-radius: 8px;
+  border-radius: var(--smal_border-radius);
   border: none;
   outline: none;
   background-color: var(--input_background);

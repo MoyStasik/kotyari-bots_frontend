@@ -1,3 +1,6 @@
+import type { TextareaHTMLAttributes } from 'vue';
+
 export interface Props {
-  placeholder: string,
+  placeholder: string;
+  value: TextareaHTMLAttributes['value'];
 }
