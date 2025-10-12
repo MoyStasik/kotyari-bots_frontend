@@ -4,12 +4,12 @@ export const BotsProfiles: Profile[] = [
   {
     id: '1',
     name: 'Продавец-консультант',
-    systemPrompt: 'Консультант'
+    systemPrompt: 'Консультант',
   },
   {
     id: '2',
     name: 'Служба поддержки',
-    systemPrompt: 'Поддержка'
+    systemPrompt: 'Поддержка',
   },
   {
     id: '3',

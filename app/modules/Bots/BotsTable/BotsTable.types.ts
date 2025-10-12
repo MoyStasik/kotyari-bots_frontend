@@ -4,5 +4,5 @@ export interface Props {
 
 export interface BotsTableItemProps {
   botId: string;
-  last?: boolean,
+  last?: boolean;
 }
