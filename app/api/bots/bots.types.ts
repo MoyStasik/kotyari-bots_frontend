@@ -26,3 +26,13 @@ export interface CreateBotRequestData extends BodyParams {
 }
 
 export interface CreateBotResponseData extends BotResponse {}
+
+export interface DeleteBotRequestData extends BodyParams {
+  botId: string,
+}
+
+export interface DeleteBotResponseData {}
+
+export interface UpdateBotRequestData extends CreateBotRequestData {}
+
+export interface UpdateBotResponseData extends BotResponse {}

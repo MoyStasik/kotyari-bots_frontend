@@ -74,13 +74,15 @@
         :size="'medium'"
         @click="onCreateBot"
       >
-        Создать бота
+        {{ bot ? 'Сохранить изменения' : 'Создать бота' }}
       </Button>
     </Row>
   </form>
 </template>
 
 <script setup lang="ts">
+import type { BotsCreateFormProps as Props } from './BotsCreateForm.types';
+
 import { useBotsCreateForm } from './BotsCreate.form';
 import { useBotsStore } from '~/store/bots/bots';
 
@@ -89,6 +91,8 @@ import Input from '~/components/Input/Input.vue';
 import Row from '~/components/Row/Row.vue';
 import Paragraph from '~/components/Paragraph/Paragraph.vue';
 import BotsCreateFormProfiles from './BotsCreateForm.profiles.vue';
+
+const props = defineProps<Props>();
 
 const emit = defineEmits<{
   (event: 'cancel'): void,
@@ -109,14 +113,43 @@ const updateCurrentInfoMessage = (moderation: boolean) => {
   currentInfoMessage.value = 'Сообщения будут публиковаться автоматически';
 };
 
-const onCreateBot = () => {
-  useBots.createBot({
+const onCreateBot = async () => {
+  if (props.bot) {
+    await useBots.updateBot(props.bot.id, {
+      name: botName.value,
+      systemPrompt: prompt.value,
+      moderationRequired: moderationRequired.value,
+      autoPublish: !moderationRequired.value,
+    });
+
+    emit('cancel');
+    return;
+  }
+
+  await useBots.createBot({
     name: botName.value,
     systemPrompt: prompt.value,
     moderationRequired: moderationRequired.value,
     autoPublish: !moderationRequired.value,
   });
+
+  emit('cancel');
 };
+
+const processBotState = () => {
+  if (!props.bot) {
+    return;
+  }
+
+  botName.value = props.bot.name;
+  prompt.value = props.bot.systemPrompt;
+  moderationRequired.value = props.bot.moderationRequired;
+  botProfiles.value = props.bot.profiles;
+};
+
+watch(() => props.bot, () => {
+  processBotState();
+}, { immediate: true, once: true });
 </script>
 
 <style module lang="scss">
