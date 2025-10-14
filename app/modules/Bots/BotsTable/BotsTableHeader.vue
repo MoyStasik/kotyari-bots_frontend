@@ -8,7 +8,7 @@
       :key="`table_${idx}`"
     >
       <Paragraph
-        v-if="item[0] !== 'Создан'"
+        v-if="!isMobile || isMobile && item[0] !== 'Создан'"
         :style="{ minWidth: withPX(isDesktop ? item[1].minWidth + 70 : item[1].minWidth) }"
       >
         {{ item[0] }}
@@ -27,7 +27,7 @@ import Paragraph from '~/components/Paragraph/Paragraph.vue';
 import { TableHeader } from './Bots.table.constants';
 import { withPX } from '@/utils/utils';
 
-const { isDesktop } = useAdaptivity();
+const { isDesktop, isMobile } = useAdaptivity();
 
 </script>
 

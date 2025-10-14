@@ -3,6 +3,7 @@ import type { BotsState } from './bots.types';
 import type {
   CreateBotRequestData,
   GetBotsRequestData,
+  UpdateBotRequestData,
 } from '~/api/bots/bots.types';
 
 export const useBotsStore = defineStore('bots', () => {
@@ -19,22 +20,33 @@ export const useBotsStore = defineStore('bots', () => {
     bots.value.push(bot);
   }
 
-  function deleteBot(botId: string) {
-    const botIndex = bots.value.findIndex((bot) => bot.id === botId);
+  function get(id: string) {
+    return bots.value.find((bot) => {
+      return bot.id === id;
+    });
+  }
+
+  function update(id: string, payload: BotsState) {
+    const botIndex = bots.value.findIndex((bot) => bot.id === id);
+    bots.value[botIndex] = payload;
+  }
+
+  function remove(id: string) {
+    const botIndex = bots.value.findIndex((bot) => bot.id === id);
     if (botIndex !== -1) {
       bots.value.splice(botIndex, 1);
     }
 
-    const listIndex = list.value.findIndex((id) => id === botId);
+    const listIndex = list.value.findIndex((elemId) => elemId === id);
     if (listIndex !== -1) {
       list.value.splice(listIndex, 1);
     }
   }
 
-  function get(id: string) {
-    return bots.value.find((bot) => {
-      return bot.id === id;
-    });
+  async function deleteBot(botId: string) {
+    await ApiClient.deleteBot({ botId });
+
+    remove(botId);
   }
 
   async function getBots(data: GetBotsRequestData = {}) {
@@ -59,6 +71,16 @@ export const useBotsStore = defineStore('bots', () => {
     return response;
   }
 
+  async function updateBot(botId: string, data: UpdateBotRequestData) {
+    const response = await ApiClient.updateBot(botId, data);
+
+    if (!response) {
+      return;
+    }
+
+    update(botId, response);
+  }
+
   return {
     bots,
     list,
@@ -68,5 +90,6 @@ export const useBotsStore = defineStore('bots', () => {
     getBots,
     createBot,
     deleteBot,
+    updateBot,
   };
 });
