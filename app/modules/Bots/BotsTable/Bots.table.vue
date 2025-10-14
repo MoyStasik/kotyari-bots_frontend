@@ -15,6 +15,14 @@
         @bot-edit="emit('bot-edit', item)"
         @bot-delete="emit('bot-delete', item)"
       />
+      <BotsTableItem
+        v-for="(item, idx) in list"
+        :key="`bot_${item}`"
+        :bot-id="item"
+        :last="idx + 1 === list.length"
+        @bot-edit="emit('bot-edit', item)"
+        @bot-delete="emit('bot-delete', item)"
+      />
     </div>
     <div
       v-else
