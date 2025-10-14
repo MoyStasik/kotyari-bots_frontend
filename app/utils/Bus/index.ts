@@ -17,9 +17,10 @@ export class Bus {
   }
 
   unsubscribe(eventName: string, callback: callback) {
-    this.subscribers[eventName] = this.subscribers[eventName]?.filter((listener) => {
-      return callback !== listener;
-    }) || [];
+    this.subscribers[eventName] =
+      this.subscribers[eventName]?.filter((listener) => {
+        return callback !== listener;
+      }) || [];
   }
 
   emit(eventName: string, params?: any) {
