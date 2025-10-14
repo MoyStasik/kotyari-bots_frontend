@@ -1,0 +1,18 @@
+:root {
+  --black_text-color: #333333;
+  --subtitile_text-color: #717182;
+  --info-message_background-color: #ececf0;
+  --base_ui-sans-typography: 'ui-sans-serif';
+  --accent-foreground: #030213;
+  --active_button-background: #dddddd;
+  --regular_border-background: #0000001a;
+  --regular_border-radius: 12px;
+  --smal_border-radius: 8px;
+  --input_background: #f3f3f5;
+  --regular_font-size: 13px;
+}
+
+@font-face {
+  font-family: 'ui-sans-serif';
+  src: url('../fonts/sf-ui-display-medium-58646be638f96.otf');
+}
