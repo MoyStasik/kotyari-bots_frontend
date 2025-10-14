@@ -28,7 +28,7 @@ export interface CreateBotRequestData extends BodyParams {
 export interface CreateBotResponseData extends BotResponse {}
 
 export interface DeleteBotRequestData extends BodyParams {
-  botId: string,
+  botId: string;
 }
 
 export interface DeleteBotResponseData {}

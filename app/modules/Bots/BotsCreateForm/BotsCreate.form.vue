@@ -95,7 +95,7 @@ import BotsCreateFormProfiles from './BotsCreateForm.profiles.vue';
 const props = defineProps<Props>();
 
 const emit = defineEmits<{
-  (event: 'cancel'): void,
+  (event: 'cancel' | 'close'): void,
 }>();
 
 const useBots = useBotsStore();
@@ -122,7 +122,7 @@ const onCreateBot = async () => {
       autoPublish: !moderationRequired.value,
     });
 
-    emit('cancel');
+    emit('close');
     return;
   }
 
@@ -133,7 +133,7 @@ const onCreateBot = async () => {
     autoPublish: !moderationRequired.value,
   });
 
-  emit('cancel');
+  emit('close');
 };
 
 const processBotState = () => {

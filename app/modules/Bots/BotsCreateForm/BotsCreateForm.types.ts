@@ -6,5 +6,5 @@ export interface BotsCreateFormProfilesProps {
 }
 
 export interface BotsCreateFormProps {
-  bot?: BotResponse,
+  bot?: BotResponse;
 }

@@ -17,6 +17,7 @@
       <BotsCreateForm
         :bot="bot"
         @cancel="emit('close')"
+        @close="emit('close')"
       />
     </Column>
   </div>

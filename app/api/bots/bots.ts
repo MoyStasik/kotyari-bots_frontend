@@ -40,7 +40,10 @@ class BotsApiClient extends ApiClient {
   }
 
   public async deleteBot(data: DeleteBotRequestData) {
-    const response = await this.delete<DeleteBotResponseData, DeleteBotRequestData>({
+    const response = await this.delete<
+      DeleteBotResponseData,
+      DeleteBotRequestData
+    >({
       url: `${this.deleteBotUrl}${data.botId}`,
     });
 
@@ -48,7 +51,10 @@ class BotsApiClient extends ApiClient {
   }
 
   public async updateBot(botId: string, data: UpdateBotRequestData) {
-    const response = await this.put<UpdateBotResponseData, UpdateBotRequestData>({
+    const response = await this.put<
+      UpdateBotResponseData,
+      UpdateBotRequestData
+    >({
       url: `${this.updateBotUrl}${botId}`,
       body: {
         ...data,
