@@ -65,7 +65,7 @@ export const useBotsStore = defineStore('bots', () => {
 
     if (response) {
       add(response);
-      list.value.push(response.id);
+      list.value.unshift(response.id);
     }
 
     return response;
