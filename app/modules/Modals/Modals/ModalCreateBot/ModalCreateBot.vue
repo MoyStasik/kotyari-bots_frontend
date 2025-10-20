@@ -15,7 +15,9 @@
         </Title>
       </ModalHeader>
       <BotsCreateForm
+        :bot="bot"
         @cancel="emit('close')"
+        @close="emit('close')"
       />
     </Column>
   </div>
@@ -24,16 +26,22 @@
 <script setup lang="ts">
 import type { Props } from './ModalCreateBot.types';
 
+import { useBotsStore } from '~/store/bots/bots';
+
 import Title from '~/components/Title/Title.vue';
 import ModalHeader from '../ModalHeader/ModalHeader.vue';
 import Column from '~/components/Column/Column.vue';
 import BotsCreateForm from '~/modules/Bots/BotsCreateForm/BotsCreate.form.vue';
 
-defineProps<Props>();
+const props = defineProps<Props>();
 
 const emit = defineEmits<{
   (event: 'close'): void,
 }>();
+
+const useBots = useBotsStore();
+
+const bot = computed(() => useBots.get(props?.botId || ''));
 </script>
 
 <style module lang="scss">

@@ -7,11 +7,12 @@
     />
     <BotsTable
       :list="useBots.list"
-      @bot-edit="modalManager?.onOpen()"
+      @bot-edit="onBotEdit"
       @bot-delete="onBotDelete"
     />
     <ModalManager
       ref="modalManager"
+      :bot-id="botID"
     />
   </div>
 </template>
@@ -27,6 +28,7 @@ const useBots = useBotsStore();
 
 const editBot = ref(false);
 const modalManager = ref<InstanceType<typeof ModalManager> | null>(null);
+const botID = ref('');
 
 const onAdd = (edit?: boolean) => {
   modalManager.value?.onOpen();
@@ -35,6 +37,11 @@ const onAdd = (edit?: boolean) => {
 
 const onBotDelete = (botId: string) => {
   useBots.deleteBot(botId);
+};
+
+const onBotEdit = (botId: string) => {
+  botID.value = botId;
+  modalManager.value?.onOpen();
 };
 
 onServerPrefetch(async () => {
