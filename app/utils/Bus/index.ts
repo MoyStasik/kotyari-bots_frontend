@@ -1,13 +1,13 @@
-type callback = (...args: any) => any;
+export type callback = (...args: any) => any;
 
-export class Bus {
-  subscribers: Record<string, callback[]>;
+export class Bus<T extends string, Params = any> {
+  subscribers: Record<T, callback[]>;
 
   constructor() {
-    this.subscribers = {} as Record<string, callback[]>;
+    this.subscribers = {} as Record<T, callback[]>;
   }
 
-  subscribe(eventName: string, callback: callback) {
+  subscribe(eventName: T, callback: callback) {
     if (this.subscribers[eventName]?.length) {
       this.subscribers[eventName].push(callback);
       return;
@@ -16,14 +16,14 @@ export class Bus {
     this.subscribers[eventName] = [callback];
   }
 
-  unsubscribe(eventName: string, callback: callback) {
+  unsubscribe(eventName: T, callback: callback) {
     this.subscribers[eventName] =
       this.subscribers[eventName]?.filter((listener) => {
         return callback !== listener;
       }) || [];
   }
 
-  emit(eventName: string, params?: any) {
+  emit(eventName: T, ...params: Params[]) {
     this.subscribers[eventName]?.forEach((callback: callback) => {
       callback(...params);
     });

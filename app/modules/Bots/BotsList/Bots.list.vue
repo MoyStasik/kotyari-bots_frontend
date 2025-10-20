@@ -10,10 +10,6 @@
       @bot-edit="onBotEdit"
       @bot-delete="onBotDelete"
     />
-    <ModalManager
-      ref="modalManager"
-      :bot-id="botID"
-    />
   </div>
 </template>
 
@@ -22,16 +18,16 @@ import { useBotsStore } from '~/store/bots/bots';
 
 import BotsListHeader from './Bots.list.header.vue';
 import BotsTable from '../BotsTable/Bots.table.vue';
-import ModalManager from '~/modules/Modals/ModalManager/ModalManager.vue';
+
+const { $modal } = useNuxtApp();
 
 const useBots = useBotsStore();
 
 const editBot = ref(false);
-const modalManager = ref<InstanceType<typeof ModalManager> | null>(null);
 const botID = ref('');
 
 const onAdd = (edit?: boolean) => {
-  modalManager.value?.onOpen();
+  $modal.open('ModalCreateBot', {});
   editBot.value = !!edit;
 };
 
@@ -41,7 +37,7 @@ const onBotDelete = (botId: string) => {
 
 const onBotEdit = (botId: string) => {
   botID.value = botId;
-  modalManager.value?.onOpen();
+  $modal.open('ModalCreateBot', {});
 };
 
 onServerPrefetch(async () => {

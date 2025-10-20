@@ -16,20 +16,26 @@
 </template>
 
 <script setup lang="ts">
-import type { Props } from './ModalManager.types';
+import type { ModalName, Props } from './ModalManager.types';
 
-import ModalCreateBot from '../Modals/ModalCreateBot/ModalCreateBot.vue';
+const ModalCreateBot = defineAsyncComponent(() => import('../Modals/ModalCreateBot/ModalCreateBot.vue'));
 
 defineProps<Props>();
 
+const state = ref<ModalName[]>([]);
+
+const { $modal } = useNuxtApp();
+
 const open = ref(false);
 
-const onOpen = () => {
+const onOpen = (name: ModalName) => {
   open.value = true;
+  state.value.push(name);
 };
 
 const onClose = () => {
   open.value = false;
+  state.value = [];
 };
 
 watch(() => open.value, () => {
@@ -43,6 +49,16 @@ watch(() => open.value, () => {
 
 defineExpose({
   onOpen,
+});
+
+onMounted(() => {
+  $modal.on('open', onOpen);
+  $modal.on('close', onClose);
+});
+
+onBeforeUnmount(() => {
+  $modal.off('open', onOpen);
+  $modal.off('close', onClose);
 });
 </script>
 
