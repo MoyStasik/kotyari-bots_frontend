@@ -11,6 +11,7 @@ export default withNuxt(
       'semi': ['error', 'always'],
       '@typescript-eslint/no-empty-object-type': 'off',
       'quotes': ['error', 'single'],
+      '@typescript-eslint/no-invalid-void-type': 'off',
     },
   }
 );
