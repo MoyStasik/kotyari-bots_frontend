@@ -5,31 +5,48 @@
         v-if="open"
         :class="$style.ModalWrapper"
       >
-        <ModalCreateBot
-          v-bind="$props"
-          :class="$style.Modal"
-          @close="onClose"
-        />
+        <template
+          v-for="item in Object.keys(state)"
+          :key="`modal_${item}`"
+        >
+          <component
+            :is="modals[item as ModalName]"
+            v-bind="state[item as ModalName]"
+            :class="$style.Modal"
+            @close="onClose"
+          />
+        </template>
       </div>
     </Transition>
   </Teleport>
 </template>
 
 <script setup lang="ts">
-import type { Props } from './ModalManager.types';
+import type { Component } from 'vue';
+import type { ModalName, Props } from './ModalManager.types';
 
-import ModalCreateBot from '../Modals/ModalCreateBot/ModalCreateBot.vue';
+const ModalCreateBot = defineAsyncComponent(() => import('../Modals/ModalCreateBot/ModalCreateBot.vue'));
 
 defineProps<Props>();
 
+let state: Partial<Record<ModalName, any>> = ({});
+
+const modals: Record<ModalName, Component> = ({
+  'ModalCreateBot': ModalCreateBot,
+});
+
+const { $modal } = useNuxtApp();
+
 const open = ref(false);
 
-const onOpen = () => {
+const onOpen = (name: ModalName, props: any) => {
   open.value = true;
+  state[name] = props;
 };
 
 const onClose = () => {
   open.value = false;
+  state = {};
 };
 
 watch(() => open.value, () => {
@@ -43,6 +60,16 @@ watch(() => open.value, () => {
 
 defineExpose({
   onOpen,
+});
+
+onMounted(() => {
+  $modal.on('open', onOpen);
+  $modal.on('close', onClose);
+});
+
+onBeforeUnmount(() => {
+  $modal.off('open', onOpen);
+  $modal.off('close', onClose);
 });
 </script>
 
