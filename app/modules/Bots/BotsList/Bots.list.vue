@@ -37,7 +37,9 @@ const onBotDelete = (botId: string) => {
 
 const onBotEdit = (botId: string) => {
   botID.value = botId;
-  $modal.open('ModalCreateBot', {});
+  $modal.open('ModalCreateBot', {
+    botId: botId,
+  });
 };
 
 onServerPrefetch(async () => {
