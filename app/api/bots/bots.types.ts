@@ -40,6 +40,6 @@ export interface UpdateBotResponseData extends BotResponse {}
 export interface GetBotsSummaryRequestData extends BodyParams {}
 
 export interface GetBostSummaryResponseData {
-  totalBots: number,
-  totalProfilesAttached: number,
+  totalBots: number;
+  totalProfilesAttached: number;
 }

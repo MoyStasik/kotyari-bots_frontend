@@ -68,7 +68,10 @@ class BotsApiClient extends ApiClient {
   }
 
   public async getBotsSummary(data: GetBotsSummaryRequestData) {
-    const response = await this.get<GetBostSummaryResponseData, GetBotsSummaryRequestData>({
+    const response = await this.get<
+      GetBostSummaryResponseData,
+      GetBotsSummaryRequestData
+    >({
       url: this.botsSummaryUrl,
       ...data,
     });

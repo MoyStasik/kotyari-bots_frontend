@@ -18,6 +18,7 @@
       <template #header_icon>
         <component
           :is="icons[botsSummary[item as keyof GetBostSummaryResponseData].icon]"
+          :size="14"
         />
       </template>
       <Title
