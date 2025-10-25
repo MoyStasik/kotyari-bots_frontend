@@ -39,6 +39,10 @@ export const useBotsStore = defineStore('bots', () => {
       bots.value.splice(botIndex, 1);
     }
 
+    if (summary.value.totalBots) {
+      summary.value.totalBots--;
+    }
+
     const listIndex = list.value.findIndex((elemId) => elemId === id);
     if (listIndex !== -1) {
       list.value.splice(listIndex, 1);
@@ -65,9 +69,15 @@ export const useBotsStore = defineStore('bots', () => {
   async function createBot(data: CreateBotRequestData) {
     const response = await ApiClient.createBot(data);
 
-    if (response) {
-      add(response);
-      list.value.unshift(response.id);
+    if (!response) {
+      return;
+    }
+
+    add(response);
+    list.value.unshift(response.id);
+
+    if (summary.value.totalBots) {
+      summary.value.totalBots++;
     }
 
     return response;
