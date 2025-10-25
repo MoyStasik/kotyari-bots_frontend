@@ -4,7 +4,7 @@
   >
     <Card
       v-for="item in summaryKeys"
-      :key="item"
+      :key="`summary_bots_${item}`"
       :min-width="cardWidth"
       :size="120"
     >
@@ -25,7 +25,7 @@
         :level="1"
         :class="$style.Amount"
       >
-        1
+        {{ summary[item as keyof GetBostSummaryResponseData] }}
       </Title>
     </Card>
   </div>
