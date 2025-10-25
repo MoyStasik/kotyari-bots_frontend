@@ -36,3 +36,10 @@ export interface DeleteBotResponseData {}
 export interface UpdateBotRequestData extends CreateBotRequestData {}
 
 export interface UpdateBotResponseData extends BotResponse {}
+
+export interface GetBotsSummaryRequestData extends BodyParams {}
+
+export interface GetBostSummaryResponseData {
+  totalBots: number,
+  totalProfilesAttached: number,
+}

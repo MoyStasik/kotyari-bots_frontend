@@ -4,8 +4,10 @@ import type {
   CreateBotResponseData,
   DeleteBotRequestData,
   DeleteBotResponseData,
+  GetBostSummaryResponseData,
   GetBotsRequestData,
   GetBotsResponse,
+  GetBotsSummaryRequestData,
   UpdateBotRequestData,
   UpdateBotResponseData,
 } from './bots.types';
@@ -15,6 +17,7 @@ class BotsApiClient extends ApiClient {
   public createBotsUrl = 'bots';
   public deleteBotUrl = 'bots/';
   public updateBotUrl = 'bots/';
+  public botsSummaryUrl = 'bots/summary';
 
   public async getBots(data: GetBotsRequestData) {
     const response = await this.get<GetBotsResponse, GetBotsRequestData>({
@@ -59,6 +62,15 @@ class BotsApiClient extends ApiClient {
       body: {
         ...data,
       },
+    });
+
+    return response;
+  }
+
+  public async getBotsSummary(data: GetBotsSummaryRequestData) {
+    const response = await this.get<GetBostSummaryResponseData, GetBotsSummaryRequestData>({
+      url: this.botsSummaryUrl,
+      ...data,
     });
 
     return response;
