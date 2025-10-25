@@ -54,7 +54,10 @@
         </InfoMessage>
       </Column>
       <BotsCreateFormProfiles
-        :profiles="botProfiles"
+        :pinned-profiles="botProfiles"
+        :available-profiles="profilesStore.list"
+        @pin:profile="onPin"
+        @unpin:profile="onUnpin"
       />
     </Column>
     <Row
@@ -82,9 +85,11 @@
 
 <script setup lang="ts">
 import type { BotsCreateFormProps as Props } from './BotsCreateForm.types';
+import type { Profile } from '~/store/profiles/profiles.types';
 
 import { useBotsCreateForm } from './BotsCreate.form';
 import { useBotsStore } from '~/store/bots/bots';
+import { useProfilesStore } from '~/store/profiles/profiles';
 
 import Column from '~/components/Column/Column.vue';
 import Input from '~/components/Input/Input.vue';
@@ -99,6 +104,7 @@ const emit = defineEmits<{
 }>();
 
 const useBots = useBotsStore();
+const profilesStore = useProfilesStore();
 
 const { botName, prompt, moderationRequired, botProfiles } = useBotsCreateForm();
 const currentInfoMessage = ref('Сообщения будут публиковаться автоматически');
@@ -119,7 +125,7 @@ const onCreateBot = async () => {
       name: botName.value,
       systemPrompt: prompt.value,
       moderationRequired: moderationRequired.value,
-      autoPublish: !moderationRequired.value,
+      profiles: botProfiles.value,
     });
 
     emit('close');
@@ -130,7 +136,7 @@ const onCreateBot = async () => {
     name: botName.value,
     systemPrompt: prompt.value,
     moderationRequired: moderationRequired.value,
-    autoPublish: !moderationRequired.value,
+    profiles: botProfiles.value,
   });
 
   emit('close');
@@ -144,12 +150,25 @@ const processBotState = () => {
   botName.value = props.bot.name;
   prompt.value = props.bot.systemPrompt;
   moderationRequired.value = props.bot.moderationRequired;
-  botProfiles.value = props.bot.profiles;
+  botProfiles.value = JSON.parse(JSON.stringify(props.bot.profiles));
+};
+
+const onUnpin = (profile: Profile) => {
+  const idx = botProfiles.value.findIndex((item) => item.id === profile.id);
+  botProfiles.value.splice(idx, idx + 1);
+};
+
+const onPin = (profile: Profile) => {
+  botProfiles.value.push(profile);
 };
 
 watch(() => props.bot, () => {
   processBotState();
 }, { immediate: true, once: true });
+
+onMounted(async () => {
+  await profilesStore.getProfiles();
+});
 </script>
 
 <style module lang="scss">

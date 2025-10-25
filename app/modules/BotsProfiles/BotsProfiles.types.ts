@@ -1,7 +1,7 @@
-import type { Profile } from '~/store/bots/bots.types';
+import type { Profile } from '~/store/profiles/profiles.types';
 
 export interface BotsProfilesAddItemProps {
-  profile: Profile;
+  profile?: Profile;
 }
 
 export interface BotsProfilesPinnedProps {

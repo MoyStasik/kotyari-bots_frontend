@@ -1,4 +1,4 @@
-import type { Profile } from '~/store/bots/bots.types';
+import type { Profile } from '~/store/profiles/profiles.types';
 import type { BodyParams } from '../api.types';
 
 export interface BotResponse {
@@ -22,7 +22,7 @@ export interface CreateBotRequestData extends BodyParams {
   name: string;
   systemPrompt: string;
   moderationRequired: boolean;
-  autoPublish: boolean;
+  profiles: Profile[];
 }
 
 export interface CreateBotResponseData extends BotResponse {}

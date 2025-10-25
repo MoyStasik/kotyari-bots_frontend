@@ -8,7 +8,7 @@
       </Paragraph>
     </template>
     <template
-      v-if="profiles.length"
+      v-if="pinnedProfiles.length"
     >
       <Paragraph
         :class="$style.PinnedProfileTitle"
@@ -16,7 +16,7 @@
         Прикрепленные профили:
       </Paragraph>
       <BotsProfilesPinned
-        :profiles="profiles"
+        :profiles="pinnedProfiles"
         :class="{
           [$style.PinnedProfiles]: availableProfiles.length
         }"
@@ -29,7 +29,7 @@
       <Paragraph
         :class="[
           $style.AvailableProfiles,
-          {[$style.AvailableProfiles_MarginTop]: !profiles.length}
+          {[$style.AvailableProfiles_MarginTop]: !pinnedProfiles.length}
         ]"
       >
         Доступные профили:
@@ -39,8 +39,8 @@
         :class="$style.ProfilesList"
       >
         <BotsProfilesAddItem
-          v-for="item in availableProfiles"
-          :key="`profile_${item.name}`"
+          v-for="(item, idx) in availableProfiles"
+          :key="`bot_profile_${idx}`"
           :profile="item"
           @update:profiles="onAddProfile"
         />
@@ -51,9 +51,9 @@
 
 <script setup lang="ts">
 import type { BotsCreateFormProfilesProps as Props } from './BotsCreateForm.types';
-import type { Profile } from '~/store/bots/bots.types';
+import type { Profile } from '~/store/profiles/profiles.types';
 
-import { BotsProfiles } from './BotsCreateForm.constants';
+import { useProfilesStore } from '~/store/profiles/profiles';
 
 import Card from '~/components/Card/Card.vue';
 import Paragraph from '~/components/Paragraph/Paragraph.vue';
@@ -63,24 +63,25 @@ import BotsProfilesPinned from '~/modules/BotsProfiles/BotsProfiles.pinned.vue';
 
 const props = defineProps<Props>();
 
-const profiles = ref<Profile[]>(props.profiles);
-  const availableProfiles = ref<Profile[]>(BotsProfiles);
+const profilesStore = useProfilesStore();
+
+const pinnedProfiles = computed(() => props.pinnedProfiles);
+const availableProfiles = computed(() => props.availableProfiles.map((id) => profilesStore.get(id)));
 
 const onAddProfile = (profile: Profile) => {
-  profiles.value.push(profile);
-  availableProfiles.value = availableProfiles.value.filter((item) => item.name !== profile.name);
+  emit('pin:profile', profile);
+  const idx = availableProfiles.value.findIndex((item) => profile?.id === item?.id);
+  availableProfiles.value.splice(idx, idx + 1);
 };
 
 const onRemoveProfile = (profile: Profile) => {
-  profiles.value = profiles.value.filter((item) =>  {
-    if (item.name !== profile.name) {
-      return true;
-    }
-
-    availableProfiles.value.push(profile);
-    return false;
-  });
+  emit('unpin:profile', profile);
+  availableProfiles.value.push(profile);
 };
+
+const emit = defineEmits<{
+  (event: 'pin:profile' | 'unpin:profile', payload: Profile): void,
+}>();
 </script>
 
 <style module lang="scss">

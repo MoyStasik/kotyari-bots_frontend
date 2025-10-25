@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import type { Profile } from '~/store/bots/bots.types';
+import type { Profile } from '~/store/profiles/profiles.types';
 import type { BotsProfilesPinnedProps as Props } from './BotsProfiles.types';
 
 import Row from '~/components/Row/Row.vue';
