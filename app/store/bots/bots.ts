@@ -2,6 +2,7 @@ import { useBotsApiClient } from '~/api/bots/bots';
 import type { BotsState } from './bots.types';
 import type {
   CreateBotRequestData,
+  GetBostSummaryResponseData,
   GetBotsRequestData,
   UpdateBotRequestData,
 } from '~/api/bots/bots.types';
@@ -9,6 +10,7 @@ import type {
 export const useBotsStore = defineStore('bots', () => {
   const bots = ref<BotsState[]>([]);
   const list = ref<BotsState['id'][]>([]);
+  const summary = ref<Partial<GetBostSummaryResponseData>>({});
 
   const ApiClient = useBotsApiClient();
 
@@ -79,11 +81,29 @@ export const useBotsStore = defineStore('bots', () => {
     }
 
     update(botId, response);
+
+    return response;
+  }
+
+  async function getSummary(data: GetBotsRequestData = {}) {
+    const response = await ApiClient.getBotsSummary(data);
+
+    if (!response) {
+      return;
+    }
+
+    let key: keyof GetBostSummaryResponseData;
+    for (key in response) {
+      summary.value[key] = response[key];
+    }
+
+    return response;
   }
 
   return {
     bots,
     list,
+    summary,
     $reset,
     add,
     get,
@@ -91,5 +111,6 @@ export const useBotsStore = defineStore('bots', () => {
     createBot,
     deleteBot,
     updateBot,
+    getSummary,
   };
 });
