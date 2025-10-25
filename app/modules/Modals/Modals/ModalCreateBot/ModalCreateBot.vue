@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="$style.FirstModal"
+    :class="$style.Modal"
   >
     <Column
       :gap="15"
@@ -45,7 +45,7 @@ const bot = computed(() => useBots.get(props?.botId || ''));
 </script>
 
 <style module lang="scss">
-.FirstModal.FirstModal {
+.Modal.Modal {
   width: 405px;
 }
 </style>
