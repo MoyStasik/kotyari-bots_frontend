@@ -1,5 +1,8 @@
 import { ApiClient } from '../ApiClient';
-import type { GetProfilesRequestData, GetProfilesResponseData } from './profiles.types';
+import type {
+  GetProfilesRequestData,
+  GetProfilesResponseData,
+} from './profiles.types';
 
 class ProfilesApiClient extends ApiClient {
   public port = 8003;
@@ -9,10 +12,13 @@ class ProfilesApiClient extends ApiClient {
     const response = await this.get<
       GetProfilesResponseData,
       GetProfilesRequestData
-    >({
-      url: this.getProfilesUrl,
-      ...data,
-    }, this.port);
+    >(
+      {
+        url: this.getProfilesUrl,
+        ...data,
+      },
+      this.port
+    );
 
     return response;
   }

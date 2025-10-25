@@ -27,13 +27,9 @@ export const useProfilesStore = defineStore('profileStore', () => {
     return profiles.value.find((profile) => profile.id === id);
   }
 
-  function update() {
+  function update() {}
 
-  }
-
-  function remove() {
-
-  }
+  function remove() {}
 
   async function getProfiles(data: GetProfilesRequestData = {}) {
     const response = await ApiClient.getProfiles(data);

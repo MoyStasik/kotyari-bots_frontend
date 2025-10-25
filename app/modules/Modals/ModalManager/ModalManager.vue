@@ -28,6 +28,7 @@ import type { Component } from 'vue';
 import type { ModalName, Props } from './ModalManager.types';
 
 const ModalCreateBot = defineAsyncComponent(() => import('../Modals/ModalCreateBot/ModalCreateBot.vue'));
+const ModalDeleteBot = defineAsyncComponent(() => import('../Modals/ModalDeleteBot/ModalDeleteBot.vue'));
 
 withDefaults(defineProps<Props>(), {
   closeOnGlobalClick: true,
@@ -37,6 +38,7 @@ let state: Partial<Record<ModalName, any>> = ({});
 
 const modals: Record<ModalName, Component> = ({
   'ModalCreateBot': ModalCreateBot,
+  'ModalDeleteBot': ModalDeleteBot,
 });
 
 const { $modal } = useNuxtApp();

@@ -34,39 +34,51 @@ export class ApiClient {
     params: RequestParams<RequestType>,
     port?: number
   ): Promise<ResponseType> {
-    return await this.callAPI<ResponseType>({
-      ...params,
-      method: 'GET',
-    }, port);
+    return await this.callAPI<ResponseType>(
+      {
+        ...params,
+        method: 'GET',
+      },
+      port
+    );
   }
 
   protected async post<ResponseType, RequestType extends BodyParams>(
     params: RequestParams<RequestType>,
-    port?: number,
+    port?: number
   ): Promise<ResponseType> {
-    return await this.callAPI<ResponseType>({
-      ...params,
-      method: 'POST',
-    }, port);
+    return await this.callAPI<ResponseType>(
+      {
+        ...params,
+        method: 'POST',
+      },
+      port
+    );
   }
 
   protected async put<ResponseType, RequestType extends BodyParams>(
     params: RequestParams<RequestType>,
     port?: number
   ): Promise<ResponseType> {
-    return await this.callAPI<ResponseType>({
-      ...params,
-      method: 'PUT',
-    }, port);
+    return await this.callAPI<ResponseType>(
+      {
+        ...params,
+        method: 'PUT',
+      },
+      port
+    );
   }
 
   protected async delete<ResponseType, RequestType extends BodyParams>(
     params: RequestParams<RequestType>,
     port?: number
   ): Promise<ResponseType> {
-    return await this.callAPI<ResponseType>({
-      ...params,
-      method: 'DELETE',
-    }, port);
+    return await this.callAPI<ResponseType>(
+      {
+        ...params,
+        method: 'DELETE',
+      },
+      port
+    );
   }
 }

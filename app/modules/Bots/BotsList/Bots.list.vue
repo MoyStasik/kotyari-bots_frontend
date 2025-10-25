@@ -32,7 +32,9 @@ const onAdd = (edit?: boolean) => {
 };
 
 const onBotDelete = (botId: string) => {
-  useBots.deleteBot(botId);
+  $modal.open('ModalDeleteBot', {
+    botId,
+  });
 };
 
 const onBotEdit = (botId: string) => {
