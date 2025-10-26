@@ -66,7 +66,20 @@ const props = defineProps<Props>();
 const profilesStore = useProfilesStore();
 
 const pinnedProfiles = computed(() => props.pinnedProfiles);
-const availableProfiles = computed(() => props.availableProfiles.map((id) => profilesStore.get(id)));
+const availableProfiles = computed(() => {
+  const result: Profile[] = [];
+  const pinnedProfilesIds = new Set(pinnedProfiles.value.map((item) => item.id));
+
+  props.availableProfiles.forEach((id) => {
+    if (pinnedProfilesIds.has(id)) {
+      return;
+    }
+
+    result.push(profilesStore.get(id) as Profile);
+  });
+
+  return result;
+});
 
 const onAddProfile = (profile: Profile) => {
   emit('pin:profile', profile);
@@ -76,7 +89,6 @@ const onAddProfile = (profile: Profile) => {
 
 const onRemoveProfile = (profile: Profile) => {
   emit('unpin:profile', profile);
-  availableProfiles.value.push(profile);
 };
 
 const emit = defineEmits<{

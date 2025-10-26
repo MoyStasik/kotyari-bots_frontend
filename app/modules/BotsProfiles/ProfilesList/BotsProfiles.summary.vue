@@ -16,7 +16,9 @@
         </Paragraph>
       </template>
       <template #header_icon>
-        <LucideUsers />
+        <LucideUsers
+          :size="14"
+        />
       </template>
       <Title
         :level="1"
@@ -39,7 +41,7 @@ const { isDesktop, isTablet } = useAdaptivity();
 
 const cardWidth = computed(() => {
   if (isDesktop.value) {
-    return (1130 - 4 * 15) / 3;
+    return (1130 - 2 * 15) / 3;
   }
 
   if (isTablet.value) {

@@ -1,11 +1,9 @@
 <template>
-  <div>
-    <BotsProfilesSummary />
-  </div>
+  <ProfilesList />
 </template>
 
 <script setup lang="ts">
-import BotsProfilesSummary from '~/modules/BotsProfiles/BotsProfiles.summary.vue';
+import ProfilesList from '~/modules/BotsProfiles/ProfilesList/ProfilesList.vue';
 
 </script>
 
