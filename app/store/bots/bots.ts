@@ -19,6 +19,12 @@ export const useBotsStore = defineStore('bots', () => {
   }
 
   function add(bot: BotsState) {
+    const isHas = list.value.findIndex((id) => bot.id === id);
+
+    if (isHas !== -1) {
+      return;
+    }
+
     bots.value.push(bot);
   }
 

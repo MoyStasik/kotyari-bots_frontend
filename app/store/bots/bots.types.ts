@@ -1,8 +1,4 @@
-export interface Profile {
-  id: string;
-  name: string;
-  systemPrompt: string;
-}
+import type { Profile } from '../profiles/profiles.types';
 
 export interface BotsState {
   id: string;

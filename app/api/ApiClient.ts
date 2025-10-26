@@ -15,10 +15,10 @@ export class ApiClient {
     });
   }
 
-  private async callAPI<ResponseType>(params: FetchParams) {
+  private async callAPI<ResponseType>(params: FetchParams, port?: number) {
     const response = await this.fetch({
       ...params,
-      url: this.buildAPIUrl(params.url),
+      url: this.buildAPIUrl(params.url, port),
     });
 
     const data = <ResponseType>response;
@@ -26,43 +26,59 @@ export class ApiClient {
     return data;
   }
 
-  private buildAPIUrl(url: string) {
-    return `http://localhost:8001${this.baseUrl}${url}`;
+  private buildAPIUrl(url: string, port?: number) {
+    return `http://localhost:${port || 8001}${this.baseUrl}${url}`;
   }
 
   protected async get<ResponseType, RequestType extends BodyParams>(
-    params: RequestParams<RequestType>
+    params: RequestParams<RequestType>,
+    port?: number
   ): Promise<ResponseType> {
-    return await this.callAPI<ResponseType>({
-      ...params,
-      method: 'GET',
-    });
+    return await this.callAPI<ResponseType>(
+      {
+        ...params,
+        method: 'GET',
+      },
+      port
+    );
   }
 
   protected async post<ResponseType, RequestType extends BodyParams>(
-    params: RequestParams<RequestType>
+    params: RequestParams<RequestType>,
+    port?: number
   ): Promise<ResponseType> {
-    return await this.callAPI<ResponseType>({
-      ...params,
-      method: 'POST',
-    });
+    return await this.callAPI<ResponseType>(
+      {
+        ...params,
+        method: 'POST',
+      },
+      port
+    );
   }
 
   protected async put<ResponseType, RequestType extends BodyParams>(
-    params: RequestParams<RequestType>
+    params: RequestParams<RequestType>,
+    port?: number
   ): Promise<ResponseType> {
-    return await this.callAPI<ResponseType>({
-      ...params,
-      method: 'PUT',
-    });
+    return await this.callAPI<ResponseType>(
+      {
+        ...params,
+        method: 'PUT',
+      },
+      port
+    );
   }
 
   protected async delete<ResponseType, RequestType extends BodyParams>(
-    params: RequestParams<RequestType>
+    params: RequestParams<RequestType>,
+    port?: number
   ): Promise<ResponseType> {
-    return await this.callAPI<ResponseType>({
-      ...params,
-      method: 'DELETE',
-    });
+    return await this.callAPI<ResponseType>(
+      {
+        ...params,
+        method: 'DELETE',
+      },
+      port
+    );
   }
 }

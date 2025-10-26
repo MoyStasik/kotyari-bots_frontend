@@ -1,8 +1,9 @@
 import type { BotResponse } from '~/api/bots/bots.types';
-import type { Profile } from '~/store/bots/bots.types';
+import type { Profile } from '~/store/profiles/profiles.types';
 
 export interface BotsCreateFormProfilesProps {
-  profiles: Profile[];
+  pinnedProfiles: Profile[];
+  availableProfiles: Profile['id'][];
 }
 
 export interface BotsCreateFormProps {

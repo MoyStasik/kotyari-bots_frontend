@@ -53,6 +53,8 @@ const LucideUsers = defineAsyncComponent(() =>
 const botsStore = useBotsStore();
 const { isDesktop, isTablet } = useAdaptivity();
 
+const wasLoad = useState('bots-summary', () => false);
+
 const icons: Record<string, FunctionalComponent> = {
   'LucideBot': LucideBot,
   'LucideUsers': LucideUsers,
@@ -74,8 +76,21 @@ const cardWidth = computed(() => {
   return '100%';
 });
 
-onServerPrefetch(async () => {
+const onLoad = async () => {
+  if (wasLoad.value) {
+    return;
+  }
+
+  wasLoad.value = true;
   await botsStore.getSummary();
+};
+
+onServerPrefetch(async () => {
+  await onLoad();
+});
+
+onMounted(async () => {
+  await onLoad();
 });
 </script>
 
