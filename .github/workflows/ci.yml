@@ -1,0 +1,11 @@
+on: push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: install dependecies
+        run: npm i
+
+      - name: build project
+        run: npm run build
