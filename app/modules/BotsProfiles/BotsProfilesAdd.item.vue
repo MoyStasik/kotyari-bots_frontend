@@ -1,5 +1,6 @@
 <template>
   <Row
+    v-if="profile"
     :class="$style.RowItem"
     items-center
   >
@@ -26,10 +27,10 @@
 
 <script setup lang="ts">
 import type { BotsProfilesAddItemProps as Props } from './BotsProfiles.types';
+import type { Profile } from '~/store/profiles/profiles.types';
 
 import Column from '~/components/Column/Column.vue';
 import Row from '~/components/Row/Row.vue';
-import type { Profile } from '~/store/bots/bots.types';
 
 defineProps<Props>();
 

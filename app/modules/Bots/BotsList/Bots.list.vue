@@ -25,6 +25,7 @@ const useBots = useBotsStore();
 
 const editBot = ref(false);
 const botID = ref('');
+const isLoad = useState('bots-list', () => false);
 
 const onAdd = (edit?: boolean) => {
   $modal.open('ModalCreateBot', {});
@@ -32,7 +33,9 @@ const onAdd = (edit?: boolean) => {
 };
 
 const onBotDelete = (botId: string) => {
-  useBots.deleteBot(botId);
+  $modal.open('ModalDeleteBot', {
+    botId,
+  });
 };
 
 const onBotEdit = (botId: string) => {
@@ -42,12 +45,26 @@ const onBotEdit = (botId: string) => {
   });
 };
 
-onServerPrefetch(async () => {
+const load = async () => {
+  if (isLoad.value) {
+    return;
+  }
+
+  isLoad.value = true;
+
   try {
     await useBots.getBots();
   } catch (err) {
     console.error(err);
   }
+};
+
+onServerPrefetch(async () => {
+  await load();
+});
+
+onMounted(async () => {
+  await load();
 });
 </script>
 

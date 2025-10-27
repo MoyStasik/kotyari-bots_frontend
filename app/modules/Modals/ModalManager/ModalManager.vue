@@ -4,6 +4,7 @@
       <div
         v-if="open"
         :class="$style.ModalWrapper"
+        @click="closeOnGlobalClick && onClose()"
       >
         <template
           v-for="item in Object.keys(state)"
@@ -14,6 +15,7 @@
             v-bind="state[item as ModalName]"
             :class="$style.Modal"
             @close="onClose"
+            @click.stop
           />
         </template>
       </div>
@@ -26,13 +28,17 @@ import type { Component } from 'vue';
 import type { ModalName, Props } from './ModalManager.types';
 
 const ModalCreateBot = defineAsyncComponent(() => import('../Modals/ModalCreateBot/ModalCreateBot.vue'));
+const ModalDeleteBot = defineAsyncComponent(() => import('../Modals/ModalDeleteBot/ModalDeleteBot.vue'));
 
-defineProps<Props>();
+withDefaults(defineProps<Props>(), {
+  closeOnGlobalClick: true,
+});
 
 let state: Partial<Record<ModalName, any>> = ({});
 
 const modals: Record<ModalName, Component> = ({
   'ModalCreateBot': ModalCreateBot,
+  'ModalDeleteBot': ModalDeleteBot,
 });
 
 const { $modal } = useNuxtApp();

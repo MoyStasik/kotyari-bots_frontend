@@ -1,4 +1,4 @@
-import type { Profile } from '~/store/bots/bots.types';
+import type { Profile } from '~/store/profiles/profiles.types';
 
 export const useBotsCreateForm = () => {
   const botName = ref<string>('');
