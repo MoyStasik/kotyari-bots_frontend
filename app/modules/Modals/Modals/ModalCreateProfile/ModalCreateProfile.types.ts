@@ -1,3 +1,3 @@
 export interface Props {
-  profileId?: string,
+  profileId?: string;
 }

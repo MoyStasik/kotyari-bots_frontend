@@ -4,5 +4,5 @@ export interface ProfilesTableListProps {
 
 export interface ProfilesTableItemProps {
   id: string;
-  last: boolean,
+  last: boolean;
 }

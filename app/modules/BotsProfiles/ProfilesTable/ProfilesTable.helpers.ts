@@ -16,7 +16,10 @@ export const getFormattedProfileInfo = (profile: ProfileState | undefined) => {
   });
 };
 
-const getBotParam = (tableParam: ColumnNames, profile: ProfileState | undefined) => {
+const getBotParam = (
+  tableParam: ColumnNames,
+  profile: ProfileState | undefined
+) => {
   switch (tableParam) {
     case 'Название':
       return profile?.name;
