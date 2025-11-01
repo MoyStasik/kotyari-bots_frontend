@@ -9,12 +9,12 @@
     <Title
       :level="2"
     >
-      Удалить бота?
+      Удалить профиль?
     </Title>
     <Subtitle
       :class="$style.Text"
     >
-      Вы действительно хотите удалить бота <strong>{{ bot?.name }}</strong> Это действие нельзя будет отменить. Все связанные с ботом данные будут удалены безвозвратно.
+      Вы действительно хотите удалить профиль <strong>"{{ profile?.name }}"</strong>?
     </Subtitle>
     <div
       :class="{
@@ -33,7 +33,7 @@
       <Button
         :mode="'danger'"
         :class="{[$style.Button]: isMobile}"
-        @click="onDeleteBot"
+        @click="onDeleteProfile"
       >
         Удалить
       </Button>
@@ -42,9 +42,9 @@
 </template>
 
 <script setup lang="ts">
-import type { Props } from './ModalDeleteBot.types';
+import type { Props } from './ModalDeleteProfile.types';
 
-import { useBotsStore } from '~/store/bots/bots';
+import { useProfilesStore } from '~/store/profiles/profiles';
 
 import Column from '~/components/Column/Column.vue';
 import Title from '~/components/Title/Title.vue';
@@ -58,12 +58,12 @@ const emit = defineEmits<{
 
 const { isMobile } = useAdaptivity();
 
-const botsStore = useBotsStore();
+const profilesStore = useProfilesStore();
 
-const bot = computed(() => botsStore.get(props.botId));
+const profile = computed(() => profilesStore.get(props.profileId));
 
-const onDeleteBot = async () => {
-  await botsStore.deleteBot(props.botId);
+const onDeleteProfile = async () => {
+  await profilesStore.deleteProfile({ profileId: props.profileId });
   emit('close');
 };
 </script>

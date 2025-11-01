@@ -19,8 +19,8 @@
       </Paragraph>
     </template>
     <ProfilesTableActions
-      @profile-edit="$modal.open('ModalCreateBot', {})"
-      @profile-delete="$modal.open('ModalDeleteBot', {})"
+      @profile-edit="$modal.open('ModalCreateProfile', { profileId: profile?.id })"
+      @profile-delete="$modal.open('ModalDeleteProfile', { profileId: profile?.id })"
     />
   </Row>
   <Separator

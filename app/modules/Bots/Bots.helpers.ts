@@ -13,7 +13,7 @@ export const botsSummary: Record<BotSummaryKeys, BotSummary> = {
     icon: 'LucideBot',
   },
   totalProfilesAttached: {
-    text: 'Всего профилей',
+    text: 'Профилей используется',
     icon: 'LucideUsers',
   },
 };

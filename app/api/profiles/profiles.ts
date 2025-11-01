@@ -1,5 +1,9 @@
 import { ApiClient } from '../ApiClient';
 import type {
+  CreateProfileRequestData,
+  CreateProfileResponseData,
+  DeleteProfileRequestData,
+  DeleteProfileResponseData,
   GetProfilesRequestData,
   GetProfilesResponseData,
 } from './profiles.types';
@@ -7,6 +11,9 @@ import type {
 class ProfilesApiClient extends ApiClient {
   public port = 8003;
   public getProfilesUrl = 'profiles';
+  public deleteProfileUrl = 'profiles/';
+  public createProfileUrl = 'profiles';
+  public updateProfileUrl = 'profiles/';
 
   public async getProfiles(data: GetProfilesRequestData) {
     const response = await this.get<
@@ -19,6 +26,37 @@ class ProfilesApiClient extends ApiClient {
       },
       this.port
     );
+
+    return response;
+  }
+
+  public async deleteProfile(data: DeleteProfileRequestData) {
+    const response = await this.delete<DeleteProfileResponseData, DeleteProfileRequestData>({
+      url: `${this.deleteProfileUrl}${data.profileId}`,
+      ...data,
+    }, this.port);
+
+    return response;
+  }
+
+  public async createProfile(data: CreateProfileRequestData) {
+    const response = await this.post<CreateProfileResponseData, CreateProfileRequestData>({
+      url: this.createProfileUrl,
+      body: {
+        ...data,
+      },
+    }, this.port);
+
+    return response;
+  }
+
+    public async updateProfile(profileId: string, data: CreateProfileRequestData) {
+    const response = await this.post<CreateProfileResponseData, CreateProfileRequestData>({
+      url: `${this.updateProfileUrl}${profileId}`,
+      body: {
+        ...data,
+      },
+    }, this.port);
 
     return response;
   }

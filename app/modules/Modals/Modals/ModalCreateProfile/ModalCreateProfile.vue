@@ -16,6 +16,9 @@
       </ModalHeader>
       <ProfilesCreateForm
         :profile="profile"
+        @create:profile="onCreateProfile"
+        @update:profile="onUpdateProfile"
+        @close="emit('close')"
       />
     </Column>
   </div>
@@ -23,6 +26,7 @@
 
 <script setup lang="ts">
 import type { Props } from './ModalCreateProfile.types';
+import type { CreateProfileRequestData } from '~/api/profiles/profiles.types';
 
 import { useProfilesStore } from '~/store/profiles/profiles';
 
@@ -40,10 +44,20 @@ const emit = defineEmits<{
 const profilesStore = useProfilesStore();
 
 const profile = computed(() => profilesStore.get(props?.profileId || ''));
+
+const onCreateProfile = async (payload: CreateProfileRequestData) => {
+  await profilesStore.createProfile(payload);
+  emit('close');
+};
+
+const onUpdateProfile = async (payload: CreateProfileRequestData) => {
+  await profilesStore.updateProfile(props.profileId || '', payload);
+  emit('close');
+};
 </script>
 
 <style module lang="scss">
 .Modal.Modal {
-  width: 405px;
+  width: 450px;
 }
 </style>

@@ -1,7 +1,8 @@
 export type ModalName =
   | 'ModalCreateBot'
   | 'ModalDeleteBot'
-  | 'ModalCreateProfile';
+  | 'ModalCreateProfile'
+  | 'ModalDeleteProfile';
 
 export interface Props {
   botId?: string;

@@ -3,12 +3,24 @@
     :class="$style.Wrapper"
   >
     <ProfilesTableHeader />
-    <ProfilesTableItem
-      v-for="(item, idx) in list"
-      :id="item"
-      :key="`profiles_${item}`"
-      :last="idx + 1 === list.length"
-    />
+    <template
+      v-if="list.length"
+    >
+      <ProfilesTableItem
+        v-for="(item, idx) in list"
+        :id="item"
+        :key="`profiles_${item}`"
+        :last="idx + 1 === list.length"
+      />
+    </template>
+    <div
+      v-else
+      :class="$style.EmptyProfilesList"
+    >
+      <Subtitle>
+        Нет созданных профилей
+      </Subtitle>
+    </div>
   </div>
 </template>
 
@@ -26,5 +38,12 @@ defineProps<Props>();
   border-radius: var(--regular_border-radius);
   border: 1px solid var(--regular_border-background);
   overflow: scroll;
+}
+
+.EmptyProfilesList.EmptyProfilesList {
+  padding: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
