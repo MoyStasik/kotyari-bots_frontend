@@ -84,12 +84,17 @@ const LucideUsers = defineAsyncComponent(() =>
   import('lucide-vue-next').then(module => module.UsersIcon)
 );
 
+const LucideDock = defineAsyncComponent(() =>
+  import('lucide-vue-next').then(module => module.DockIcon)
+);
+
 const router = useRouter();
 
 const icons: Record<tabs, FunctionalComponent> = {
   'Боты': LucideBot,
   'Профили': LucideUsers,
   'Аккаунт': LucideUser,
+  'Задачи': LucideDock,
 };
 
 const checkIsTabActive = (tabRoute: string) => {

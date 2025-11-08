@@ -59,7 +59,7 @@
         </Column>
       </Row>
       <Column
-        v-if="pickedBot"
+        v-if="pickedBot && availableProfiles?.length"
         :gap="7"
       >
         <Paragraph>
@@ -114,6 +114,7 @@ import type { BotsState } from '~/store/bots/bots.types';
 import type { Profile } from '~/store/profiles/profiles.types';
 
 import { useBotsStore } from '~/store/bots/bots';
+import { usePostsStore } from '~/store/posts/posts';
 
 import Column from '~/components/Column/Column.vue';
 import Row from '~/components/Row/Row.vue';
@@ -128,6 +129,7 @@ const emit = defineEmits<{
 }>();
 
 const useBots = useBotsStore();
+const usePosts = usePostsStore();
 
 const prompt = ref('');
 
@@ -163,8 +165,14 @@ const onRemoveProfile = (profile: Profile) => {
   }
 };
 
-const onTaskCreate = () => {
+const onTaskCreate = async () => {
+  const profiles = pickedProfiles.value.map((profile) => profile.id);
 
+  const response = await usePosts.createPost({ botId: pickedBot.value?.id || '', profileId: profiles, taskText: prompt.value, platform: 'otveti' });
+
+  if (response) {
+    emit('close');
+  }
 };
 </script>
 
