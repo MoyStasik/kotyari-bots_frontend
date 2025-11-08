@@ -1,6 +1,11 @@
 import { useProfilesApiClient } from '~/api/profiles/profiles';
 import type { Profile, ProfileState } from './profiles.types';
-import type { CreateProfileRequestData, DeleteProfileRequestData, GetProfilesRequestData, UpdateProfileRequestData } from '~/api/profiles/profiles.types';
+import type {
+  CreateProfileRequestData,
+  DeleteProfileRequestData,
+  GetProfilesRequestData,
+  UpdateProfileRequestData,
+} from '~/api/profiles/profiles.types';
 
 export const useProfilesStore = defineStore('profileStore', () => {
   const profiles = ref<ProfileState[]>([]);
@@ -28,12 +33,16 @@ export const useProfilesStore = defineStore('profileStore', () => {
   }
 
   function update(profile: Profile) {
-    const profileIdx = profiles.value.findIndex((item) => item.id === profile.id);
+    const profileIdx = profiles.value.findIndex(
+      (item) => item.id === profile.id
+    );
     profiles.value[profileIdx] = profile;
   }
 
   function remove(id: Profile['id']) {
-    const profileIndex = profiles.value.findIndex((profile) => profile.id === id);
+    const profileIndex = profiles.value.findIndex(
+      (profile) => profile.id === id
+    );
 
     if (profileIndex !== -1) {
       profiles.value.splice(profileIndex, 1);
@@ -71,7 +80,10 @@ export const useProfilesStore = defineStore('profileStore', () => {
     return response;
   }
 
-  async function updateProfile(profileId: string, data: UpdateProfileRequestData) {
+  async function updateProfile(
+    profileId: string,
+    data: UpdateProfileRequestData
+  ) {
     const response = await ApiClient.updateProfile(profileId, data);
 
     if (response) {

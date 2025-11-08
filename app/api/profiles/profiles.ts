@@ -31,32 +31,53 @@ class ProfilesApiClient extends ApiClient {
   }
 
   public async deleteProfile(data: DeleteProfileRequestData) {
-    const response = await this.delete<DeleteProfileResponseData, DeleteProfileRequestData>({
-      url: `${this.deleteProfileUrl}${data.profileId}`,
-      ...data,
-    }, this.port);
+    const response = await this.delete<
+      DeleteProfileResponseData,
+      DeleteProfileRequestData
+    >(
+      {
+        url: `${this.deleteProfileUrl}${data.profileId}`,
+        ...data,
+      },
+      this.port
+    );
 
     return response;
   }
 
   public async createProfile(data: CreateProfileRequestData) {
-    const response = await this.post<CreateProfileResponseData, CreateProfileRequestData>({
-      url: this.createProfileUrl,
-      body: {
-        ...data,
+    const response = await this.post<
+      CreateProfileResponseData,
+      CreateProfileRequestData
+    >(
+      {
+        url: this.createProfileUrl,
+        body: {
+          ...data,
+        },
       },
-    }, this.port);
+      this.port
+    );
 
     return response;
   }
 
-    public async updateProfile(profileId: string, data: CreateProfileRequestData) {
-    const response = await this.post<CreateProfileResponseData, CreateProfileRequestData>({
-      url: `${this.updateProfileUrl}${profileId}`,
-      body: {
-        ...data,
+  public async updateProfile(
+    profileId: string,
+    data: CreateProfileRequestData
+  ) {
+    const response = await this.post<
+      CreateProfileResponseData,
+      CreateProfileRequestData
+    >(
+      {
+        url: `${this.updateProfileUrl}${profileId}`,
+        body: {
+          ...data,
+        },
       },
-    }, this.port);
+      this.port
+    );
 
     return response;
   }

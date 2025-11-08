@@ -7,6 +7,10 @@ export default defineNuxtConfig({
     }
   },
 
+  devServer: {
+    port: 80,
+  },
+
   modules: [
     'nuxt-viewport',
     'nuxt-lucide-icons',

@@ -8,23 +8,23 @@ export interface GetProfilesResponseData {
 }
 
 export interface DeleteProfileRequestData extends BodyParams {
-  profileId: string,
+  profileId: string;
 }
 
 export interface DeleteProfileResponseData {}
 
 export interface CreateProfileRequestData extends BodyParams {
-  name: string,
-  email: string,
-  prompt: string,
+  name: string;
+  email: string;
+  prompt: string;
 }
 
 export interface CreateProfileResponseData extends Profile {}
 
 export interface UpdateProfileRequestData extends BodyParams {
-  name: string,
-  email: string,
-  prompt: string,
+  name: string;
+  email: string;
+  prompt: string;
 }
 
 export interface UpdateProfileResponseData extends Profile {}
