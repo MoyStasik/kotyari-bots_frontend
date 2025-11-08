@@ -20,6 +20,7 @@
     >
       <Button
         :mode="'active'"
+        @click="$modal.open('ModalCreateProfile', {})"
       >
         <template #before>
           <LucidePlus
@@ -39,6 +40,7 @@ import { LucidePlus } from 'lucide-vue-next';
 import Column from '~/components/Column/Column.vue';
 import Subtitle from '~/components/Subtitle/Subtitle.vue';
 
+const { $modal } = useNuxtApp();
 </script>
 
 <style module lang="scss">

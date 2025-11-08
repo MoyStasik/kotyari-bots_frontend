@@ -32,15 +32,15 @@ import Row from '~/components/Row/Row.vue';
 import Button from '~/components/Button/Button.vue';
 
 const emit = defineEmits<{
-  (event: 'bot-edit' | 'bot-delete'): void,
+  (event: 'profile-edit' | 'profile-delete'): void,
 }>();
 
 const onBotEdit = () => {
-  emit('bot-edit');
+  emit('profile-edit');
 };
 
 const onBotDelete = () => {
-  emit('bot-delete');
+  emit('profile-delete');
 };
 </script>
 
