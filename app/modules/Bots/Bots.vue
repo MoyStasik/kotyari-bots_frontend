@@ -3,6 +3,9 @@
     :class="$style.BotsWrapper"
   >
     <BotsSummary />
+    <TaskCreate
+      v-if="botsList.length"
+    />
     <BotsList
       :class="$style.BotsList"
     />
@@ -10,9 +13,15 @@
 </template>
 
 <script setup lang="ts">
+import { useBotsStore } from '~/store/bots/bots';
+
 import BotsList from './BotsList/Bots.list.vue';
 import BotsSummary from './Bots.summary.vue';
+import TaskCreate from '../Task/TaskCreate.vue';
 
+const useBots = useBotsStore();
+
+const botsList = computed(() => useBots.list);
 </script>
 
 <style module lang="scss">
@@ -23,6 +32,6 @@ import BotsSummary from './Bots.summary.vue';
 }
 
 .BotsList.BotsList {
-  margin-top: 5px;
+  margin-top: 15px;
 }
 </style>

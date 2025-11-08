@@ -47,7 +47,7 @@ const emit = defineEmits<{
   flex-direction: column;
   width: 100%;
   border: 1px solid var(--regular_border-background);
-  border-radius: var(--smal_border-radius);
+  border-radius: var(--small_border-radius);
   overflow: scroll;
 }
 

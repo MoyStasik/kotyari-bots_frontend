@@ -82,7 +82,11 @@ const onLoad = async () => {
   }
 
   wasLoad.value = true;
-  await botsStore.getSummary();
+  try {
+    await botsStore.getSummary();
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 onServerPrefetch(async () => {

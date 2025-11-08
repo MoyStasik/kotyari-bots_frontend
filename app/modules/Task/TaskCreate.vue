@@ -1,0 +1,64 @@
+<template>
+  <Card
+    :dashed="!taskCreateFormShow"
+    :class="$style.Card"
+  >
+    <div
+      v-if="!taskCreateFormShow"
+      :class="$style.CreateTask"
+      @click="onCreateTaskToogle"
+    >
+      <LucideZap
+        :size="14"
+      />
+      <Subtitle
+        :class="$style.Subtitle"
+      >
+        Быстро создать задачу
+      </Subtitle>
+    </div>
+    <TaskCreateForm
+      v-else
+      @close="onCreateTaskToogle"
+    />
+  </Card>
+</template>
+
+<script setup lang="ts">
+import { LucideZap } from 'lucide-vue-next';
+
+import Card from '~/components/Card/Card.vue';
+import Subtitle from '~/components/Subtitle/Subtitle.vue';
+import TaskCreateForm from './TaskCreate.form.vue';
+
+const taskCreateFormShow = ref(false);
+
+const onCreateTaskToogle = () => {
+  taskCreateFormShow.value = !taskCreateFormShow.value;
+};
+</script>
+
+<style module lang="scss">
+.Card.Card {
+  padding: 20px;
+}
+
+.CreateTask.CreateTask {
+  height: 56px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border-radius: var(--regular_border-radius);
+  gap: 8px;
+
+  &:hover {
+    background-color: var(--info-message_background-color);
+
+    .Subtitle {
+      color: var(--black_text-color);
+    }
+  }
+}
+</style>

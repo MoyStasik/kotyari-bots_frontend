@@ -2,7 +2,10 @@
   <div
     :class="[
       $style.Card,
-      {[$style.Card_Mobile]: isMobile}
+      {
+        [$style.Card_Mobile]: isMobile,
+        [$style.Card_Dashed]: dashed,
+      }
     ]"
     :style="{
       height: withPX(size),
@@ -45,6 +48,15 @@ const { isMobile } = useAdaptivity();
   padding: 20px;
   border: 1px solid var(--regular_border-background);
   border-radius: var(--regular_border-radius);
+  transition: 0.2s border;
+
+  &_Dashed {
+    border: thin dashed var(--regular_border-background);
+
+    &:hover {
+      border: thin dashed var(--accent-foreground);
+    }
+  }
 }
 
 .Card_Mobile.Card_Mobile {

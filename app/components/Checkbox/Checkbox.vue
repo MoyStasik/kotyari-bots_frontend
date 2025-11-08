@@ -25,7 +25,7 @@ const emit = defineEmits<{
 .Checkbox.Checkbox {
   width: 14px;
   height: 14px;
-  border-radius: var(--smal_border-radius);
+  border-radius: var(--small_border-radius);
   background-color: var(--input_background);
 }
 </style>
