@@ -40,6 +40,7 @@ export const usePostsStore = defineStore('posts', () => {
   }
 
   return {
+    posts,
     groupIds,
     list,
     createPost,

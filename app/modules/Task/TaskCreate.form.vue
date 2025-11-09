@@ -36,6 +36,7 @@
           />
         </Column>
         <Column
+          v-if="pickedBotId"
           :gap="7"
           :class="$style.PickedProfilesWrapper"
         >
@@ -67,7 +68,7 @@
         </Paragraph>
         <BotsProfilesAddItem
           v-for="profile in availableProfiles"
-          :key="`task_pinned_profile_${profile.id}`"
+          :key="`task_pinned_profile_${profile?.id}`"
           :profile="profile"
           @update:profiles="onUpdateProfiles"
         />
@@ -139,30 +140,34 @@ const bots = computed(() => useBots.list.map((id) => useBots.get(id)) as BotsSta
 
 const pickedBot = computed(() => useBots.get(pickedBotId.value));
 
-const availableProfiles = computed(() => pickedBot.value?.profiles);
+const availableProfiles = computed(() => {
+  const result: Profile[] = [];
+  pickedBot.value?.profiles.forEach((profile) => {
+    const idx = pickedProfiles.value.findIndex((item) => item.id === profile.id);
+
+    if (idx === -1) {
+      result.push(profile);
+    }
+  });
+
+  return result;
+});
 
 const pickedProfiles = ref<Profile[]>([]);
 
 const onPickedBotChange = (botId: string) => {
   pickedBotId.value = botId;
+  pickedProfiles.value = [];
 };
 
 const onUpdateProfiles = (profile: Profile) => {
-  const idx = availableProfiles.value?.findIndex((item) => profile.id === item.id);
   pickedProfiles.value.push(profile);
-
-  if (idx !== undefined) {
-    availableProfiles.value?.splice(idx, idx + 1);
-  }
 };
 
 const onRemoveProfile = (profile: Profile) => {
   const idx = pickedProfiles.value?.findIndex((item) => profile.id === item.id);
-  availableProfiles.value?.push(profile);
-
-  if (idx !== undefined) {
-    pickedProfiles.value?.splice(idx, idx + 1);
-  }
+  availableProfiles.value.push(profile);
+  pickedProfiles.value.splice(idx, idx + 1);
 };
 
 const onTaskCreate = async () => {

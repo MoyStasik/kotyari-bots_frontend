@@ -33,10 +33,4 @@ const onBotChange = () => {
 </script>
 
 <style module lang="scss">
-.badge {
-  display: inline-flex;
-}
-.space-y-2 > * + * {
-  margin-top: 0.5rem;
-}
 </style>
