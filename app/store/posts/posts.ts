@@ -1,4 +1,7 @@
-import type { CreatePostRequestData, GetPostsRequestData } from '~/api/posts/posts.types';
+import type {
+  CreatePostRequestData,
+  GetPostsRequestData,
+} from '~/api/posts/posts.types';
 import type { PostsState } from './posts.types';
 import { usePostsApiClient } from '~/api/posts/posts';
 

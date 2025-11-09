@@ -10,7 +10,7 @@ import type {
 export const useBotsStore = defineStore('bots', () => {
   const bots = ref<BotsState[]>([]);
   const list = ref<BotsState['id'][]>([]);
-  const summary = ref<GetBostSummaryResponseData>({});
+  const summary = ref<GetBostSummaryResponseData>({ totalBots: 0, totalProfilesAttached: 0 });
 
   const ApiClient = useBotsApiClient();
 
