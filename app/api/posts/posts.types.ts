@@ -2,7 +2,7 @@ import type { BodyParams } from '../api.types';
 
 export interface CreatePostRequestData extends BodyParams {
   botId: string;
-  profileId: string[];
+  profileIds: string[];
   taskText: string;
   platform: string;
 }
@@ -15,9 +15,11 @@ export interface GetPostsRequestData extends BodyParams {}
 
 export interface PostData {
   id: string;
-  otvetiId: string;
+  otvetiId: number;
   botId: string;
-  profileId: string[];
+  profileIds: string[];
+  botName: string;
+  profileName: string;
   platfrom: string;
   title: string;
   text: string;
@@ -29,3 +31,7 @@ export interface PostData {
 export interface GetPostsResponseData {
   data: PostData[];
 }
+
+export interface GetPostRequestData extends BodyParams {}
+
+export interface GetPostResponseData extends PostData {}

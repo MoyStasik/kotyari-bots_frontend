@@ -49,13 +49,13 @@ const { isMobile } = useAdaptivity();
   border: 1px solid var(--regular_border-background);
   border-radius: var(--regular_border-radius);
   transition: 0.2s border;
+}
 
-  &_Dashed {
-    border: thin dashed var(--regular_border-background);
+.Card_Dashed.Card_Dashed {
+  border: thin dashed var(--regular_border-background);
 
-    &:hover {
-      border: thin dashed var(--accent-foreground);
-    }
+  &:hover {
+    border: thin dashed var(--accent-foreground);
   }
 }
 

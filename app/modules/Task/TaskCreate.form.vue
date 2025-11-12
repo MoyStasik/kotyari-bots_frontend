@@ -101,7 +101,7 @@
           :mode="'active'"
           @click="onTaskCreate"
         >
-          Содать задачу
+          Создать задачу
         </Button>
       </Row>
     </Column>
@@ -173,7 +173,7 @@ const onRemoveProfile = (profile: Profile) => {
 const onTaskCreate = async () => {
   const profiles = pickedProfiles.value.map((profile) => profile.id);
 
-  const response = await usePosts.createPost({ botId: pickedBot.value?.id || '', profileId: profiles, taskText: prompt.value, platform: 'otveti' });
+  const response = await usePosts.createPost({ botId: pickedBot.value?.id || '', profileIds: profiles, taskText: prompt.value, platform: 'otveti', postType: 'opinion' });
 
   if (response) {
     emit('close');

@@ -3,9 +3,11 @@
     :class="$style.BotsWrapper"
   >
     <BotsSummary />
-    <TaskCreate
-      v-if="botsList.length"
-    />
+    <ClientOnly>
+      <TaskCreate
+        v-if="botsList.length"
+      />
+    </ClientOnly>
     <BotsList
       :class="$style.BotsList"
     />
