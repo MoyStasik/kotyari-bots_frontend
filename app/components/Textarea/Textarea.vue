@@ -3,6 +3,7 @@
     v-bind="$props"
     :value="value"
     :class="$style.Textarea"
+    :style="{ minHeight: withPX(props.minHeight) }"
     @input="(event: Event) => emit('update:modelValue', (event.target as HTMLInputElement).value)"
   />
 </template>
@@ -10,7 +11,11 @@
 <script setup lang="ts">
 import type { Props } from './Textarea.types';
 
-const props = defineProps<Props>();
+import { withPX } from '~/utils/utils';
+
+const props = withDefaults(defineProps<Props>(), {
+  minHeight: 100,
+});
 
 const emit = defineEmits<{
   (event: 'update:modelValue', payload: typeof props.value): void,
@@ -27,7 +32,7 @@ const emit = defineEmits<{
   display: flex;
   field-sizing: content;
   padding: 10px;
-  border-radius: var(--smal_border-radius);
+  border-radius: var(--small_border-radius);
   border: none;
   outline: none;
   background-color: var(--input_background);

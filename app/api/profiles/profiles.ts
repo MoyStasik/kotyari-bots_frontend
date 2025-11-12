@@ -66,7 +66,7 @@ class ProfilesApiClient extends ApiClient {
     profileId: string,
     data: CreateProfileRequestData
   ) {
-    const response = await this.post<
+    const response = await this.put<
       CreateProfileResponseData,
       CreateProfileRequestData
     >(

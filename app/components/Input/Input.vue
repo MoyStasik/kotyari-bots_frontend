@@ -41,14 +41,14 @@ const value = props.value;
 <style module lang="scss">
 .InputWrapper.InputWrapper {
   background-color: var(--input_background);
-  border-radius: var(--smal_border-radius);
+  border-radius: var(--small_border-radius);
   width: 100%;
 }
 
 .Input.Input {
   border: none;
   background-color: var(--input_background);
-  border-radius: 0px var(--smal_border-radius) var(--smal_border-radius) 0px;
+  border-radius: 0px var(--small_border-radius) var(--small_border-radius) 0px;
   width: 100%;
   padding-left: 10px;
   outline: none;
@@ -63,6 +63,6 @@ const value = props.value;
 }
 
 .WithoutIcon.WithoutIcon {
-  border-radius: var(--smal_border-radius);
+  border-radius: var(--small_border-radius);
 }
 </style>

@@ -112,7 +112,7 @@ onBeforeUnmount(() => {
 .Modal.Modal {
   background-color: #fff;
   padding: 20px;
-  border-radius: var(--smal_border-radius);
+  border-radius: var(--small_border-radius);
   position: absolute;
 }
 </style>

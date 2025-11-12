@@ -10,6 +10,10 @@ export const headerTabs: TabHeader[] = [
     route: '/profiles',
   },
   {
+    tabName: 'Задачи',
+    route: '/tasks',
+  },
+  {
     tabName: 'Аккаунт',
     route: '/profile/1',
   },
