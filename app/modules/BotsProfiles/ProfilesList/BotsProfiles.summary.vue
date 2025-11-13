@@ -24,7 +24,7 @@
         :level="1"
         :class="$style.Amount"
       >
-        10
+        {{ profilesCount }}
       </Title>
     </Card>
   </div>
@@ -33,11 +33,15 @@
 <script setup lang="ts">
 import { LucideUsers } from 'lucide-vue-next';
 
+import { useProfilesStore } from '~/store/profiles/profiles';
+
 import Card from '~/components/Card/Card.vue';
 import Title from '~/components/Title/Title.vue';
 import Paragraph from '~/components/Paragraph/Paragraph.vue';
 
 const { isDesktop, isTablet } = useAdaptivity();
+
+const useProfiles = useProfilesStore();
 
 const cardWidth = computed(() => {
   if (isDesktop.value) {
@@ -50,6 +54,8 @@ const cardWidth = computed(() => {
 
   return '100%';
 });
+
+const profilesCount = computed(() => useProfiles.list.length);
 </script>
 
 <style module lang="scss">
