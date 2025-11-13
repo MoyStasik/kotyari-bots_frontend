@@ -45,10 +45,12 @@ class PostsApiClient extends ApiClient {
 
   public async GetPost(id: string, data: GetPostsRequestData) {
     const response = await this.get<GetPostResponseData, GetPostRequestData>(
-    {
-      url: `${this.getPostUrl}/${id}`,
-      ...data
-    }, 8089);
+      {
+        url: `${this.getPostUrl}/${id}`,
+        ...data,
+      },
+      8089
+    );
 
     return response;
   }
