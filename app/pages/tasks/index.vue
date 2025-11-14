@@ -14,7 +14,7 @@
       />
     </template>
     <div
-      v-if="![].length"
+      v-if="!posts.length"
       :class="$style.EmptyPosts"
     >
       <Paragraph

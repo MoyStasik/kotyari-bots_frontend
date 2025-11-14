@@ -6,5 +6,5 @@ export interface Props {
   size?: size;
   mode: buttonModes;
   bordered?: boolean;
-  disabled?: boolean,
+  disabled?: boolean;
 }
