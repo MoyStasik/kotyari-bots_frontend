@@ -35,3 +35,9 @@ export interface GetPostsResponseData {
 export interface GetPostRequestData extends BodyParams {}
 
 export interface GetPostResponseData extends PostData {}
+
+export interface GetPostsStatusRequestData extends BodyParams {}
+
+export interface GetPostsResponseData {
+  data: PostData[];
+}

@@ -2,6 +2,7 @@ import type {
   CreatePostRequestData,
   GetPostRequestData,
   GetPostsRequestData,
+  GetPostsStatusRequestData,
 } from '~/api/posts/posts.types';
 import type { PostsState } from './posts.types';
 import { usePostsApiClient } from '~/api/posts/posts';
@@ -47,6 +48,12 @@ export const usePostsStore = defineStore('posts', () => {
     return response;
   }
 
+  async function getPostsStatus(groupId: string, data: GetPostsStatusRequestData = {}) {
+    const response = await ApiClient.getPostsStatus(groupId, data);
+
+    return response;
+  }
+
   function get(id: string) {
     return posts.value.find((post) => post.id === id);
   }
@@ -58,6 +65,7 @@ export const usePostsStore = defineStore('posts', () => {
     createPost,
     getPosts,
     getPost,
+    getPostsStatus,
     get,
   };
 });

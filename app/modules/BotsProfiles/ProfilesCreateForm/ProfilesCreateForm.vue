@@ -1,4 +1,5 @@
 <template>
+  {{ profile }}
   <form>
     <Column
     :gap="20"
@@ -109,7 +110,7 @@ const processProfileState = () => {
 
   profileName.value = props.profile?.name;
   email.value = props.profile?.email;
-  prompt.value = props.profile?.prompt;
+  prompt.value = props.profile?.systemPrompt;
 };
 
 watch(() => props.profile, () => {

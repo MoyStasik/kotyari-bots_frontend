@@ -13,6 +13,16 @@
         :class="$style.PostWrapper"
       />
     </template>
+    <div
+      v-if="![].length"
+      :class="$style.EmptyPosts"
+    >
+      <Paragraph
+        :class="$style.EmptyText"
+      >
+        Пока нет постов
+      </Paragraph>
+    </div>
   </div>
 </template>
 
@@ -42,5 +52,18 @@ onMounted(async () => {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+.EmptyPosts.EmptyPosts {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: calc(100vh - 104px);
+  opacity: 0.8;
+}
+
+.EmptyText.EmptyText {
+  font-size: 30px;
 }
 </style>

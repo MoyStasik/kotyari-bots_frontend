@@ -13,6 +13,7 @@ class PostsApiClient extends ApiClient {
   public createPostUrl = 'posts';
   public getPostsUrl = 'posts';
   public getPostUrl = 'posts';
+  public checkPostsStatusUrl = 'posts/check';
 
   public async CreatePost(data: CreatePostRequestData) {
     const response = await this.post<
@@ -47,6 +48,18 @@ class PostsApiClient extends ApiClient {
     const response = await this.get<GetPostResponseData, GetPostRequestData>(
       {
         url: `${this.getPostUrl}/${id}`,
+        ...data,
+      },
+      8089
+    );
+
+    return response;
+  }
+
+  public async getPostsStatus(groupId: string, data: GetPostsRequestData) {
+    const response = await this.get<GetPostsResponseData, GetPostsRequestData>(
+      {
+        url: `${this.checkPostsStatusUrl}/${groupId}`,
         ...data,
       },
       8089

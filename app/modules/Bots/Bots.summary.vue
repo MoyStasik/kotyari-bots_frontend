@@ -78,6 +78,7 @@ const cardWidth = computed(() => {
 
 const onLoad = async () => {
   if (wasLoad.value) {
+    wasLoad.value = false;
     return;
   }
 

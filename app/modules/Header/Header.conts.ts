@@ -13,8 +13,8 @@ export const headerTabs: TabHeader[] = [
     tabName: 'Задачи',
     route: '/tasks',
   },
-  {
-    tabName: 'Аккаунт',
-    route: '/profile/1',
-  },
+  // {
+  //   tabName: 'Аккаунт',
+  //   route: '/profile/1',
+  // },
 ];
