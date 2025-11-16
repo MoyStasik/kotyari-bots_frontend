@@ -13,11 +13,11 @@ jobs:
           node-version: '22'
           registry-url: 'https://registry.npmjs.org'
 
-      - name: Remode dependecies
+      - name: Remove dependecies
         run: rm package-lock.json
 
       - name: install dependecies
-        run: npm ci
+        run: npm i --d
         env:
           NODE_OPTIONS: "--max_old_space_size=4096"
 
