@@ -4,7 +4,7 @@
   >
     <TaskItemWrapperHeader
       :profile-name="post?.profileName || ''"
-      :task-title="post?.title || ''"
+      :task-title="post?.text || ''"
     />
     <TaskItemWrapperContent
       :id="id"
