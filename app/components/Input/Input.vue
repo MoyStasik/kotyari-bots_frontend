@@ -4,7 +4,7 @@
   >
     <slot name="before"/>
     <input
-      v-model="value"
+      :value="value"
       :type="type"
       :name="name"
       :placeholder="placeholder"
@@ -27,15 +27,13 @@ import { withPX  } from '@/utils/utils';
 
 import Row from '../Row/Row.vue';
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   size: 32,
 });
 
 const emit = defineEmits<{
   (event: 'update:modelValue', payload: string): void,
 }>();
-
-const value = props.value;
 </script>
 
 <style module lang="scss">
