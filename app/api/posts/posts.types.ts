@@ -17,7 +17,7 @@ export interface PostData {
   id: string;
   otvetiId: number;
   botId: string;
-  profileIds: string[];
+  profileId: string[] | string;
   botName: string;
   profileName: string;
   platfrom: string;
@@ -38,6 +38,20 @@ export interface GetPostResponseData extends PostData {}
 
 export interface GetPostsStatusRequestData extends BodyParams {}
 
+export interface PostReadyStatus {
+  id: string,
+  groupID: string,
+  isReady: string,
+}
+export interface GetPostsReadyStatusResponseData {
+  data: PostReadyStatus[],
+}
 export interface GetPostsResponseData {
   data: PostData[];
 }
+
+export interface CreatePostSeenRequestData extends BodyParams {
+  seen: PostData['id'][],
+}
+
+export interface CreatePostSeenResponseData {}

@@ -114,6 +114,7 @@ export const useBotsStore = defineStore('bots', () => {
 
   async function getSummary(data: GetBotsRequestData = {}) {
     const response = await ApiClient.getBotsSummary(data);
+    const profilesStore = useProfilesStore();
 
     if (!response) {
       return;
@@ -123,6 +124,8 @@ export const useBotsStore = defineStore('bots', () => {
     for (key in response) {
       summary.value[key] = response[key];
     }
+
+    profilesStore.summary.usedProfiles = summary.value.totalProfilesAttached;
 
     return response;
   }

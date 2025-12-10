@@ -1,5 +1,6 @@
 import type {
   CreatePostRequestData,
+  CreatePostSeenRequestData,
   GetPostRequestData,
   GetPostsRequestData,
   GetPostsStatusRequestData,
@@ -11,6 +12,7 @@ export const usePostsStore = defineStore('posts', () => {
   const posts = ref<Partial<PostsState>[]>([]);
   const list = ref<PostsState['id'][]>([]);
   const groupIds = ref<string[]>([]);
+  const shownPosts = new Set<PostsState['id']>();
 
   const ApiClient = usePostsApiClient();
 
@@ -49,10 +51,25 @@ export const usePostsStore = defineStore('posts', () => {
   }
 
   async function getPostsStatus(
-    groupId: string,
     data: GetPostsStatusRequestData = {}
   ) {
-    const response = await ApiClient.getPostsStatus(groupId, data);
+    const response = await ApiClient.getPostsReadyStatus(data);
+
+    const result: PostsState['id'][] = [];
+    if (response) {
+      response.data.forEach((item) => {
+        if (item.isReady && !shownPosts.has(item.id)) {
+          result.push(item.id);
+          shownPosts.add(item.id);
+        }
+      });
+    }
+
+    return result;
+  }
+
+  async function createPostSeen(data: CreatePostSeenRequestData) {
+    const response = await ApiClient.CreatePostSeen(data);
 
     return response;
   }
@@ -65,7 +82,9 @@ export const usePostsStore = defineStore('posts', () => {
     posts,
     groupIds,
     list,
+    shownPosts,
     createPost,
+    createPostSeen,
     getPosts,
     getPost,
     getPostsStatus,

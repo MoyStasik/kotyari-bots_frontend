@@ -22,23 +22,20 @@ const usePosts = usePostsStore();
 const notificationBus = useNotificationBus;
 
 const notification = ref<InstanceType<typeof Notification> | null>(null);
-const groupIds = ref<string[]>([]);
 
 let interval: NodeJS.Timeout;
 
-const onTaskCreated = (groupID: string) => {
-  groupIds.value.push(groupID);
+const onTaskCreated = () => {
   interval = setInterval(() => {
-    onCheckTaskStatus(groupID);
+    onCheckTaskStatus();
   }, 5000);
 };
 
-const onCheckTaskStatus = async (groupID: string) => {
+const onCheckTaskStatus = async () => {
   try {
-    const response = await usePosts.getPostsStatus(groupID);
-    if (response.data.length) {
+    const response = await usePosts.getPostsStatus();
+    if (response.length) {
       notification.value?.show(true);
-      clearInterval(interval);
     }
   } catch(err){
     console.error(err);
@@ -47,6 +44,7 @@ const onCheckTaskStatus = async (groupID: string) => {
 
 onMounted(() => {
   notificationBus.subscribe('task:created', onTaskCreated);
+  notificationBus.emit('task:created');
 });
 
 onBeforeUnmount(() => {

@@ -35,12 +35,9 @@ import Card from '~/components/Card/Card.vue';
 import Subtitle from '~/components/Subtitle/Subtitle.vue';
 import TaskCreateForm from './TaskCreate.form.vue';
 import Notification from '../Notification/Notification.vue';
-import { useNotificationBus } from '~/constants/notification.bus';
 
 const notification = ref<InstanceType<typeof Notification> | null>(null);
 const taskCreateFormShow = ref(false);
-
-const notificationBus = useNotificationBus;
 
 const onCreateTaskToogle = () => {
   taskCreateFormShow.value = !taskCreateFormShow.value;
@@ -50,10 +47,9 @@ const onCreateTaskClose = () => {
   taskCreateFormShow.value = false;
 };
 
-const onTaskCreated = (groupID: string) => {
+const onTaskCreated = () => {
   onCreateTaskClose();
   notification.value?.show();
-  notificationBus.emit('task:created', groupID);
 };
 </script>
 

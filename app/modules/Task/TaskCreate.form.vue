@@ -143,8 +143,7 @@ import BotsProfilesPinned from '../BotsProfiles/BotsProfiles.pinned.vue';
 import Paragraph from '~/components/Paragraph/Paragraph.vue';
 
 const emit = defineEmits<{
-  (event: 'close'): void,
-  (event: 'create:successful', groupId: string): void,
+  (event: 'close' | 'create:successful'): void,
 }>();
 
 const useBots = useBotsStore();
@@ -200,7 +199,7 @@ const onTaskCreate = async () => {
     const response = await usePosts.createPost({ botId: pickedBot.value?.id || '', profileIds: profiles, taskText: prompt.value, platform: 'otveti', postType: 'opinion' });
 
     if (response) {
-      emit('create:successful', response.groupID);
+      emit('create:successful');
       isTaskCreateClicked.value = false;
     }
   } catch(err) {

@@ -6,8 +6,8 @@
       :class="$style.Wrapper"
       :style="{...headerWrapperStyles}"
     >
-      <Column
-        :gap="4"
+      <NuxtLink
+        :to="'/'"
         :class="$style.TitleWrapper"
       >
         <Title
@@ -18,9 +18,9 @@
         <Subtitle
           v-if="!isMobile"
         >
-          Управление аккаунтами боттов
+          Управление аккаунтами ботов
         </Subtitle>
-      </Column>
+      </NuxtLink>
       <Row
         :class="$style.Row"
         :gap="4"
@@ -63,7 +63,6 @@ import type { Props, tabs } from './Header.types';
 
 import { headerTabs } from './Header.conts';
 
-import Column from '~/components/Column/Column.vue';
 import Title from '~/components/Title/Title.vue';
 import Row from '~/components/Row/Row.vue';
 import Button from '~/components/Button/Button.vue';
@@ -137,7 +136,11 @@ const onButtonClick = (route: string) => {
 }
 
 .TitleWrapper.TitleWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
   width: 100%;
+  text-decoration: none;
 }
 
 .Avatar.Avatar {

@@ -3,8 +3,8 @@
     :class="$style.ProfilesSummary"
   >
     <Card
-      v-for="item in 3"
-      :key="`summary_bots_${item}`"
+      v-for="[key, value] of Object.entries(summary)"
+      :key="`summary_bots_${key}`"
       :min-width="cardWidth"
       :size="120"
     >
@@ -12,11 +12,12 @@
         <Paragraph
           :class="$style.CardHeaderText"
         >
-          Всего профилей
+          {{ ProfilesSummary[key as ProfilesSummaryTitles].text }}
         </Paragraph>
       </template>
       <template #header_icon>
-        <LucideUsers
+        <component
+          :is="icons[ProfilesSummary[key as ProfilesSummaryTitles].icon]"
           :size="14"
         />
       </template>
@@ -24,16 +25,20 @@
         :level="1"
         :class="$style.Amount"
       >
-        {{ profilesCount }}
+        {{ value }}
       </Title>
     </Card>
   </div>
 </template>
 
 <script setup lang="ts">
-import { LucideUsers } from 'lucide-vue-next';
+import { LucideFileText, LucideMail, LucideUsers } from 'lucide-vue-next';
+import type { FunctionalComponent } from 'vue';
+
+import { ProfilesSummary, type ProfilesSummaryTitles } from './ProfilesList.constants';
 
 import { useProfilesStore } from '~/store/profiles/profiles';
+import { useBotsStore } from '~/store/bots/bots';
 
 import Card from '~/components/Card/Card.vue';
 import Title from '~/components/Title/Title.vue';
@@ -41,7 +46,18 @@ import Paragraph from '~/components/Paragraph/Paragraph.vue';
 
 const { isDesktop, isTablet } = useAdaptivity();
 
-const useProfiles = useProfilesStore();
+const profilesStore = useProfilesStore();
+const botsStore = useBotsStore();
+
+const wasLoad = useState('profile-summary', () => false);
+
+const icons: Record<string, FunctionalComponent> = {
+  'LucideMail': LucideMail,
+  'LucideUsers': LucideUsers,
+  'LucideFileText': LucideFileText,
+};
+
+const summary = computed(() => profilesStore.summary);
 
 const cardWidth = computed(() => {
   if (isDesktop.value) {
@@ -55,7 +71,27 @@ const cardWidth = computed(() => {
   return '100%';
 });
 
-const profilesCount = computed(() => useProfiles.list.length);
+const onLoad = async () => {
+  if (wasLoad.value) {
+    wasLoad.value = false;
+    return;
+  }
+
+  wasLoad.value = true;
+  try {
+    await botsStore.getSummary();
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+onServerPrefetch(async () => {
+  await onLoad();
+});
+
+onMounted(async () => {
+  await onLoad();
+});
 </script>
 
 <style module lang="scss">
