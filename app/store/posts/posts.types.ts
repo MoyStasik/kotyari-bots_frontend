@@ -4,7 +4,7 @@ export interface PostsState {
   botId: string;
   botName: string;
   profileName: string;
-  profileIds: string[];
+  profileId: string[] | string;
   platform: string;
   title: string;
   text: string;

@@ -1,5 +1,10 @@
 <template>
-  <NuxtLink
+  <div
+    ref="taskItemsRef"
+    :class="$style.TaskWrapper"
+    @click="async () => await navigateTo(`/tasks/${id}`)"
+  >
+    <NuxtLink
     :to="`/tasks/${id}`"
     :class="$style.TaskItemLink"
   >
@@ -24,6 +29,7 @@
       </ProfileWrapper>
     </Column>
   </NuxtLink>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -33,20 +39,47 @@ import Column from '~/components/Column/Column.vue';
 import Subtitle from '~/components/Subtitle/Subtitle.vue';
 import Paragraph from '~/components/Paragraph/Paragraph.vue';
 import ProfileWrapper from '~/components/ProfileWrapper/ProfileWrapper.vue';
+import type { NuxtLink } from '#components';
 
-defineProps<Props>();
+const props = defineProps<Props>();
+
+const emit = defineEmits<{
+  (event: 'appear', id: string): void,
+}>();
+
+const taskItemsRef = ref<ComponentPublicInstance | null>(null);
+
+let observer: ReturnType<typeof useIntersectionObserver>;
+onMounted(() => {
+  observer = useIntersectionObserver(taskItemsRef,
+    ([entry]) => {
+      if (entry?.isIntersecting) {
+        emit('appear', props.id);
+        observer?.stop?.();
+      }
+    },
+  );
+});
+
+onBeforeUnmount(() => {
+  observer.stop();
+});
 </script>
 
 <style module lang="scss">
-.TaskItemLink.TaskItemLink {
-  text-decoration: none;
+.TaskWrapper.TaskWrapper {
   border: 1px solid var(--regular_border-background);
   border-radius: var(--small_border-radius);
   padding: 10px;
+  cursor: pointer;
 
   &:hover {
     background-color: var(--info-message_background-color);
   }
+}
+
+.TaskItemLink.TaskItemLink {
+  text-decoration: none;
 }
 
 .Column.Column {

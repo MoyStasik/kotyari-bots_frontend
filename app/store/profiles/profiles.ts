@@ -6,10 +6,16 @@ import type {
   GetProfilesRequestData,
   UpdateProfileRequestData,
 } from '~/api/profiles/profiles.types';
+import type { ProfilesSummaryTitles } from '~/modules/BotsProfiles/ProfilesList/ProfilesList.constants';
 
 export const useProfilesStore = defineStore('profileStore', () => {
   const profiles = ref<ProfileState[]>([]);
   const list = ref<ProfileState['id'][]>([]);
+  const summary = ref<Record<ProfilesSummaryTitles, number>>({
+    totalProfiles: 0,
+    usedProfiles: 0,
+    unusedProfiles: 0,
+  });
 
   const ApiClient = useProfilesApiClient();
 
@@ -56,6 +62,7 @@ export const useProfilesStore = defineStore('profileStore', () => {
 
   async function getProfiles(data: GetProfilesRequestData = {}) {
     const response = await ApiClient.getProfiles(data);
+    summary.value.totalProfiles = response.data.length;
     response.data.forEach((profile) => {
       add(profile);
     });
@@ -96,6 +103,7 @@ export const useProfilesStore = defineStore('profileStore', () => {
   return {
     profiles,
     list,
+    summary,
     $reset,
     add,
     get,

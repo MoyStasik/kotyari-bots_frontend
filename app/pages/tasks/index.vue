@@ -11,6 +11,7 @@
         v-bind="post"
         :gap="7"
         :class="$style.PostWrapper"
+        @appear="onTaskAppear"
       />
     </template>
     <div
@@ -32,14 +33,31 @@ import { usePostsStore } from '~/store/posts/posts';
 import TaskItem from '~/modules/Task/Task.item.vue';
 import type { PostsState } from '~/store/posts/posts.types';
 
-const usePosts = usePostsStore();
+const postsStore = usePostsStore();
 
-const posts = computed(() => usePosts.list.map((id) => usePosts.get(id)) as PostsState[]);
+const posts = computed(() => postsStore.list.map((id) => postsStore.get(id)) as PostsState[]);
+
+const seen = ref<string[]>([]);
+
+const debouncedTaskSeen = debounce(async () => await onTaskSeen(), 200);
 
 const onLoad = async () => {
-  usePosts.list = [];
-  usePosts.posts = [];
-  await usePosts.getPosts();
+  postsStore.list = [];
+  postsStore.posts = [];
+  await postsStore.getPosts();
+};
+
+const onTaskAppear = async (id: string) => {
+  seen.value.push(id);
+  debouncedTaskSeen();
+};
+
+const onTaskSeen = async () => {
+  seen.value.forEach((taskId) => {
+    postsStore.shownPosts.delete(taskId);
+  });
+
+  await postsStore.createPostSeen({ seen: seen.value });
 };
 
 onMounted(async () => {
