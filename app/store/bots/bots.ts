@@ -6,11 +6,17 @@ import type {
   GetBotsRequestData,
   UpdateBotRequestData,
 } from '~/api/bots/bots.types';
+import { useProfilesStore } from '../profiles/profiles';
 
 export const useBotsStore = defineStore('bots', () => {
   const bots = ref<BotsState[]>([]);
   const list = ref<BotsState['id'][]>([]);
-  const summary = ref<Partial<GetBostSummaryResponseData>>({});
+  const summary = ref<GetBostSummaryResponseData>({
+    totalBots: 0,
+    totalProfilesAttached: 0,
+  });
+
+  const useProfiles = useProfilesStore();
 
   const ApiClient = useBotsApiClient();
 
@@ -67,6 +73,7 @@ export const useBotsStore = defineStore('bots', () => {
     response.data.forEach((bot) => {
       add(bot);
       list.value.push(bot.id);
+      bot.profiles.forEach((profile) => useProfiles.add(profile));
     });
 
     return response;
@@ -82,8 +89,9 @@ export const useBotsStore = defineStore('bots', () => {
     add(response);
     list.value.unshift(response.id);
 
-    if (summary.value.totalBots) {
+    if (summary.value) {
       summary.value.totalBots++;
+      summary.value.totalProfilesAttached += data.profiles.length;
     }
 
     return response;
@@ -97,6 +105,9 @@ export const useBotsStore = defineStore('bots', () => {
     }
 
     update(botId, response);
+    if (summary.value && data.profiles.length == 0) {
+      summary.value.totalProfilesAttached--;
+    }
 
     return response;
   }

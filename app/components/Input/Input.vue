@@ -4,7 +4,7 @@
   >
     <slot name="before"/>
     <input
-      v-model="value"
+      :value="value"
       :type="type"
       :name="name"
       :placeholder="placeholder"
@@ -27,28 +27,26 @@ import { withPX  } from '@/utils/utils';
 
 import Row from '../Row/Row.vue';
 
-const props = withDefaults(defineProps<Props>(), {
+withDefaults(defineProps<Props>(), {
   size: 32,
 });
 
 const emit = defineEmits<{
   (event: 'update:modelValue', payload: string): void,
 }>();
-
-const value = props.value;
 </script>
 
 <style module lang="scss">
 .InputWrapper.InputWrapper {
   background-color: var(--input_background);
-  border-radius: var(--smal_border-radius);
+  border-radius: var(--small_border-radius);
   width: 100%;
 }
 
 .Input.Input {
   border: none;
   background-color: var(--input_background);
-  border-radius: 0px var(--smal_border-radius) var(--smal_border-radius) 0px;
+  border-radius: 0px var(--small_border-radius) var(--small_border-radius) 0px;
   width: 100%;
   padding-left: 10px;
   outline: none;
@@ -63,6 +61,6 @@ const value = props.value;
 }
 
 .WithoutIcon.WithoutIcon {
-  border-radius: var(--smal_border-radius);
+  border-radius: var(--small_border-radius);
 }
 </style>

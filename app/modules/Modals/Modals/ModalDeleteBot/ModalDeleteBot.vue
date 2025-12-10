@@ -14,7 +14,7 @@
     <Subtitle
       :class="$style.Text"
     >
-      Вы действительно хотите удалить бота "Торговый бот #1"? Это действие нельзя будет отменить. Все связанные с ботом данные будут удалены безвозвратно.
+      Вы действительно хотите удалить бота <strong>{{ bot?.name }}</strong> Это действие нельзя будет отменить. Все связанные с ботом данные будут удалены безвозвратно.
     </Subtitle>
     <div
       :class="{
@@ -44,10 +44,11 @@
 <script setup lang="ts">
 import type { Props } from './ModalDeleteBot.types';
 
+import { useBotsStore } from '~/store/bots/bots';
+
 import Column from '~/components/Column/Column.vue';
 import Title from '~/components/Title/Title.vue';
 import Button from '~/components/Button/Button.vue';
-import { useBotsStore } from '~/store/bots/bots';
 
 const props = defineProps<Props>();
 
@@ -58,6 +59,8 @@ const emit = defineEmits<{
 const { isMobile } = useAdaptivity();
 
 const botsStore = useBotsStore();
+
+const bot = computed(() => botsStore.get(props.botId));
 
 const onDeleteBot = async () => {
   await botsStore.deleteBot(props.botId);

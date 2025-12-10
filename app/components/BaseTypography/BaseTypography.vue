@@ -19,6 +19,6 @@ withDefaults(defineProps<Props>(), {
 <style module lang="scss">
 .BaseTypography.BaseTypography {
   font-family: var(--base_ui-sans-typography);
-  color: var(--black_text-color)
+  color: var(--black_text-color);
 }
 </style>

@@ -7,6 +7,10 @@ export default defineNuxtConfig({
     }
   },
 
+  devServer: {
+    port: 80,
+  },
+
   modules: [
     'nuxt-viewport',
     'nuxt-lucide-icons',
@@ -54,7 +58,7 @@ export default defineNuxtConfig({
   },
 
   routeRules: {
-    '/api/v1/**': { proxy: 'localhost:8001/api/v1/**' },
+    '/api/v1/**': { proxy: 'http://212.233.75.64:8001/api/v1/**' },
   },
 
   compatibilityDate: '2025-07-15',

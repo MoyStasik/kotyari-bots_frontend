@@ -27,7 +27,7 @@ export class ApiClient {
   }
 
   private buildAPIUrl(url: string, port?: number) {
-    return `http://localhost:${port || 8001}${this.baseUrl}${url}`;
+    return `http://212.233.75.64:${port || 8001}${this.baseUrl}${url}`;
   }
 
   protected async get<ResponseType, RequestType extends BodyParams>(

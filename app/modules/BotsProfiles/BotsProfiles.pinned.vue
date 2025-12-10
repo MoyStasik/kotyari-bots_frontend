@@ -45,7 +45,7 @@ const emit = defineEmits<{
 .Row.Row {
   padding: 2px 7px;
   background-color: var(--info-message_background-color);
-  border-radius: var(--smal_border-radius);
+  border-radius: var(--small_border-radius);
   align-items: center;
 }
 

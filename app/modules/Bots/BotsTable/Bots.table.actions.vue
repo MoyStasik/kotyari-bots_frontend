@@ -7,19 +7,13 @@
       :mode="'transparent'"
       :size="'small'"
       bordered
+      @click="onBotEdit"
     >
       <template #before>
         <LucideSettings
           :size="14"
         />
       </template>
-    </Button>
-    <Button
-      :mode="'transparent'"
-      :size="'small'"
-      bordered
-      @click="onBotEdit"
-    >
       Изменить
     </Button>
     <Button

@@ -78,11 +78,16 @@ const cardWidth = computed(() => {
 
 const onLoad = async () => {
   if (wasLoad.value) {
+    wasLoad.value = false;
     return;
   }
 
   wasLoad.value = true;
-  await botsStore.getSummary();
+  try {
+    await botsStore.getSummary();
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 onServerPrefetch(async () => {

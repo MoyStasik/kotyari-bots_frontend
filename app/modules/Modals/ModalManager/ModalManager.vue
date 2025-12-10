@@ -29,6 +29,8 @@ import type { ModalName, Props } from './ModalManager.types';
 
 const ModalCreateBot = defineAsyncComponent(() => import('../Modals/ModalCreateBot/ModalCreateBot.vue'));
 const ModalDeleteBot = defineAsyncComponent(() => import('../Modals/ModalDeleteBot/ModalDeleteBot.vue'));
+const ModalCreateProfile = defineAsyncComponent(() => import('../Modals/ModalCreateProfile/ModalCreateProfile.vue'));
+const ModalDeleteProfile = defineAsyncComponent(() => import('../Modals/ModalDeleteProfile/ModalDeleteProfile.vue'));
 
 withDefaults(defineProps<Props>(), {
   closeOnGlobalClick: true,
@@ -39,6 +41,8 @@ let state: Partial<Record<ModalName, any>> = ({});
 const modals: Record<ModalName, Component> = ({
   'ModalCreateBot': ModalCreateBot,
   'ModalDeleteBot': ModalDeleteBot,
+  'ModalCreateProfile': ModalCreateProfile,
+  'ModalDeleteProfile': ModalDeleteProfile,
 });
 
 const { $modal } = useNuxtApp();
@@ -108,7 +112,7 @@ onBeforeUnmount(() => {
 .Modal.Modal {
   background-color: #fff;
   padding: 20px;
-  border-radius: var(--smal_border-radius);
+  border-radius: var(--small_border-radius);
   position: absolute;
 }
 </style>
