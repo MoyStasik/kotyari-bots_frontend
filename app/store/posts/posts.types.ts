@@ -2,8 +2,8 @@ export interface PostsState {
   id: string;
   otvetiId: number;
   botId: string;
-  botName: string,
-  profileName: string,
+  botName: string;
+  profileName: string;
   profileIds: string[];
   platform: string;
   title: string;

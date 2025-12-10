@@ -43,6 +43,21 @@
           <Paragraph>
             Профили для задачи
           </Paragraph>
+          <Row
+            v-if="!pickedProfiles.length"
+            :gap="4"
+            items-center
+          >
+            <LucideCircleAlert
+              :size="11"
+              :color="'var(--warning_color-orange)'"
+            />
+            <Paragraph
+              :class="$style.ProfileRequiredText"
+            >
+              Выберите хотя бы один профиль
+            </Paragraph>
+          </Row>
           <div
             :class="$style.PickedProfiles"
           >
@@ -99,6 +114,7 @@
         </Button>
         <Button
           :mode="'active'"
+          :disabled="!!disableCreate"
           @click="onTaskCreate"
         >
           Создать задачу
@@ -124,17 +140,23 @@ import Button from '~/components/Button/Button.vue';
 import PopperList from '~/components/PopperList/PopperList.vue';
 import BotsProfilesAddItem from '../BotsProfiles/BotsProfilesAdd.item.vue';
 import BotsProfilesPinned from '../BotsProfiles/BotsProfiles.pinned.vue';
+import Paragraph from '~/components/Paragraph/Paragraph.vue';
 
 const emit = defineEmits<{
   (event: 'close'): void,
+  (event: 'create:successful', groupId: string): void,
 }>();
 
 const useBots = useBotsStore();
 const usePosts = usePostsStore();
 
 const prompt = ref('');
-
 const pickedBotId = ref('');
+const isTaskCreateClicked = ref(false);
+
+const disableCreate = computed(() => {
+  return isTaskCreateClicked.value || !pickedProfiles.value.length;
+});
 
 const bots = computed(() => useBots.list.map((id) => useBots.get(id)) as BotsState[]);
 
@@ -173,10 +195,17 @@ const onRemoveProfile = (profile: Profile) => {
 const onTaskCreate = async () => {
   const profiles = pickedProfiles.value.map((profile) => profile.id);
 
-  const response = await usePosts.createPost({ botId: pickedBot.value?.id || '', profileIds: profiles, taskText: prompt.value, platform: 'otveti', postType: 'opinion' });
+  try {
+    isTaskCreateClicked.value = true;
+    const response = await usePosts.createPost({ botId: pickedBot.value?.id || '', profileIds: profiles, taskText: prompt.value, platform: 'otveti', postType: 'opinion' });
 
-  if (response) {
-    emit('close');
+    if (response) {
+      emit('create:successful', response.groupID);
+      isTaskCreateClicked.value = false;
+    }
+  } catch(err) {
+    console.error(err);
+    isTaskCreateClicked.value = false;
   }
 };
 </script>
@@ -211,5 +240,9 @@ const onTaskCreate = async () => {
   border: 1px solid var(--regular_border-background);
   padding: 7px;
   border-radius: var(--small_border-radius);
+}
+
+.ProfileRequiredText.ProfileRequiredText {
+  color: var(--warning_color-orange);
 }
 </style>

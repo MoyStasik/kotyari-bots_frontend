@@ -8,6 +8,7 @@
       [$style.DangerMode]: mode === 'danger',
       [$style.Bordered]: bordered,
     }"
+    :disabled="disabled"
     :style="{ height: withPX(buttonSizes[size])}"
     @click.prevent
   >
@@ -54,6 +55,10 @@ const buttonSizes: Record<size, number> = {
   min-width: 32px;
   padding: 0;
   padding-inline: 8px;
+
+  &:disabled {
+    opacity: 0.5;
+  }
 }
 
 .Button_gaped.Button_gaped {
