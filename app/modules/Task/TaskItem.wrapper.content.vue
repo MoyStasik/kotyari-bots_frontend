@@ -11,7 +11,7 @@
         Заголовок поста:
       </Paragraph>
       <Paragraph>
-      {{ post?.text }}
+      {{ post?.title }}
       </Paragraph>
     </Column>
     <Column
@@ -23,7 +23,7 @@
         Текст поста:
       </Paragraph>
       <Paragraph>
-        {{ post?.title }}
+        {{ post?.text }}
       </Paragraph>
     </Column>
   </div>
