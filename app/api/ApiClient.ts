@@ -27,7 +27,7 @@ export class ApiClient {
   }
 
   private buildAPIUrl(url: string, port?: number) {
-    return `https://writehub.space{this.baseUrl}${url}`;
+    return `https://writehub.space${this.baseUrl}${url}`;
   }
 
   protected async get<ResponseType, RequestType extends BodyParams>(
