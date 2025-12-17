@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   app: {
     head: {
-      title: 'Бот ферма',
+      title: 'Writehub',
       link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
     }
   },
