@@ -12,7 +12,6 @@ import type {
 } from './posts.types';
 
 class PostsApiClient extends ApiClient {
-  public port = 8088;
   public createPostUrl = 'posts';
   public getPostsUrl = 'posts';
   public getPostUrl = 'posts';
@@ -31,7 +30,6 @@ class PostsApiClient extends ApiClient {
           ...data,
         },
       },
-      this.port
     );
 
     return response;
@@ -43,7 +41,6 @@ class PostsApiClient extends ApiClient {
         url: this.getPostsUrl,
         ...data,
       },
-      8089
     );
 
     return response;
@@ -55,7 +52,6 @@ class PostsApiClient extends ApiClient {
         url: `${this.getPostUrl}/${id}`,
         ...data,
       },
-      8089
     );
 
     return response;
@@ -67,7 +63,6 @@ class PostsApiClient extends ApiClient {
         url: `${this.checkPostStatusUrl}/${groupId}`,
         ...data,
       },
-      8089
     );
 
     return response;
@@ -79,7 +74,6 @@ class PostsApiClient extends ApiClient {
         url: `${this.checkPostsStatusUrl}`,
         ...data,
       },
-      8089
     );
 
     return response;
@@ -93,7 +87,6 @@ class PostsApiClient extends ApiClient {
           ...data,
         },
       },
-      8088
     );
 
     return response;

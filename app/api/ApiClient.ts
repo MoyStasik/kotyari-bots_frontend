@@ -15,10 +15,10 @@ export class ApiClient {
     });
   }
 
-  private async callAPI<ResponseType>(params: FetchParams, port?: number) {
+  private async callAPI<ResponseType>(params: FetchParams) {
     const response = await this.fetch({
       ...params,
-      url: this.buildAPIUrl(params.url, port),
+      url: this.buildAPIUrl(params.url),
     });
 
     const data = <ResponseType>response;
@@ -26,59 +26,51 @@ export class ApiClient {
     return data;
   }
 
-  private buildAPIUrl(url: string, port?: number) {
+  private buildAPIUrl(url: string) {
     return `https://writehub.space${this.baseUrl}${url}`;
   }
 
   protected async get<ResponseType, RequestType extends BodyParams>(
     params: RequestParams<RequestType>,
-    port?: number
   ): Promise<ResponseType> {
     return await this.callAPI<ResponseType>(
       {
         ...params,
         method: 'GET',
       },
-      port
     );
   }
 
   protected async post<ResponseType, RequestType extends BodyParams>(
     params: RequestParams<RequestType>,
-    port?: number
   ): Promise<ResponseType> {
     return await this.callAPI<ResponseType>(
       {
         ...params,
         method: 'POST',
       },
-      port
     );
   }
 
   protected async put<ResponseType, RequestType extends BodyParams>(
     params: RequestParams<RequestType>,
-    port?: number
   ): Promise<ResponseType> {
     return await this.callAPI<ResponseType>(
       {
         ...params,
         method: 'PUT',
       },
-      port
     );
   }
 
   protected async delete<ResponseType, RequestType extends BodyParams>(
     params: RequestParams<RequestType>,
-    port?: number
   ): Promise<ResponseType> {
     return await this.callAPI<ResponseType>(
       {
         ...params,
         method: 'DELETE',
       },
-      port
     );
   }
 }

@@ -7,14 +7,31 @@
         <div :class="$style.logoCircle">
           <Bot color="white" :size="28" :stroke-width="1.5" />
         </div>
-        <h1 :class="$style.title">Вход в админку</h1>
-        <p :class="$style.subtitle">Войдите в систему управления бот-фермой</p>
+        <h1 :class="$style.title">Регистрация</h1>
+        <p :class="$style.subtitle">Создайте новый аккаунт</p>
       </div>
 
       <form
         :class="$style.form"
         @submit.prevent="handleSubmit"
       >
+        <!-- Name Input -->
+        <div :class="$style.inputGroup">
+          <label :class="$style.label">Имя</label>
+          <div :class="$style.inputWrapper">
+            <span :class="$style.iconLeft">
+              <!-- Иконка юзера -->
+              <User :size="20" color="#9ca3af" :stroke-width="1.5" />
+            </span>
+            <input
+              v-model="name"
+              type="text"
+              placeholder="Иван Иванов"
+              :class="$style.input"
+            />
+          </div>
+        </div>
+
         <div :class="$style.inputGroup">
           <label :class="$style.label">Email</label>
           <div :class="$style.inputWrapper">
@@ -34,7 +51,6 @@
           <label :class="$style.label">Пароль</label>
           <div :class="$style.inputWrapper">
             <span :class="$style.iconLeft">
-              <!-- Иконка замка -->
               <Lock :size="18" color="#9ca3af" :stroke-width="1.5" />
             </span>
             <input
@@ -56,27 +72,24 @@
               />
             </button>
           </div>
+          <p :class="$style.hint">Минимум 6 символов</p>
         </div>
 
-        <button
-          type="submit"
-          :class="$style.submitButton"
-        >
-          Войти
-        </button>
+        <button type="submit" :class="$style.submitButton">Зарегистрироваться</button>
       </form>
 
       <div :class="$style.footer">
-        <span>Нет аккаунта? </span>
-        <NuxtLink to="/signup" :class="$style.link">Зарегистрироваться</NuxtLink>
+        <span>Уже есть аккаунт? </span>
+        <NuxtLink to="/login" :class="$style.link">Войти</NuxtLink>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Bot, Mail, Lock, Eye, EyeOff } from 'lucide-vue-next';
+import { Bot, User, Mail, Lock, Eye, EyeOff } from 'lucide-vue-next';
 
+const name = ref('');
 const email = ref('');
 const password = ref('');
 const showPassword = ref(false);
@@ -86,8 +99,7 @@ const togglePassword = () => {
 };
 
 const handleSubmit = () => {
-  const router = useRouter();
-  router.push('/');
+
 };
 </script>
 
@@ -214,6 +226,12 @@ const handleSubmit = () => {
   &:hover {
     opacity: 0.7;
   }
+}
+
+.hint {
+  font-size: 12px;
+  color: #6b7280;
+  margin: 6px 0 0 0;
 }
 
 .submitButton {

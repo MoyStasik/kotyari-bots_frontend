@@ -3,6 +3,7 @@
     :class="$style.layout"
   >
     <Header
+      v-if="!PageWithHeaderOff.includes(currentRoute.name as string)"
       :header-wrapper-styles="{ ...contentWidth }"
     />
     <main
@@ -23,8 +24,12 @@
 
 <script setup lang="ts">
 import Header from '~/modules/Header/Header.vue';
+import { PageWithHeaderOff } from './layouts.constants';
 
 const { isDesktop, isTablet } = useAdaptivity();
+const router = useRouter();
+
+const currentRoute = router.currentRoute;
 
 const contentWidth = computed(() => {
   if (isDesktop.value) {

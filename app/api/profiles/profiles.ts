@@ -9,7 +9,6 @@ import type {
 } from './profiles.types';
 
 class ProfilesApiClient extends ApiClient {
-  public port = 8003;
   public getProfilesUrl = 'profiles';
   public deleteProfileUrl = 'profiles/';
   public createProfileUrl = 'profiles';
@@ -24,7 +23,6 @@ class ProfilesApiClient extends ApiClient {
         url: this.getProfilesUrl,
         ...data,
       },
-      this.port
     );
 
     return response;
@@ -39,7 +37,6 @@ class ProfilesApiClient extends ApiClient {
         url: `${this.deleteProfileUrl}${data.profileId}`,
         ...data,
       },
-      this.port
     );
 
     return response;
@@ -56,7 +53,6 @@ class ProfilesApiClient extends ApiClient {
           ...data,
         },
       },
-      this.port
     );
 
     return response;
@@ -76,7 +72,6 @@ class ProfilesApiClient extends ApiClient {
           ...data,
         },
       },
-      this.port
     );
 
     return response;
