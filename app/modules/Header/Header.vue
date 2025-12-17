@@ -13,7 +13,7 @@
         <Title
           :level="1"
         >
-          Бот-Ферма
+          Writehub
         </Title>
         <Subtitle
           v-if="!isMobile"

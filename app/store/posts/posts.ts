@@ -50,9 +50,7 @@ export const usePostsStore = defineStore('posts', () => {
     return response;
   }
 
-  async function getPostsStatus(
-    data: GetPostsStatusRequestData = {}
-  ) {
+  async function getPostsStatus(data: GetPostsStatusRequestData = {}) {
     const response = await ApiClient.getPostsReadyStatus(data);
 
     const result: PostsState['id'][] = [];

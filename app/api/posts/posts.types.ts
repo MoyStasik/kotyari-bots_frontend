@@ -39,19 +39,19 @@ export interface GetPostResponseData extends PostData {}
 export interface GetPostsStatusRequestData extends BodyParams {}
 
 export interface PostReadyStatus {
-  id: string,
-  groupID: string,
-  isReady: string,
+  id: string;
+  groupID: string;
+  isReady: string;
 }
 export interface GetPostsReadyStatusResponseData {
-  data: PostReadyStatus[],
+  data: PostReadyStatus[];
 }
 export interface GetPostsResponseData {
   data: PostData[];
 }
 
 export interface CreatePostSeenRequestData extends BodyParams {
-  seen: PostData['id'][],
+  seen: PostData['id'][];
 }
 
 export interface CreatePostSeenResponseData {}
