@@ -1,8 +1,8 @@
 <template>
   <!-- вынести Paragraph + Input в form field -->
-  <form>
+  <form @submit.prevent>
     <Column
-    :gap="20"
+      :gap="20"
     >
       <Column
         :gap="7"
@@ -15,9 +15,15 @@
           name="name"
           :type="'text'"
           placeholder="Торговый бот #1"
-          @update:model-value="botName = $event"
+          :class="{ [$style.inputErrorBorder]: !!botNameError }"
+          @update:model-value="handleBotNameInput"
         />
+        <!-- Вывод ошибки -->
+        <span v-if="botNameError" :class="$style.errorText">
+          {{ botNameError }}
+        </span>
       </Column>
+
       <Column
         :gap="7"
       >
@@ -84,6 +90,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref, watch, onMounted } from 'vue';
 import type { BotsCreateFormProps as Props } from './BotsCreateForm.types';
 import type { Profile } from '~/store/profiles/profiles.types';
 
@@ -108,6 +115,7 @@ const profilesStore = useProfilesStore();
 
 const { botName, prompt, moderationRequired, botProfiles } = useBotsCreateForm();
 const currentInfoMessage = ref('Сообщения будут публиковаться автоматически');
+const botNameError = ref(''); // Состояние ошибки
 
 const updateCurrentInfoMessage = (moderation: boolean) => {
   moderationRequired.value = moderation;
@@ -119,7 +127,27 @@ const updateCurrentInfoMessage = (moderation: boolean) => {
   currentInfoMessage.value = 'Сообщения будут публиковаться автоматически';
 };
 
+// Очистка ошибки при вводе
+const handleBotNameInput = (val: any) => {
+  botName.value = val;
+  if (botNameError.value) {
+    botNameError.value = '';
+  }
+};
+
+// Функция валидации
+const validate = (): boolean => {
+  if (!botName.value || String(botName.value).trim().length === 0) {
+    botNameError.value = 'Пожалуйста, введите название бота';
+    return false;
+  }
+  return true;
+};
+
 const onCreateBot = async () => {
+  // Проверяем валидность перед отправкой
+  if (!validate()) return;
+
   if (props.bot) {
     await useBots.updateBot(props.bot.id, {
       name: botName.value,
@@ -155,7 +183,9 @@ const processBotState = () => {
 
 const onUnpin = (profile: Profile) => {
   const idx = botProfiles.value.findIndex((item) => item.id === profile.id);
-  botProfiles.value.splice(idx, idx + 1);
+  if (idx !== -1) {
+    botProfiles.value.splice(idx, 1); // Исправил splice (было idx + 1, что удаляло бы лишнее)
+  }
 };
 
 const onPin = (profile: Profile) => {
@@ -175,5 +205,22 @@ onMounted(async () => {
 .ButtonsRow.ButtonsRow {
   margin-top: 20px;
   justify-content: end;
+}
+
+/* Стили для ошибки */
+.errorText {
+  font-size: 12px;
+  color: #ef4444;
+  margin-top: -2px;
+  font-family: var(--base_ui-sans-typography);
+}
+
+.inputErrorBorder :global(input) {
+  border-color: #ef4444 !important;
+}
+
+/* Fallback если Input это не обертка, а сам элемент */
+.inputErrorBorder {
+  border-color: #ef4444 !important;
 }
 </style>

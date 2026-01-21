@@ -1,7 +1,5 @@
 <template>
-  <div
-    :class="$style.PageWrapper"
-  >
+  <div :class="$style.PageWrapper">
     <div :class="$style.card">
       <div :class="$style.header">
         <div :class="$style.logoCircle">
@@ -11,10 +9,12 @@
         <p :class="$style.subtitle">Создайте новый аккаунт</p>
       </div>
 
-      <form
-        :class="$style.form"
-        @submit.prevent="handleSubmit"
-      >
+      <form :class="$style.form" @submit.prevent="handleSubmit">
+
+        <!-- БЛОК ОШИБКИ СЕРВЕРА -->
+        <div v-if="serverError" :class="$style.serverErrorAlert">
+          {{ serverError }}
+        </div>
 
         <div :class="$style.inputGroup">
           <label :class="$style.label">Имя</label>
@@ -26,9 +26,11 @@
               v-model="name"
               type="text"
               placeholder="Иван Иванов"
-              :class="$style.input"
+              :class="[$style.input, errors.name && $style.inputError]"
+              @input="clearErrors"
             />
           </div>
+          <span v-if="errors.name" :class="$style.errorText">{{ errors.name }}</span>
         </div>
 
         <div :class="$style.inputGroup">
@@ -41,9 +43,11 @@
               v-model="email"
               type="email"
               placeholder="admin@example.com"
-              :class="$style.input"
+              :class="[$style.input, (errors.email || serverError) && $style.inputError]"
+              @input="clearErrors"
             />
           </div>
+          <span v-if="errors.email" :class="$style.errorText">{{ errors.email }}</span>
         </div>
 
         <div :class="$style.inputGroup">
@@ -55,14 +59,11 @@
             <input
               v-model="password"
               :type="showPassword ? 'text' : 'password'"
-              placeholder="••••••••"
-              :class="$style.input"
+              placeholder="Пароль"
+              :class="[$style.input, errors.password && $style.inputError]"
+              @input="clearErrors"
             />
-            <button
-              type="button"
-              :class="$style.iconRight"
-              @click="togglePassword"
-            >
+            <button type="button" :class="$style.iconRight" @click="togglePassword">
               <component
                 :is="showPassword ? Eye : EyeOff"
                 :size="20"
@@ -71,14 +72,15 @@
               />
             </button>
           </div>
-          <p :class="$style.hint">Минимум 6 символов</p>
+          <span v-if="errors.password" :class="$style.errorText">{{ errors.password }}</span>
+          <p v-else :class="$style.hint">Минимум 6 символов</p>
         </div>
 
         <button type="submit" :class="$style.submitButton">Зарегистрироваться</button>
       </form>
 
       <div :class="$style.footer">
-        <span>Уже есть аккаунт? </span>
+        <Subtitle>Уже есть аккаунт? </Subtitle>
         <NuxtLink to="/login" :class="$style.link">Войти</NuxtLink>
       </div>
     </div>
@@ -86,6 +88,8 @@
 </template>
 
 <script setup lang="ts">
+import { ref, reactive } from 'vue';
+import { useRouter } from 'vue-router';
 import { Bot, User, Mail, Lock, Eye, EyeOff } from 'lucide-vue-next';
 import { useUserStore } from '~/store/user/user';
 
@@ -96,12 +100,51 @@ const name = ref('');
 const email = ref('');
 const password = ref('');
 const showPassword = ref(false);
+const serverError = ref('');
+
+const errors = reactive({
+  name: '',
+  email: '',
+  password: ''
+});
 
 const togglePassword = () => {
   showPassword.value = !showPassword.value;
 };
 
+const clearErrors = () => {
+  errors.name = '';
+  errors.email = '';
+  errors.password = '';
+  serverError.value = '';
+};
+
+const validate = () => {
+  let isValid = true;
+  clearErrors();
+
+  if (!name.value.trim()) {
+    errors.name = 'Введите имя';
+    isValid = false;
+  }
+
+  const emailRegex = /^.+@.+\..+$/;
+  if (!emailRegex.test(email.value)) {
+    errors.email = 'Введите корректный email';
+    isValid = false;
+  }
+
+  if (password.value.length < 6) {
+    errors.password = 'Пароль должен содержать минимум 6 символов';
+    isValid = false;
+  }
+
+  return isValid;
+};
+
 const handleSubmit = async () => {
+  if (!validate()) return;
+
   try {
     const response = await userStore.registerUser({
       username: name.value,
@@ -112,13 +155,22 @@ const handleSubmit = async () => {
     if (response) {
       router.push('/');
     }
-  } catch (err) {
+  } catch (err: any) {
     console.error(err);
+    const status = err.response?.status || err.statusCode || err.status;
+
+    // Пример обработки ошибки 409 (Конфликт / Пользователь уже существует)
+    if (status === 409) {
+       serverError.value = 'Пользователь с таким email уже существует';
+    } else {
+       serverError.value = 'Произошла ошибка. Попробуйте еще раз';
+    }
   }
 };
 </script>
 
 <style module lang="scss">
+/* Те же стили, что и в Login, не забыть добавить .serverErrorAlert */
 .PageWrapper.PageWrapper {
   position: fixed;
   top: 0;
@@ -164,12 +216,14 @@ const handleSubmit = async () => {
   font-weight: 600;
   color: #111827;
   margin: 0 0 8px 0;
+  font-family: var(--base_ui-sans-typography);
 }
 
 .subtitle {
   font-size: 14px;
   color: #6b7280;
   margin: 0;
+  font-family: var(--base_ui-sans-typography);
 }
 
 .form {
@@ -188,6 +242,7 @@ const handleSubmit = async () => {
   font-weight: 500;
   color: #111827;
   margin-bottom: 8px;
+  font-family: var(--base_ui-sans-typography);
 }
 
 .inputWrapper {
@@ -247,6 +302,7 @@ const handleSubmit = async () => {
   font-size: 12px;
   color: #6b7280;
   margin: 6px 0 0 0;
+  font-family: var(--base_ui-sans-typography);
 }
 
 .submitButton {
@@ -277,9 +333,40 @@ const handleSubmit = async () => {
   color: #111827;
   font-weight: 600;
   text-decoration: none;
+  font-family: var(--base_ui-sans-typography);
 
   &:hover {
     text-decoration: underline;
   }
+}
+
+.inputError {
+  border-color: #ef4444 !important;
+  background-color: #fef2f2 !important;
+
+  &:focus {
+    box-shadow: 0 0 0 1px #ef4444 !important;
+  }
+}
+
+.errorText {
+  display: block;
+  font-size: 12px;
+  color: #ef4444;
+  margin-top: 6px;
+  font-family: var(--base_ui-sans-typography);
+}
+
+.serverErrorAlert {
+  padding: 12px;
+  background-color: #fef2f2;
+  border: 1px solid #fee2e2;
+  border-radius: 8px;
+  color: #ef4444;
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 4px;
+  font-family: var(--base_ui-sans-typography);
 }
 </style>

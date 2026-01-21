@@ -2,7 +2,7 @@ export interface Profile {
   id: string;
   name: string;
   email: string;
-  systemPrompt: string;
+  prompt: string;
   createdAt: string;
   updatedAt: string;
 }

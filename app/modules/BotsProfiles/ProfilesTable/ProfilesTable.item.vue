@@ -15,7 +15,7 @@
         v-if="!isMobile || isMobile && item.columnName !== 'Создан'"
         :style="{ minWidth: withPX(item.minWidth), maxWidth: withPX(item.minWidth)}"
       >
-        {{ item.name }}
+        {{ item.columnName !== 'Создан' ? item.name : item.name?.slice(0, 10) }}
       </Paragraph>
     </template>
     <ProfilesTableActions

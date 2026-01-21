@@ -3,7 +3,7 @@
     :class="$style.Header"
   >
     <div
-      :class="$style.Wrapper"
+      :class="[$style.Wrapper, {[$style.Wrapper_Mobile]: isMobile}]"
       :style="{...headerWrapperStyles}"
     >
       <NuxtLink
@@ -128,17 +128,22 @@ const onButtonClick = (route: string) => {
   overflow: hidden;
 }
 
+.Wrapper_Mobile.Wrapper_Mobile {
+  margin-left: 20px;
+}
+
 .Row.Row {
   display: flex;
-  justify-content: center;
+  justify-content: right;
   align-items: center;
+  width: 100%;
 }
 
 .TitleWrapper.TitleWrapper {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  width: 100%;
+  width: 245px;
   text-decoration: none;
 }
 

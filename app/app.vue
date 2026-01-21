@@ -49,6 +49,10 @@ watch(() => userStore.isLoggedIn, () => {
     notificationBus.subscribe('task:created', onTaskCreated);
     notificationBus.emit('task:created');
   }
+  else {
+    notificationBus.unsubscribe('task:created', onTaskCreated);
+    clearInterval(interval);
+  }
 });
 
 onMounted(() => {
