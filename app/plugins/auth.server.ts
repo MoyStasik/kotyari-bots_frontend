@@ -9,7 +9,10 @@ const plugin = defineNuxtPlugin(async () => {
 
   try {
     await userStore.getCurrentUser();
-    navigateTo('/');
+    if (ignorePaths.some((path) => currentPath.startsWith(path))) {
+      navigateTo('/');
+    }
+
     return;
   } catch (err) {
     console.error(err);
