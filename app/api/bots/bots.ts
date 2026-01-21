@@ -18,6 +18,7 @@ class BotsApiClient extends ApiClient {
   public deleteBotUrl = 'bots/';
   public updateBotUrl = 'bots/';
   public botsSummaryUrl = 'bots/summary';
+  public botsSearchUrl = 'bots/search';
 
   public async getBots(data: GetBotsRequestData) {
     const response = await this.get<GetBotsResponse, GetBotsRequestData>({
@@ -78,6 +79,8 @@ class BotsApiClient extends ApiClient {
 
     return response;
   }
+
+  // public async getBotsSearch(data: Get)
 }
 
 export const useBotsApiClient = () => new BotsApiClient();

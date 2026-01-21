@@ -1,6 +1,9 @@
 <template>
   <div
-    :class="$style.Modal"
+    :class="[
+      $style.Modal,
+      {[$style.Modal_Mobile]: isMobile},
+    ]"
   >
     <Column
       :gap="15"
@@ -41,6 +44,8 @@ const emit = defineEmits<{
   (event: 'close'): void,
 }>();
 
+const { isMobile } = useAdaptivity();
+
 const profilesStore = useProfilesStore();
 
 const profile = computed(() => profilesStore.get(props?.profileId || ''));
@@ -59,5 +64,9 @@ const onUpdateProfile = async (payload: CreateProfileRequestData) => {
 <style module lang="scss">
 .Modal.Modal {
   width: 450px;
+}
+
+.Modal_Mobile.Modal_Mobile {
+  width: 320px;
 }
 </style>

@@ -12,6 +12,7 @@ export class ApiClient {
       ...params,
       retry: 2,
       retryStatusCodes: [500, 501, 502, 503],
+      credentials: 'include',
     });
   }
 

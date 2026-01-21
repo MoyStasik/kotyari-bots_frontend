@@ -9,6 +9,7 @@
       Управление ботами
     </Paragraph>
     <div
+      v-if="!isMobile"
       :class="$style.Bots"
     >
       <div
@@ -38,6 +39,37 @@
         </Button>
       </div>
     </div>
+    <div
+      v-else
+      :class="$style.Bots_Mobile"
+    >
+      <div>
+        <Button
+          :size="'medium'"
+          :mode="'active'"
+          :class="$style.AddBotButton"
+          @click="emit('click:add')"
+        >
+          <template #before>
+            <LucidePlus
+              color="#fff"
+              :size="14"
+            />
+          </template>
+          <template #default>
+            Добавить
+          </template>
+        </Button>
+      </div>
+      <div
+        :class="$style.InputWrapper"
+      >
+        <SearchInput
+          :value="searchValue"
+          :class="$style.SearchInput"
+        />
+      </div>
+    </div>
   </Column>
 </template>
 
@@ -49,10 +81,11 @@ import Paragraph from '~/components/Paragraph/Paragraph.vue';
 import Column from '~/components/Column/Column.vue';
 import SearchInput from '~/components/Search/SearchInput.vue';
 
-
 const emit = defineEmits<{
   (event: 'click:add'): void,
 }>();
+
+const { isMobile } = useAdaptivity();
 
 const searchValue = ref<string>('');
 </script>
@@ -70,6 +103,12 @@ const searchValue = ref<string>('');
 .Bots.Bots {
   display: flex;
   flex-direction: row;
+}
+
+.Bots_Mobile.Bots_Mobile {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .AddBotButton.AddBotButton {

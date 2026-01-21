@@ -76,6 +76,9 @@
 
 <script setup lang="ts">
 import { Bot, Mail, Lock, Eye, EyeOff } from 'lucide-vue-next';
+import { useUserStore } from '~/store/user/user';
+
+const userStore = useUserStore();
 
 const email = ref('');
 const password = ref('');
@@ -85,9 +88,20 @@ const togglePassword = () => {
   showPassword.value = !showPassword.value;
 };
 
-const handleSubmit = () => {
-  const router = useRouter();
-  router.push('/');
+const handleSubmit = async () => {
+  try {
+    const response = await userStore.loginUser({
+      email: email.value,
+      password: password.value,
+    });
+
+    if (response) {
+      const router = useRouter();
+      router.push('/');
+    }
+  } catch (err) {
+    console.error(err);
+  }
 };
 </script>
 

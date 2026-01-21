@@ -1,5 +1,4 @@
 <template>
-  {{ profile }}
   <form>
     <Column
     :gap="20"

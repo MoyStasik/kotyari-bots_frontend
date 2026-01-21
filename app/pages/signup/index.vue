@@ -15,12 +15,11 @@
         :class="$style.form"
         @submit.prevent="handleSubmit"
       >
-        <!-- Name Input -->
+
         <div :class="$style.inputGroup">
           <label :class="$style.label">Имя</label>
           <div :class="$style.inputWrapper">
             <span :class="$style.iconLeft">
-              <!-- Иконка юзера -->
               <User :size="20" color="#9ca3af" :stroke-width="1.5" />
             </span>
             <input
@@ -88,6 +87,10 @@
 
 <script setup lang="ts">
 import { Bot, User, Mail, Lock, Eye, EyeOff } from 'lucide-vue-next';
+import { useUserStore } from '~/store/user/user';
+
+const userStore = useUserStore();
+const router = useRouter();
 
 const name = ref('');
 const email = ref('');
@@ -98,8 +101,20 @@ const togglePassword = () => {
   showPassword.value = !showPassword.value;
 };
 
-const handleSubmit = () => {
+const handleSubmit = async () => {
+  try {
+    const response = await userStore.registerUser({
+      username: name.value,
+      email: email.value,
+      password: password.value,
+    });
 
+    if (response) {
+      router.push('/');
+    }
+  } catch (err) {
+    console.error(err);
+  }
 };
 </script>
 

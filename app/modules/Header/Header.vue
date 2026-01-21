@@ -46,10 +46,8 @@
             {{ item.tabName }}
           </template>
         </Button>
-        <Avatar
-          :size="28"
-          :src="'/pictures/favicon.ico'"
-          :class="$style.Avatar"
+        <AvatarDropdown
+          :src="'/pictures/avatar.png'"
         />
       </Row>
     </div>
@@ -66,6 +64,7 @@ import { headerTabs } from './Header.conts';
 import Title from '~/components/Title/Title.vue';
 import Row from '~/components/Row/Row.vue';
 import Button from '~/components/Button/Button.vue';
+import AvatarDropdown from '../AvatarDropdown/AvatarDropdown.vue';
 
 defineProps<Props>();
 

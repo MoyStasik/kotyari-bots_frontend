@@ -1,6 +1,9 @@
 <template>
   <div
-    :class="$style.Modal"
+    :class="[
+      $style.Modal,
+      {[$style.Modal_Mobile]: isMobile},
+    ]"
   >
     <Column
       :gap="15"
@@ -39,6 +42,8 @@ const emit = defineEmits<{
   (event: 'close'): void,
 }>();
 
+const { isMobile } = useAdaptivity();
+
 const useBots = useBotsStore();
 
 const bot = computed(() => useBots.get(props?.botId || ''));
@@ -47,5 +52,9 @@ const bot = computed(() => useBots.get(props?.botId || ''));
 <style module lang="scss">
 .Modal.Modal {
   width: 405px;
+}
+
+.Modal_Mobile.Modal_Mobile {
+  width: 320px;
 }
 </style>
