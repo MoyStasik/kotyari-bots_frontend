@@ -1,6 +1,11 @@
 import { useUsersApiClient } from '~/api/users/users';
 import type { UserState } from './user.types';
-import type { CreateLoginUserRequestData, CreateLogoutUserRequestData, CreateRegisterUserRequestData, GetCurrentUserRequestData } from '~/api/users/users.types';
+import type {
+  CreateLoginUserRequestData,
+  CreateLogoutUserRequestData,
+  CreateRegisterUserRequestData,
+  GetCurrentUserRequestData,
+} from '~/api/users/users.types';
 
 export const useUserStore = defineStore('users', () => {
   const user = ref<UserState>({

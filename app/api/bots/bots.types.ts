@@ -45,7 +45,7 @@ export interface GetBostSummaryResponseData {
 }
 
 export interface GetBotsSearchRequestData extends BodyParams {
-  query: string,
+  query: string;
 }
 
 export type GetBotsSearcResponseData = BotResponse;

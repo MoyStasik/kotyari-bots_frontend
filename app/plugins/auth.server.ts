@@ -5,10 +5,7 @@ const plugin = defineNuxtPlugin(async () => {
   const userStore = useUserStore();
   const currentPath = route.path;
 
-  const ignorePaths = [
-    '/signup',
-    '/login',
-  ];
+  const ignorePaths = ['/signup', '/login'];
 
   try {
     await userStore.getCurrentUser();

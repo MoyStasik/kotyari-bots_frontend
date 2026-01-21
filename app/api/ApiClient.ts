@@ -8,11 +8,16 @@ export class ApiClient {
   }
 
   private fetch(params: FetchParams) {
+    const cookieHeaders = useRequestHeaders(['cookie']);
+
     return $fetch(params.url, {
       ...params,
       retry: 2,
       retryStatusCodes: [500, 501, 502, 503],
       credentials: 'include',
+      headers: {
+        ...cookieHeaders,
+      },
     });
   }
 
