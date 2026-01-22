@@ -9,7 +9,6 @@ import type {
 } from './profiles.types';
 
 class ProfilesApiClient extends ApiClient {
-  public port = 8003;
   public getProfilesUrl = 'profiles';
   public deleteProfileUrl = 'profiles/';
   public createProfileUrl = 'profiles';
@@ -19,13 +18,10 @@ class ProfilesApiClient extends ApiClient {
     const response = await this.get<
       GetProfilesResponseData,
       GetProfilesRequestData
-    >(
-      {
-        url: this.getProfilesUrl,
-        ...data,
-      },
-      this.port
-    );
+    >({
+      url: this.getProfilesUrl,
+      ...data,
+    });
 
     return response;
   }
@@ -34,13 +30,10 @@ class ProfilesApiClient extends ApiClient {
     const response = await this.delete<
       DeleteProfileResponseData,
       DeleteProfileRequestData
-    >(
-      {
-        url: `${this.deleteProfileUrl}${data.profileId}`,
-        ...data,
-      },
-      this.port
-    );
+    >({
+      url: `${this.deleteProfileUrl}${data.profileId}`,
+      ...data,
+    });
 
     return response;
   }
@@ -49,15 +42,12 @@ class ProfilesApiClient extends ApiClient {
     const response = await this.post<
       CreateProfileResponseData,
       CreateProfileRequestData
-    >(
-      {
-        url: this.createProfileUrl,
-        body: {
-          ...data,
-        },
+    >({
+      url: this.createProfileUrl,
+      body: {
+        ...data,
       },
-      this.port
-    );
+    });
 
     return response;
   }
@@ -69,15 +59,12 @@ class ProfilesApiClient extends ApiClient {
     const response = await this.put<
       CreateProfileResponseData,
       CreateProfileRequestData
-    >(
-      {
-        url: `${this.updateProfileUrl}${profileId}`,
-        body: {
-          ...data,
-        },
+    >({
+      url: `${this.updateProfileUrl}${profileId}`,
+      body: {
+        ...data,
       },
-      this.port
-    );
+    });
 
     return response;
   }

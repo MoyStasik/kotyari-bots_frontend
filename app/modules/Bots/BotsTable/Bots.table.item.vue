@@ -16,7 +16,7 @@
         v-if="!isMobile || isMobile && item.columnName !== 'Создан'"
         :style="{ minWidth: withPX(item.minWidth), maxWidth: withPX(item.minWidth)}"
       >
-        {{ item.name }}
+        {{ item.columnName === 'Создан' ? item.name?.toString().slice(0, 10) : item.name }}
       </Paragraph>
     </template>
     <BotsTableActions

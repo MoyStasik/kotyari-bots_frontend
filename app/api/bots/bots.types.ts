@@ -43,3 +43,9 @@ export interface GetBostSummaryResponseData {
   totalBots: number;
   totalProfilesAttached: number;
 }
+
+export interface GetBotsSearchRequestData extends BodyParams {
+  query: string;
+}
+
+export type GetBotsSearcResponseData = GetBotsResponse;

@@ -9,7 +9,7 @@
       :level="2"
       :class="$style.TaskTitle"
     >
-      {{ `Задача: ${taskTitle}` }}
+      {{ `Задача: ${taskText}` }}
     </Title>
   </Column>
 </template>

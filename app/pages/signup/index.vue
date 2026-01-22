@@ -5,8 +5,8 @@
         <div :class="$style.logoCircle">
           <Bot color="white" :size="28" :stroke-width="1.5" />
         </div>
-        <h1 :class="$style.title">Вход в админку</h1>
-        <p :class="$style.subtitle">Войдите в систему управления бот-фермой</p>
+        <h1 :class="$style.title">Регистрация</h1>
+        <p :class="$style.subtitle">Создайте новый аккаунт</p>
       </div>
 
       <form :class="$style.form" @submit.prevent="handleSubmit">
@@ -16,7 +16,23 @@
           {{ serverError }}
         </div>
 
-        <!-- Input: Email -->
+        <div :class="$style.inputGroup">
+          <label :class="$style.label">Имя</label>
+          <div :class="$style.inputWrapper">
+            <span :class="$style.iconLeft">
+              <User :size="20" color="#9ca3af" :stroke-width="1.5" />
+            </span>
+            <input
+              v-model="name"
+              type="text"
+              placeholder="Иван Иванов"
+              :class="[$style.input, errors.name && $style.inputError]"
+              @input="clearErrors"
+            />
+          </div>
+          <span v-if="errors.name" :class="$style.errorText">{{ errors.name }}</span>
+        </div>
+
         <div :class="$style.inputGroup">
           <label :class="$style.label">Email</label>
           <div :class="$style.inputWrapper">
@@ -34,7 +50,6 @@
           <span v-if="errors.email" :class="$style.errorText">{{ errors.email }}</span>
         </div>
 
-        <!-- Input: Password -->
         <div :class="$style.inputGroup">
           <label :class="$style.label">Пароль</label>
           <div :class="$style.inputWrapper">
@@ -45,14 +60,10 @@
               v-model="password"
               :type="showPassword ? 'text' : 'password'"
               placeholder="Пароль"
-              :class="[$style.input, (errors.password || serverError) && $style.inputError]"
+              :class="[$style.input, errors.password && $style.inputError]"
               @input="clearErrors"
             />
-            <button
-              type="button"
-              :class="$style.iconRight"
-              @click="togglePassword"
-            >
+            <button type="button" :class="$style.iconRight" @click="togglePassword">
               <component
                 :is="showPassword ? Eye : EyeOff"
                 :size="20"
@@ -62,14 +73,15 @@
             </button>
           </div>
           <span v-if="errors.password" :class="$style.errorText">{{ errors.password }}</span>
+          <p v-else :class="$style.hint">Минимум 6 символов</p>
         </div>
 
-        <button type="submit" :class="$style.submitButton">Войти</button>
+        <button type="submit" :class="$style.submitButton">Зарегистрироваться</button>
       </form>
 
       <div :class="$style.footer">
-        <span>Нет аккаунта? </span>
-        <NuxtLink to="/signup" :class="$style.link">Зарегистрироваться</NuxtLink>
+        <Subtitle>Уже есть аккаунт? </Subtitle>
+        <NuxtLink to="/login" :class="$style.link">Войти</NuxtLink>
       </div>
     </div>
   </div>
@@ -78,18 +90,20 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
 import { useRouter } from 'vue-router';
-import { Bot, Mail, Lock, Eye, EyeOff } from 'lucide-vue-next';
+import { Bot, User, Mail, Lock, Eye, EyeOff } from 'lucide-vue-next';
 import { useUserStore } from '~/store/user/user';
 
 const userStore = useUserStore();
 const router = useRouter();
 
+const name = ref('');
 const email = ref('');
 const password = ref('');
 const showPassword = ref(false);
-const serverError = ref(''); // Состояние для ошибки от бэкенда
+const serverError = ref('');
 
 const errors = reactive({
+  name: '',
   email: '',
   password: ''
 });
@@ -98,8 +112,8 @@ const togglePassword = () => {
   showPassword.value = !showPassword.value;
 };
 
-// Очистка ошибок при вводе
 const clearErrors = () => {
+  errors.name = '';
   errors.email = '';
   errors.password = '';
   serverError.value = '';
@@ -107,8 +121,12 @@ const clearErrors = () => {
 
 const validate = () => {
   let isValid = true;
-  errors.email = '';
-  errors.password = '';
+  clearErrors();
+
+  if (!name.value.trim()) {
+    errors.name = 'Введите имя';
+    isValid = false;
+  }
 
   const emailRegex = /^.+@.+\..+$/;
   if (!emailRegex.test(email.value)) {
@@ -125,11 +143,11 @@ const validate = () => {
 };
 
 const handleSubmit = async () => {
-  serverError.value = ''; // Сброс ошибки перед запросом
   if (!validate()) return;
 
   try {
-    const response = await userStore.loginUser({
+    const response = await userStore.registerUser({
+      username: name.value,
       email: email.value,
       password: password.value,
     });
@@ -139,21 +157,20 @@ const handleSubmit = async () => {
     }
   } catch (err: any) {
     console.error(err);
-
-    // Получаем код ошибки (поддержка axios/fetch структур)
     const status = err.response?.status || err.statusCode || err.status;
 
-    if (status === 404) {
-      serverError.value = 'Неправильный email или пароль';
+    // Пример обработки ошибки 409 (Конфликт / Пользователь уже существует)
+    if (status === 409) {
+       serverError.value = 'Пользователь с таким email уже существует';
     } else {
-      serverError.value = 'Произошла ошибка. Попробуйте еще раз';
+       serverError.value = 'Произошла ошибка. Попробуйте еще раз';
     }
   }
 };
 </script>
 
 <style module lang="scss">
-/* Основные стили (без изменений) */
+/* Те же стили, что и в Login, не забыть добавить .serverErrorAlert */
 .PageWrapper.PageWrapper {
   position: fixed;
   top: 0;
@@ -281,6 +298,13 @@ const handleSubmit = async () => {
   }
 }
 
+.hint {
+  font-size: 12px;
+  color: #6b7280;
+  margin: 6px 0 0 0;
+  font-family: var(--base_ui-sans-typography);
+}
+
 .submitButton {
   width: 100%;
   padding: 12px;
@@ -303,20 +327,19 @@ const handleSubmit = async () => {
   margin-top: 24px;
   font-size: 14px;
   color: #6b7280;
-  font-family: var(--base_ui-sans-typography);
 }
 
 .link {
   color: #111827;
   font-weight: 600;
   text-decoration: none;
+  font-family: var(--base_ui-sans-typography);
 
   &:hover {
     text-decoration: underline;
   }
 }
 
-/* --- СТИЛИ ВАЛИДАЦИИ И ОШИБОК --- */
 .inputError {
   border-color: #ef4444 !important;
   background-color: #fef2f2 !important;

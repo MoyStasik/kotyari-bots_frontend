@@ -3,7 +3,7 @@
     :class="$style.Header"
   >
     <div
-      :class="$style.Wrapper"
+      :class="[$style.Wrapper, {[$style.Wrapper_Mobile]: isMobile}]"
       :style="{...headerWrapperStyles}"
     >
       <NuxtLink
@@ -13,7 +13,7 @@
         <Title
           :level="1"
         >
-          Бот-Ферма
+          Writehub
         </Title>
         <Subtitle
           v-if="!isMobile"
@@ -46,10 +46,8 @@
             {{ item.tabName }}
           </template>
         </Button>
-        <Avatar
-          :size="28"
-          :src="'/pictures/favicon.ico'"
-          :class="$style.Avatar"
+        <AvatarDropdown
+          :src="'/pictures/avatar.png'"
         />
       </Row>
     </div>
@@ -66,6 +64,7 @@ import { headerTabs } from './Header.conts';
 import Title from '~/components/Title/Title.vue';
 import Row from '~/components/Row/Row.vue';
 import Button from '~/components/Button/Button.vue';
+import AvatarDropdown from '../AvatarDropdown/AvatarDropdown.vue';
 
 defineProps<Props>();
 
@@ -129,17 +128,22 @@ const onButtonClick = (route: string) => {
   overflow: hidden;
 }
 
+.Wrapper_Mobile.Wrapper_Mobile {
+  margin-left: 20px;
+}
+
 .Row.Row {
   display: flex;
-  justify-content: center;
+  justify-content: right;
   align-items: center;
+  width: 100%;
 }
 
 .TitleWrapper.TitleWrapper {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  width: 100%;
+  width: 280px;
   text-decoration: none;
 }
 

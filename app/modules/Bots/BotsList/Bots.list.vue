@@ -4,9 +4,11 @@
   >
     <BotsListHeader
       @click:add="onAdd"
+      @search="onSearch"
     />
+    <!-- Используем filteredList вместо list -->
     <BotsTable
-      :list="useBots.list"
+      :list="useBots.filteredList"
       @bot-edit="onBotEdit"
       @bot-delete="onBotDelete"
     />
@@ -14,6 +16,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted, onServerPrefetch } from 'vue';
 import { useBotsStore } from '~/store/bots/bots';
 
 import BotsListHeader from './Bots.list.header.vue';
@@ -27,9 +30,25 @@ const editBot = ref(false);
 const botID = ref('');
 const isLoad = useState('bots-list', () => false);
 
+// Таймер для дебаунса
+let searchTimeout: NodeJS.Timeout;
+
 const onAdd = (edit?: boolean) => {
   $modal.open('ModalCreateBot', {});
   editBot.value = !!edit;
+};
+
+// Функция поиска с дебаунсом
+const onSearch = (query: string) => {
+  clearTimeout(searchTimeout);
+
+  searchTimeout = setTimeout(async () => {
+    try {
+      await useBots.searchBots({query});
+    } catch (err) {
+      console.error('Ошибка поиска:', err);
+    }
+  }, 200);
 };
 
 const onBotDelete = (botId: string) => {

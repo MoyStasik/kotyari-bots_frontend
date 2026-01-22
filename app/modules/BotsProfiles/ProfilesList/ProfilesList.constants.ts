@@ -1,6 +1,12 @@
-export type ProfilesSummaryTitles = 'totalProfiles' | 'usedProfiles' | 'unusedProfiles';
+export type ProfilesSummaryTitles =
+  | 'totalProfiles'
+  | 'usedProfiles'
+  | 'unusedProfiles';
 
-export const ProfilesSummary: Record<ProfilesSummaryTitles, { text: string, icon: string }> = {
+export const ProfilesSummary: Record<
+  ProfilesSummaryTitles,
+  { text: string; icon: string }
+> = {
   totalProfiles: {
     text: 'Всего профилей',
     icon: 'LucideUsers',
@@ -11,6 +17,6 @@ export const ProfilesSummary: Record<ProfilesSummaryTitles, { text: string, icon
   },
   unusedProfiles: {
     text: 'Не используется',
-    icon: 'LucideMail'
+    icon: 'LucideMail',
   },
 };

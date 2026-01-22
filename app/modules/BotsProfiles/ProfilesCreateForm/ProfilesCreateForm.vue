@@ -1,8 +1,7 @@
 <template>
-  {{ profile }}
-  <form>
+  <form @submit.prevent>
     <Column
-    :gap="20"
+      :gap="20"
     >
       <Column
         :gap="7"
@@ -10,28 +9,23 @@
         <Paragraph>
           Название профиля
         </Paragraph>
+
+        <!-- Добавил обработку очистки ошибки при вводе -->
         <Input
           :value="profileName"
           name="name"
           :type="'text'"
           placeholder="Продавец консультант"
-          @update:model-value="profileName = $event"
+          :class="{ [$style.inputErrorBorder]: !!nameError }"
+          @update:model-value="handleNameInput"
         />
+
+        <!-- Вывод сообщения об ошибке -->
+        <span v-if="nameError" :class="$style.errorText">
+          {{ nameError }}
+        </span>
       </Column>
-      <Column
-        :gap="7"
-      >
-        <Paragraph>
-          Email
-        </Paragraph>
-        <Input
-          :value="email"
-          name="email"
-          :type="'text'"
-          placeholder="sales@example.com"
-          @update:model-value="email = $event"
-        />
-      </Column>
+
       <Column
         :gap="7"
       >
@@ -65,7 +59,7 @@
       <Button
         :mode="'active'"
         :size="'medium'"
-        @click="profile ? onEditProfile() : onCreateProfile()"
+        @click="handleSubmit"
       >
         {{ profile ? 'Сохранить изменения' : 'Создать профиль' }}
       </Button>
@@ -74,6 +68,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref, watch } from 'vue'; // Явно импортируем ref
 import type { Props } from './ProfilesCreateForm.types';
 import type { CreateProfileRequestData } from '~/api/profiles/profiles.types';
 
@@ -95,12 +90,51 @@ const emit = defineEmits<{
 
 const { profileName, email, prompt } = useProfilesCreateForm();
 
+// Состояние для ошибки названия
+const nameError = ref('');
+
+// Очистка ошибки при вводе
+const handleNameInput = (val: any) => {
+  profileName.value = val;
+  if (nameError.value) {
+    nameError.value = '';
+  }
+};
+
+// Функция валидации
+const validate = (): boolean => {
+  if (!profileName.value || String(profileName.value).trim().length === 0) {
+    nameError.value = 'Пожалуйста, введите название профиля';
+    return false;
+  }
+  return true;
+};
+
+// Единый метод отправки (чтобы не дублировать валидацию)
+const handleSubmit = () => {
+  if (!validate()) return;
+
+  if (props.profile) {
+    onEditProfile();
+  } else {
+    onCreateProfile();
+  }
+};
+
 const onCreateProfile = () => {
-  emit('create:profile', { name: profileName.value, email: email.value, prompt: prompt.value, });
+  emit('create:profile', {
+    name: profileName.value,
+    email: email.value,
+    prompt: prompt.value
+  });
 };
 
 const onEditProfile = () => {
-  emit('update:profile', { name: profileName.value, email: email.value, prompt: prompt.value, });
+  emit('update:profile', {
+    name: profileName.value,
+    email: email.value,
+    prompt: prompt.value
+  });
 };
 
 const processProfileState = () => {
@@ -110,7 +144,7 @@ const processProfileState = () => {
 
   profileName.value = props.profile?.name;
   email.value = props.profile?.email;
-  prompt.value = props.profile?.systemPrompt;
+  prompt.value = props.profile?.prompt;
 };
 
 watch(() => props.profile, () => {
@@ -126,5 +160,23 @@ watch(() => props.profile, () => {
 
 .Annotation.Annotation {
   font-size: 13px;
+}
+
+/* Стили для ошибки */
+.errorText {
+  font-size: 12px;
+  color: #ef4444; /* Красный цвет */
+  margin-top: -2px; /* Чуть придвинуть к инпуту */
+  font-family: var(--base_ui-sans-typography);
+}
+
+/* Опционально: стиль для обводки инпута при ошибке */
+/* Если ваш компонент Input прокидывает классы на сам input, это сработает */
+.inputErrorBorder :global(input) {
+  border-color: #ef4444 !important;
+}
+/* Альтернатива, если Input это обертка */
+.inputErrorBorder {
+  border-color: #ef4444 !important;
 }
 </style>

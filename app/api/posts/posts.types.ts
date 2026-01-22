@@ -23,6 +23,7 @@ export interface PostData {
   platfrom: string;
   title: string;
   text: string;
+  task: string;
   postType: string;
   createdAt: string;
   updatedAt: string;
@@ -39,19 +40,35 @@ export interface GetPostResponseData extends PostData {}
 export interface GetPostsStatusRequestData extends BodyParams {}
 
 export interface PostReadyStatus {
-  id: string,
-  groupID: string,
-  isReady: string,
+  id: string;
+  groupID: string;
+  isReady: string;
 }
 export interface GetPostsReadyStatusResponseData {
-  data: PostReadyStatus[],
+  data: PostReadyStatus[];
 }
 export interface GetPostsResponseData {
   data: PostData[];
 }
 
 export interface CreatePostSeenRequestData extends BodyParams {
-  seen: PostData['id'][],
+  seen: PostData['id'][];
 }
 
 export interface CreatePostSeenResponseData {}
+
+export interface EditPostRequestData extends BodyParams {
+  title: string;
+  text: string;
+}
+
+export type EditPostResponseData = PostData;
+
+export interface CreatePublishPostRequestData extends BodyParams {
+  approved: boolean;
+}
+
+export interface CreatePublishPostResponseData {
+  success: boolean;
+  message: boolean;
+}

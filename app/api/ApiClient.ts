@@ -8,17 +8,23 @@ export class ApiClient {
   }
 
   private fetch(params: FetchParams) {
+    const cookieHeaders = useRequestHeaders(['cookie']);
+
     return $fetch(params.url, {
       ...params,
       retry: 2,
       retryStatusCodes: [500, 501, 502, 503],
+      credentials: 'include',
+      headers: {
+        ...cookieHeaders,
+      },
     });
   }
 
-  private async callAPI<ResponseType>(params: FetchParams, port?: number) {
+  private async callAPI<ResponseType>(params: FetchParams) {
     const response = await this.fetch({
       ...params,
-      url: this.buildAPIUrl(params.url, port),
+      url: this.buildAPIUrl(params.url),
     });
 
     const data = <ResponseType>response;
@@ -26,59 +32,43 @@ export class ApiClient {
     return data;
   }
 
-  private buildAPIUrl(url: string, port?: number) {
+  private buildAPIUrl(url: string) {
     return `https://writehub.space${this.baseUrl}${url}`;
   }
 
   protected async get<ResponseType, RequestType extends BodyParams>(
-    params: RequestParams<RequestType>,
-    port?: number
+    params: RequestParams<RequestType>
   ): Promise<ResponseType> {
-    return await this.callAPI<ResponseType>(
-      {
-        ...params,
-        method: 'GET',
-      },
-      port
-    );
+    return await this.callAPI<ResponseType>({
+      ...params,
+      method: 'GET',
+    });
   }
 
   protected async post<ResponseType, RequestType extends BodyParams>(
-    params: RequestParams<RequestType>,
-    port?: number
+    params: RequestParams<RequestType>
   ): Promise<ResponseType> {
-    return await this.callAPI<ResponseType>(
-      {
-        ...params,
-        method: 'POST',
-      },
-      port
-    );
+    return await this.callAPI<ResponseType>({
+      ...params,
+      method: 'POST',
+    });
   }
 
   protected async put<ResponseType, RequestType extends BodyParams>(
-    params: RequestParams<RequestType>,
-    port?: number
+    params: RequestParams<RequestType>
   ): Promise<ResponseType> {
-    return await this.callAPI<ResponseType>(
-      {
-        ...params,
-        method: 'PUT',
-      },
-      port
-    );
+    return await this.callAPI<ResponseType>({
+      ...params,
+      method: 'PUT',
+    });
   }
 
   protected async delete<ResponseType, RequestType extends BodyParams>(
-    params: RequestParams<RequestType>,
-    port?: number
+    params: RequestParams<RequestType>
   ): Promise<ResponseType> {
-    return await this.callAPI<ResponseType>(
-      {
-        ...params,
-        method: 'DELETE',
-      },
-      port
-    );
+    return await this.callAPI<ResponseType>({
+      ...params,
+      method: 'DELETE',
+    });
   }
 }

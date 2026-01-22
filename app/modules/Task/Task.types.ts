@@ -8,7 +8,7 @@ export interface TaskItemWrapperProps {
 
 export interface TaskItemWrapperHeaderProps {
   profileName: string;
-  taskTitle: string;
+  taskText: string;
 }
 
 export interface TaskItemWrapperContentProps {

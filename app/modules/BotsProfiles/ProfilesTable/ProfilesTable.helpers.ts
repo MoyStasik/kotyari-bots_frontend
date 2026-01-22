@@ -25,7 +25,7 @@ const getBotParam = (
       return profile?.name;
     case 'Email':
       return profile?.email;
-    case 'Используется':
+    case 'Создан':
       return profile?.createdAt;
     default:
       break;

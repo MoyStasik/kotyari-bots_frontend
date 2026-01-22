@@ -16,8 +16,10 @@ import { usePostsStore } from './store/posts/posts';
 
 import ModalManager from './modules/Modals/ModalManager/ModalManager.vue';
 import Notification from './modules/Notification/Notification.vue';
+import { useUserStore } from './store/user/user';
 
 const usePosts = usePostsStore();
+const userStore = useUserStore();
 
 const notificationBus = useNotificationBus;
 
@@ -42,9 +44,22 @@ const onCheckTaskStatus = async () => {
   }
 };
 
+watch(() => userStore.isLoggedIn, () => {
+  if (userStore.isLoggedIn) {
+    notificationBus.subscribe('task:created', onTaskCreated);
+    notificationBus.emit('task:created');
+  }
+  else {
+    notificationBus.unsubscribe('task:created', onTaskCreated);
+    clearInterval(interval);
+  }
+});
+
 onMounted(() => {
-  notificationBus.subscribe('task:created', onTaskCreated);
-  notificationBus.emit('task:created');
+  if (userStore.isLoggedIn) {
+    notificationBus.subscribe('task:created', onTaskCreated);
+    notificationBus.emit('task:created');
+  }
 });
 
 onBeforeUnmount(() => {

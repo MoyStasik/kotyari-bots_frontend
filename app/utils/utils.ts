@@ -18,21 +18,19 @@ export function debounce(callback: (...args: any) => void, delay: number) {
   };
 }
 
-export type MaybeElementOrComponent = Ref<HTMLElement | null> | Ref<ComponentPublicInstance | null>;
+export type MaybeElementOrComponent =
+  | Ref<HTMLElement | null>
+  | Ref<ComponentPublicInstance | null>;
 
 export const useIntersectionObserver = (
   target: MaybeElementOrComponent | MaybeElementOrComponent[],
   callback: IntersectionObserverCallback,
   options: IntersectionObserverInit = {},
   settings: {
-    immediate: boolean,
-  } = { immediate: true },
+    immediate: boolean;
+  } = { immediate: true }
 ) => {
-  const {
-    root,
-    rootMargin = '0px',
-    threshold = 0,
-  } = options;
+  const { root, rootMargin = '0px', threshold = 0 } = options;
 
   const { immediate } = settings;
 
@@ -47,7 +45,11 @@ export const useIntersectionObserver = (
     }
 
     const items = t
-      .map((targetEl) => targetEl.value instanceof HTMLElement ? targetEl.value : <HTMLElement>targetEl.value?.$el)
+      .map((targetEl) =>
+        targetEl.value instanceof HTMLElement
+          ? targetEl.value
+          : <HTMLElement>targetEl.value?.$el
+      )
       .filter((targetEl) => !!targetEl);
 
     return new Set(items);
@@ -62,20 +64,15 @@ export const useIntersectionObserver = (
         () => [targets.value, isActive.value] as const,
         ([targets]) => {
           cleanup();
-          if (!isActive.value)
-            return;
+          if (!isActive.value) return;
 
-          if (!targets.size)
-            return;
+          if (!targets.size) return;
 
-          const observer = new IntersectionObserver(
-            callback,
-            {
-              root,
-              rootMargin,
-              threshold,
-            },
-          );
+          const observer = new IntersectionObserver(callback, {
+            root,
+            rootMargin,
+            threshold,
+          });
 
           targets.forEach((el) => el && observer.observe(el));
 
@@ -84,7 +81,7 @@ export const useIntersectionObserver = (
             cleanup = noop;
           };
         },
-        { immediate, flush: 'post' },
+        { immediate, flush: 'post' }
       )
     : noop;
 
