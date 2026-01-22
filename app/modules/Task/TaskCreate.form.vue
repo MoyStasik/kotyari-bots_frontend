@@ -1,5 +1,5 @@
 <template>
-  <form>
+  <form @submit.prevent>
     <Column
       :gap="20"
     >
@@ -94,12 +94,20 @@
         <Paragraph>
           Описание задачи
         </Paragraph>
+
+        <!-- Добавил класс ошибки и обработчик ввода -->
         <Textarea
           :placeholder="'Опишите, что должен сделать бот...'"
           :value="prompt"
           :min-height="56"
-          @update:model-value="prompt = $event as string"
+          :class="{ [$style.inputErrorBorder]: !!promptError }"
+          @update:model-value="handlePromptInput($event as string)"
         />
+
+        <!-- Вывод текста ошибки -->
+        <span v-if="promptError" :class="$style.errorText">
+          {{ promptError }}
+        </span>
       </Column>
       <Row
         :gap="7"
@@ -125,7 +133,8 @@
 </template>
 
 <script setup lang="ts">
-import { LucideZap, LucideX } from 'lucide-vue-next';
+import { ref, computed } from 'vue';
+import { LucideZap, LucideX, LucideCircleAlert } from 'lucide-vue-next';
 
 import type { BotsState } from '~/store/bots/bots.types';
 import type { Profile } from '~/store/profiles/profiles.types';
@@ -141,6 +150,7 @@ import PopperList from '~/components/PopperList/PopperList.vue';
 import BotsProfilesAddItem from '../BotsProfiles/BotsProfilesAdd.item.vue';
 import BotsProfilesPinned from '../BotsProfiles/BotsProfiles.pinned.vue';
 import Paragraph from '~/components/Paragraph/Paragraph.vue';
+import Subtitle from '~/components/Subtitle/Subtitle.vue'; // Добавил импорт Subtitle, так как он используется в шаблоне
 
 const emit = defineEmits<{
   (event: 'close' | 'create:successful'): void,
@@ -150,6 +160,7 @@ const useBots = useBotsStore();
 const usePosts = usePostsStore();
 
 const prompt = ref('');
+const promptError = ref(''); // Состояние ошибки
 const pickedBotId = ref('');
 const isTaskCreateClicked = ref(false);
 
@@ -187,16 +198,44 @@ const onUpdateProfiles = (profile: Profile) => {
 
 const onRemoveProfile = (profile: Profile) => {
   const idx = pickedProfiles.value?.findIndex((item) => profile.id === item.id);
-  availableProfiles.value.push(profile);
-  pickedProfiles.value.splice(idx, idx + 1);
+  // Исправил splice (раньше удалялось больше элементов чем нужно)
+  if (idx !== undefined && idx !== -1) {
+    pickedProfiles.value.splice(idx, 1);
+  }
+};
+
+// Очистка ошибки при вводе
+const handlePromptInput = (val: string) => {
+  prompt.value = val;
+  if (promptError.value) {
+    promptError.value = '';
+  }
+};
+
+// Валидация
+const validate = (): boolean => {
+  if (!prompt.value || prompt.value.trim().length === 0) {
+    promptError.value = 'Пожалуйста, заполните описание задачи';
+    return false;
+  }
+  return true;
 };
 
 const onTaskCreate = async () => {
+  // Проверяем валидность
+  if (!validate()) return;
+
   const profiles = pickedProfiles.value.map((profile) => profile.id);
 
   try {
     isTaskCreateClicked.value = true;
-    const response = await usePosts.createPost({ botId: pickedBot.value?.id || '', profileIds: profiles, taskText: prompt.value, platform: 'otveti', postType: 'opinion' });
+    const response = await usePosts.createPost({
+      botId: pickedBot.value?.id || '',
+      profileIds: profiles,
+      taskText: prompt.value,
+      platform: 'otveti',
+      postType: 'opinion'
+    });
 
     if (response) {
       emit('create:successful');
@@ -243,5 +282,22 @@ const onTaskCreate = async () => {
 
 .ProfileRequiredText.ProfileRequiredText {
   color: var(--warning_color-orange);
+}
+
+/* Стили для ошибки */
+.errorText {
+  font-size: 12px;
+  color: #ef4444;
+  margin-top: -2px;
+  font-family: var(--base_ui-sans-typography);
+}
+
+.inputErrorBorder :global(textarea) {
+  border-color: #ef4444 !important;
+}
+
+/* Fallback, если Textarea это не враппер */
+.inputErrorBorder {
+  border-color: #ef4444 !important;
 }
 </style>

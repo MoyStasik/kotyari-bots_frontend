@@ -7,6 +7,8 @@ import type {
   GetBostSummaryResponseData,
   GetBotsRequestData,
   GetBotsResponse,
+  GetBotsSearchRequestData,
+  GetBotsSearcResponseData,
   GetBotsSummaryRequestData,
   UpdateBotRequestData,
   UpdateBotResponseData,
@@ -80,7 +82,14 @@ class BotsApiClient extends ApiClient {
     return response;
   }
 
-  // public async getBotsSearch(data: Get)
+  public async getBotsSearch(data: GetBotsSearchRequestData) {
+    const response = await this.get<GetBotsSearcResponseData, GetBotsSearchRequestData>({
+      url: `${this.botsSearchUrl}?q=${data.query}`,
+      ...data,
+    });
+
+    return response;
+  }
 }
 
 export const useBotsApiClient = () => new BotsApiClient();

@@ -24,9 +24,14 @@ export const useProfilesStore = defineStore('profileStore', () => {
   }
 
   function add(profile: Profile) {
-    const isHas = list.value.findIndex((id) => profile.id === id);
+    const idx = list.value.findIndex((id) => profile.id === id);
 
-    if (isHas !== -1) {
+    if (idx !== -1) {
+      const profileEdited = {
+        ...profile,
+        prompt: profile.prompt || profile.systemPrompt || '',
+      };
+      profiles.value[idx] = profileEdited;
       return;
     }
 

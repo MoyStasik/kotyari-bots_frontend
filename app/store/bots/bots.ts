@@ -4,6 +4,7 @@ import type {
   CreateBotRequestData,
   GetBostSummaryResponseData,
   GetBotsRequestData,
+  GetBotsSearchRequestData,
   UpdateBotRequestData,
 } from '~/api/bots/bots.types';
 import { useProfilesStore } from '../profiles/profiles';
@@ -130,6 +131,12 @@ export const useBotsStore = defineStore('bots', () => {
     return response;
   }
 
+  async function getBotsSearch(data: GetBotsSearchRequestData) {
+    const response = await ApiClient.getBotsSearch(data);
+
+    return response;
+  }
+
   return {
     bots,
     list,
@@ -142,5 +149,6 @@ export const useBotsStore = defineStore('bots', () => {
     deleteBot,
     updateBot,
     getSummary,
+    getBotsSearch,
   };
 });

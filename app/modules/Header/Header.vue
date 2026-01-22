@@ -143,7 +143,7 @@ const onButtonClick = (route: string) => {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  width: 245px;
+  width: 280px;
   text-decoration: none;
 }
 

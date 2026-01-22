@@ -23,6 +23,7 @@ export interface PostData {
   platfrom: string;
   title: string;
   text: string;
+  task: string,
   postType: string;
   createdAt: string;
   updatedAt: string;
@@ -55,3 +56,19 @@ export interface CreatePostSeenRequestData extends BodyParams {
 }
 
 export interface CreatePostSeenResponseData {}
+
+export interface EditPostRequestData extends BodyParams {
+  title: string,
+  text: string,
+}
+
+export type EditPostResponseData = PostData;
+
+export interface CreatePublishPostRequestData extends BodyParams {
+  approved: boolean,
+}
+
+export interface CreatePublishPostResponseData {
+  success: boolean,
+  message: boolean,
+};

@@ -1,6 +1,8 @@
 import type {
   CreatePostRequestData,
   CreatePostSeenRequestData,
+  CreatePublishPostRequestData,
+  EditPostRequestData,
   GetPostRequestData,
   GetPostsRequestData,
   GetPostsStatusRequestData,
@@ -30,7 +32,7 @@ export const usePostsStore = defineStore('posts', () => {
     const response = await ApiClient.GetPosts(data);
 
     if (response) {
-      response.data.reverse().forEach((post) => {
+      response.data.forEach((post) => {
         posts.value.push(post);
         list.value.push(post.id);
       });
@@ -72,6 +74,25 @@ export const usePostsStore = defineStore('posts', () => {
     return response;
   }
 
+  async function updatePost(postId: string, data: EditPostRequestData) {
+    const response = await ApiClient.EditPost(postId, data);
+
+    if (response) {
+      const postIdx = posts.value.findIndex((post) => post.id === postId);
+      const listIdx = list.value.findIndex((id) => id === postId);
+      posts.value[postIdx] = response;
+      list.value[listIdx] = response.id;
+    }
+
+    return response;
+  }
+
+  async function publishPost(postId: string, data: CreatePublishPostRequestData) {
+    const response = await ApiClient.CreatePublishPost(postId, data);
+
+    return response;
+  }
+
   function get(id: string) {
     return posts.value.find((post) => post.id === id);
   }
@@ -87,5 +108,7 @@ export const usePostsStore = defineStore('posts', () => {
     getPost,
     getPostsStatus,
     get,
+    updatePost,
+    publishPost,
   };
 });

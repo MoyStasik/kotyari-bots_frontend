@@ -4,6 +4,10 @@ import type {
   CreatePostResponseData,
   CreatePostSeenRequestData,
   CreatePostSeenResponseData,
+  CreatePublishPostRequestData,
+  CreatePublishPostResponseData,
+  EditPostRequestData,
+  EditPostResponseData,
   GetPostRequestData,
   GetPostResponseData,
   GetPostsReadyStatusResponseData,
@@ -18,6 +22,8 @@ class PostsApiClient extends ApiClient {
   public checkPostStatusUrl = 'posts/check';
   public checkPostsStatusUrl = 'posts/check';
   public createPostSeenUrl = 'posts/seen';
+  public editPostUrl = 'posts';
+  public createPublishPostUrl = 'posts';
 
   public async CreatePost(data: CreatePostRequestData) {
     const response = await this.post<
@@ -78,6 +84,28 @@ class PostsApiClient extends ApiClient {
       CreatePostSeenRequestData
     >({
       url: `${this.createPostSeenUrl}`,
+      body: {
+        ...data,
+      },
+    });
+
+    return response;
+  }
+
+  public async EditPost(postId: string, data: EditPostRequestData){
+    const response = await this.put<EditPostResponseData, EditPostRequestData>({
+      url: `${this.editPostUrl}/${postId}`,
+      body: {
+        ...data,
+      },
+    });
+
+    return response;
+  }
+
+  public async CreatePublishPost(postId: string, data: CreatePublishPostRequestData) {
+    const response = await this.post<CreatePublishPostResponseData, CreatePublishPostRequestData>({
+      url: `${this.createPublishPostUrl}/${postId}/publish`,
       body: {
         ...data,
       },
