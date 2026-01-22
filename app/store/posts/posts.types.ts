@@ -8,7 +8,7 @@ export interface PostsState {
   platform: string;
   title: string;
   text: string;
-  task: string,
+  task: string;
   postType: string;
   createdAt: string;
   updatedAt: string;

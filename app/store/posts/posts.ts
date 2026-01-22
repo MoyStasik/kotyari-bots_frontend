@@ -87,7 +87,10 @@ export const usePostsStore = defineStore('posts', () => {
     return response;
   }
 
-  async function publishPost(postId: string, data: CreatePublishPostRequestData) {
+  async function publishPost(
+    postId: string,
+    data: CreatePublishPostRequestData
+  ) {
     const response = await ApiClient.CreatePublishPost(postId, data);
 
     return response;

@@ -201,7 +201,7 @@ onBeforeUnmount(() => {
   align-items: center;
 
   &:hover {
-    background-color: var(--active_button-background);
+    background-color: rgba(233, 235, 239, 0.92);
   }
 
   &.active {

@@ -92,7 +92,7 @@ class PostsApiClient extends ApiClient {
     return response;
   }
 
-  public async EditPost(postId: string, data: EditPostRequestData){
+  public async EditPost(postId: string, data: EditPostRequestData) {
     const response = await this.put<EditPostResponseData, EditPostRequestData>({
       url: `${this.editPostUrl}/${postId}`,
       body: {
@@ -103,8 +103,14 @@ class PostsApiClient extends ApiClient {
     return response;
   }
 
-  public async CreatePublishPost(postId: string, data: CreatePublishPostRequestData) {
-    const response = await this.post<CreatePublishPostResponseData, CreatePublishPostRequestData>({
+  public async CreatePublishPost(
+    postId: string,
+    data: CreatePublishPostRequestData
+  ) {
+    const response = await this.post<
+      CreatePublishPostResponseData,
+      CreatePublishPostRequestData
+    >({
       url: `${this.createPublishPostUrl}/${postId}/publish`,
       body: {
         ...data,

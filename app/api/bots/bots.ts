@@ -83,7 +83,10 @@ class BotsApiClient extends ApiClient {
   }
 
   public async getBotsSearch(data: GetBotsSearchRequestData) {
-    const response = await this.get<GetBotsSearcResponseData, GetBotsSearchRequestData>({
+    const response = await this.get<
+      GetBotsSearcResponseData,
+      GetBotsSearchRequestData
+    >({
       url: `${this.botsSearchUrl}?q=${data.query}`,
       ...data,
     });

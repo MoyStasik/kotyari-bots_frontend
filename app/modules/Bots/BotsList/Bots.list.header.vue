@@ -18,6 +18,7 @@
         <SearchInput
           :value="searchValue"
           :class="$style.SearchInput"
+          @update:model-value="searchValue = $event"
         />
       </div>
       <div>
@@ -67,6 +68,7 @@
         <SearchInput
           :value="searchValue"
           :class="$style.SearchInput"
+          @update:model-value="searchValue = $event"
         />
       </div>
     </div>
@@ -74,6 +76,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref, watch } from 'vue';
 import { LucidePlus } from 'lucide-vue-next';
 
 import Button from '~/components/Button/Button.vue';
@@ -83,14 +86,21 @@ import SearchInput from '~/components/Search/SearchInput.vue';
 
 const emit = defineEmits<{
   (event: 'click:add'): void,
+  (event: 'search', value: string): void, // Добавили эмит поиска
 }>();
 
 const { isMobile } = useAdaptivity();
 
 const searchValue = ref<string>('');
+
+// Следим за изменением инпута и отправляем наверх
+watch(searchValue, (val) => {
+  emit('search', val);
+});
 </script>
 
 <style module lang="scss">
+/* Стили остаются без изменений */
 .Header.Header {
   width: 100%;
   margin-bottom: 5px;

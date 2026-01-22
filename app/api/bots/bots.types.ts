@@ -48,4 +48,4 @@ export interface GetBotsSearchRequestData extends BodyParams {
   query: string;
 }
 
-export type GetBotsSearcResponseData = BotResponse;
+export type GetBotsSearcResponseData = GetBotsResponse;
